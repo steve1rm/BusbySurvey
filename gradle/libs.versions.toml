@@ -1,0 +1,108 @@
+[versions]
+agp = "8.3.2"
+koinVersion = "3.5.3"
+kotlin = "1.9.23"
+coreKtx = "1.13.0"
+junit = "4.13.2"
+junitVersion = "1.1.5"
+espressoCore = "3.5.1"
+lifecycleRuntimeKtx = "2.7.0"
+activityCompose = "1.9.0"
+composeBom = "2024.04.01"
+conventionalCommitsVersion = "3.1.3"
+ktorVersion = "2.3.3"
+logbackClassicVersion = "1.2.3"
+appcompat = "1.6.1"
+material = "1.11.0"
+kotlinxSerializationJsonVersion = "1.6.0"
+materialIconsExtended = "1.6.6"
+serializationVersion = "1.9.0"
+jetbrainsKotlinJvm = "1.9.21"
+ktfmtVersion = "0.17.0"
+coroutinesTest = "1.8.0"
+securityCryptoVersion = "1.1.0-alpha06"
+timberVersion = "5.0.1"
+lifecycleRuntimeComposeVersion = "2.7.0"
+googleServices = "4.4.1"
+firebaseAuth = "22.3.1"
+material3Android = "1.2.1"
+uiTooling = "1.6.6"
+voyager = "1.0.0"
+kotlinCompilerExtensionVersion = "1.5.12"
+
+[libraries]
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+
+# Compose
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
+androidx-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycleRuntimeComposeVersion" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+
+#ktor client
+ktorClientCore = { module = "io.ktor:ktor-client-core", version.ref = "ktorVersion" }
+ktorClientAndroid = { module = "io.ktor:ktor-client-android", version.ref = "ktorVersion" }
+ktorClientSerialization = { module = "io.ktor:ktor-client-serialization", version.ref = "ktorVersion" }
+ktorClientLogging = { module = "io.ktor:ktor-client-logging", version.ref = "ktorVersion" }
+ktroClientContentNegotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktorVersion" }
+logbackClassic = { module = "ch.qos.logback:logback-classic", version.ref = "logbackClassicVersion" }
+kotlinxSerializationJson = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJsonVersion" }
+ktorSerializationJson = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktorVersion" }
+
+# Dependency injection
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinVersion" }
+koin-ktor = { module = "io.insert-koin:koin-ktor", version.ref = "koinVersion" }
+koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koinVersion" }
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koinVersion" }
+
+# Storage repositories
+securityCrypto = { module = "androidx.security:security-crypto-ktx", version.ref = "securityCryptoVersion" }
+
+# Voyager
+voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
+voyager-screenModel = { module = "cafe.adriel.voyager:voyager-screenmodel", version.ref = "voyager" }
+voyager-koin = { module = "cafe.adriel.voyager:voyager-koin", version.ref = "voyager" }
+# Testing
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+koin-test-junit4 = { module = "io.insert-koin:koin-test-junit4", version.ref = "koinVersion" }
+ktor-client-mock = { module = "io.ktor:ktor-client-mock", version.ref = "ktorVersion" }
+coroutinesTest = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutinesTest"}
+timber = { module = "com.jakewharton.timber:timber", version.ref = "timberVersion" }
+firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
+androidx-material3-android = { group = "androidx.compose.material3", name = "material3-android", version.ref = "material3Android" }
+ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "uiTooling" }
+
+[bundles]
+ktor = [
+    "ktorClientCore",
+    "ktorClientAndroid",
+    "ktorClientSerialization",
+    "ktorClientLogging",
+    "logbackClassic",
+    "ktroClientContentNegotiation",
+    "ktorSerializationJson"
+]
+
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+conventionalCommits = { id = "it.nicolasfarabegoli.conventional-commits", version.ref = "conventionalCommitsVersion" }
+androidLibrary = { id = "com.android.library", version.ref = "agp" }
+serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "serializationVersion" }
+jetbrainsKotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
+ktfmt = { id = "com.ncorti.ktfmt.gradle", version.ref = "ktfmtVersion" }
+kotlinxParcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "serializationVersion" }
+googleServices = { id = "com.google.gms.google-services", version.ref = "googleServices" }
+
