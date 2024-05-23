@@ -1,4 +1,4 @@
-package me.androidbox.busbynimblesurvey.ui.theme
+package me.androidbox.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

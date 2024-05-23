@@ -17,8 +17,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import me.androidbox.busbynimblesurvey.R
-import me.androidbox.busbynimblesurvey.ui.theme.BusbyNimbleSurveyTheme
+import me.androidbox.presentation.ui.theme.BusbyNimbleSurveyTheme
+import me.androidbox.presentation.R
 
 @Composable
 fun GradientBackground(

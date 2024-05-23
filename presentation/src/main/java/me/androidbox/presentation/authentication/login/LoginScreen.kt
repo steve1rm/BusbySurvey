@@ -17,7 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import me.androidbox.busbynimblesurvey.ui.theme.BusbyNimbleSurveyTheme
+import me.androidbox.presentation.ui.theme.BusbyNimbleSurveyTheme
 import me.androidbox.presentation.R
 import me.androidbox.presentation.components.ActionButton
 import me.androidbox.presentation.components.EmailTextField

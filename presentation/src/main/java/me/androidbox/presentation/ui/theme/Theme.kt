@@ -1,6 +1,5 @@
-package me.androidbox.busbynimblesurvey.ui.theme
+package me.androidbox.presentation.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

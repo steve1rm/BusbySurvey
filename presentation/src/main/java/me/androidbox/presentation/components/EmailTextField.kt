@@ -32,7 +32,7 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import me.androidbox.busbynimblesurvey.ui.theme.BusbyNimbleSurveyTheme
+import me.androidbox.presentation.ui.theme.BusbyNimbleSurveyTheme
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
