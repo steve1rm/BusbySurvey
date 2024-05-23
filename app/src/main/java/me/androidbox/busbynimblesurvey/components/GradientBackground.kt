@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.BlurredEdgeTreatment
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -31,7 +32,9 @@ fun GradientBackground(
         .fillMaxSize()) {
 
         Image(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .blur(radius = 32.dp, edgeTreatment = BlurredEdgeTreatment.Rectangle),
             painter = painterResource(id = R.drawable.splash), contentDescription = null)
 
         if(enableOverlay) {
@@ -39,10 +42,9 @@ fun GradientBackground(
                 modifier = modifier
                     .fillMaxSize()
                     .background(brush = Brush.verticalGradient(
-                        listOf(Color.Gray.copy(alpha = 0.8f), Color.Black.copy(alpha = 0.9f))),
+                        listOf(Color.Transparent, Color.Black),
                     )
-                    .blur(radius = 16.dp)
-            )
+            ))
         }
 
         Column(
