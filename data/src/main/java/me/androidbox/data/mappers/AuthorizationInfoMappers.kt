@@ -1,5 +1,7 @@
 package me.androidbox.data.mappers
 
+import me.androidbox.data.authorization.RegisterUserDto
+import me.androidbox.data.authorization.UserDto
 import me.androidbox.data.models.AuthorizationInfoSerializable
 import me.androidbox.domain.authorization.AuthorizationInfo
 

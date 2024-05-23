@@ -5,9 +5,9 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class RegisterUserDto(
-    val email: String,
-    val name: String,
-    val password: String,
-    @SerialName("password_confirmation")
-    val passwordConfirmation: String
+    val user: UserDto,
+    @SerialName("client_id")
+    val clientId: String,
+    @SerialName("client_secret")
+    val clientSecret: String
 )

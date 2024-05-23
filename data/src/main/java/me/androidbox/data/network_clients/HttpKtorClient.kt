@@ -7,6 +7,7 @@ import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
+import me.androidbox.data.BuildConfig
 
 class HttpKtorClient {
 
@@ -21,15 +22,16 @@ class HttpKtorClient {
                 )
             }
 
+         /*   defaultRequest {
+                contentType(ContentType.Application.Json)
+            }
+*/
             install(Logging) {
-                this.level = LogLevel.ALL
-/*
                 if (BuildConfig.DEBUG) {
-                    this.level = LogLevel.BODY
+                    this.level = LogLevel.ALL
                 } else {
                     this.level = LogLevel.NONE
                 }
-*/
             }
         }
     }
