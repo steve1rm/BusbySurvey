@@ -1,6 +1,7 @@
 package me.androidbox.busbynimblesurvey
 
 import android.app.Application
+import me.androidbox.data.di.localCacheModule
 import me.androidbox.data.di.networkModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -15,7 +16,8 @@ class BusbyNimbleSurvey : Application() {
             androidLogger()
             androidContext(this@BusbyNimbleSurvey)
             modules(
-                networkModule
+                networkModule,
+                localCacheModule
             )
         }
     }

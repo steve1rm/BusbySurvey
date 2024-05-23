@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.serialization)
 }
 
 android {
@@ -33,13 +34,15 @@ android {
 }
 
 dependencies {
+    implementation(project(":domain"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.bundles.ktor)
     implementation(libs.koin.core)
+    implementation(libs.koin.android)
     implementation(libs.koin.ktor)
-
+    implementation(libs.securityCrypto)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
 }

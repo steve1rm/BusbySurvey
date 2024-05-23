@@ -20,7 +20,7 @@ serializationVersion = "1.9.0"
 jetbrainsKotlinJvm = "1.9.21"
 ktfmtVersion = "0.17.0"
 coroutinesTest = "1.8.0"
-securityCryptoVersion = "1.0.0"
+securityCryptoVersion = "1.1.0-alpha06"
 timberVersion = "5.0.1"
 lifecycleRuntimeComposeVersion = "2.7.0"
 googleServices = "4.4.1"
@@ -65,7 +65,7 @@ koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", versi
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koinVersion" }
 
 # Storage repositories
-securityCrypto = { module = "androidx.security:security-crypto", version.ref = "securityCryptoVersion" }
+securityCrypto = { module = "androidx.security:security-crypto-ktx", version.ref = "securityCryptoVersion" }
 
 # Voyager
 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
