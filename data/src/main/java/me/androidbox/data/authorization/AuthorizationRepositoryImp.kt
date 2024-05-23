@@ -8,7 +8,7 @@ import me.androidbox.domain.repository.APIResponse
 class AuthorizationRepositoryImp(
     private val authorizationRemoteDataSource: AuthorizationRemoteDataSource
 ) : AuthorizationRepository {
-    override suspend fun register(registerUserUserModel: RegisterUserModel): APIResponse<String> {
+    override suspend fun register(registerUserUserModel: RegisterUserModel): APIResponse<Unit> {
         return authorizationRemoteDataSource.registerUser(RegisterUserDto(
             user = UserDto("", "", "", ""),
             clientSecret = "",
