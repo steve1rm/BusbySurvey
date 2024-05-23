@@ -6,7 +6,6 @@ import io.ktor.client.request.accept
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.http.ContentType
-import io.ktor.http.ContentType.Application.FormUrlEncoded
 import io.ktor.http.contentType
 import me.androidbox.data.authorization.RegisterUserDto
 import me.androidbox.data.authorization.UserDto
@@ -22,7 +21,6 @@ class AuthorizationRemoteDataSourceImp(
         return safeApiRequest {
             httpClient
                 .post("https://survey-api.nimblehq.co/api/v1/registrations") {
-           //         setBody(UserDto("", "", "", ""))
                     setBody(RegisterUserDto(
                         UserDto("", "", "", ""),
                         clientId = "",

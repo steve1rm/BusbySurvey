@@ -10,6 +10,7 @@ import me.androidbox.busbynimblesurvey.ui.theme.BusbyNimbleSurveyTheme
 import me.androidbox.domain.authorization.models.RegisterUserModel
 import me.androidbox.domain.authorization.usecases.RegisterUseCase
 import org.koin.android.ext.android.inject
+import timber.log.Timber
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +27,8 @@ class MainActivity : ComponentActivity() {
 
                 LaunchedEffect(key1 = true) {
                     scope.launch {
-                        registerUseCase.execute(RegisterUserModel("", "", "", ""))
+                        val result = registerUseCase.execute(RegisterUserModel("", "", "", ""))
+                        Timber.d("API Response %s", result)
                     }
                 }
             }
