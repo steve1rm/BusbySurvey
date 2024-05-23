@@ -16,7 +16,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        println("")
+        println(BuildConfig.CLIENT_KEY)
+        println(BuildConfig.CLIENT_SECRET)
 
         setContent {
             BusbyNimbleSurveyTheme {
