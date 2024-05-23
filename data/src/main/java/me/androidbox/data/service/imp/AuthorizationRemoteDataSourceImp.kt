@@ -8,11 +8,14 @@ import io.ktor.client.request.setBody
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import me.androidbox.data.BuildConfig
+import me.androidbox.data.authorization.LoginRequestDto
 import me.androidbox.data.authorization.LoginResponseDto
 import me.androidbox.data.authorization.RegisterUserDto
 import me.androidbox.data.authorization.UserDto
 import me.androidbox.data.service.AuthorizationRemoteDataSource
 import me.androidbox.data.util.safeApiRequest
+import me.androidbox.domain.authorization.models.LoginRequestModel
+import me.androidbox.domain.authorization.models.LoginResponseModel
 import me.androidbox.domain.repository.APIResponse
 
 class AuthorizationRemoteDataSourceImp(
@@ -33,13 +36,14 @@ class AuthorizationRemoteDataSourceImp(
         }
     }
 
-    override suspend fun loginUser(): APIResponse<LoginResponseDto> {
+    override suspend fun loginUser(loginRequestModel: LoginRequestModel): APIResponse<LoginResponseDto> {
         return safeApiRequest {
             httpClient
                 .post("https://survey-api.nimblehq.co/api/v1/oauth/token") {
-                    setBody(RegisterUserDto(
-                        UserDto(
-                            email = "test5@mail.com", "steve", "Test12345", "Test12345"),
+                    setBody(LoginRequestDto(
+                        grantType = "password",
+                        email = "test6@mail.com",
+                        password =  "Test12345",
                         clientId = BuildConfig.CLIENT_KEY,
                         clientSecret = BuildConfig.CLIENT_SECRET))
                 }
