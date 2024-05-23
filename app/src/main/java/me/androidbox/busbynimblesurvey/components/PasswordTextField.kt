@@ -99,7 +99,7 @@ fun PasswordTextField(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
 
-                    Spacer(modifier = Modifier.width(16.dp))
+                    Spacer(modifier = Modifier.width(4.dp))
 
                     Box(
                         modifier = Modifier.weight(1f)
