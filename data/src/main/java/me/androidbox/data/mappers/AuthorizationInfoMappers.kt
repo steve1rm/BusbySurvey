@@ -1,7 +1,7 @@
 package me.androidbox.data.mappers
 
 import me.androidbox.data.models.AuthorizationInfoSerializable
-import me.androidbox.domain.models.AuthorizationInfo
+import me.androidbox.domain.authorization.AuthorizationInfo
 
 fun AuthorizationInfo.toAuthorizationSerializable(): AuthorizationInfoSerializable {
     return AuthorizationInfoSerializable(

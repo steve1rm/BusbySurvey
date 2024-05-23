@@ -1,4 +1,4 @@
-package me.androidbox.domain.models
+package me.androidbox.domain.authorization
 
 data class AuthorizationInfo(
     /** Short lived token */

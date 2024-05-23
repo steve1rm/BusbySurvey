@@ -9,7 +9,7 @@ import me.androidbox.data.local.AuthorizationLocalDataSource
 import me.androidbox.data.mappers.toAuthorizationInfo
 import me.androidbox.data.mappers.toAuthorizationSerializable
 import me.androidbox.data.models.AuthorizationInfoSerializable
-import me.androidbox.domain.models.AuthorizationInfo
+import me.androidbox.domain.authorization.AuthorizationInfo
 
 class AuthorizationLocalDataSourceImp(
     private val sharedPreferences: SharedPreferences

@@ -1,6 +1,6 @@
 package me.androidbox.data.local
 
-import me.androidbox.domain.models.AuthorizationInfo
+import me.androidbox.domain.authorization.AuthorizationInfo
 
 interface AuthorizationLocalDataSource {
     suspend fun get(): AuthorizationInfo?
