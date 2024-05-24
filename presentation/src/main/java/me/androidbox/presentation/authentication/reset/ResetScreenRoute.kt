@@ -20,7 +20,7 @@ object ResetScreenRoute : Screen {
                 onBackPressed = {
                     navigator.pop()
                 },
-                onResetPasswordAction = {}
+                onResetPasswordAction = resetPasswordViewModel::resetPasswordAction
             )
         }
     }

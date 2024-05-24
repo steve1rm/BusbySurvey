@@ -36,10 +36,9 @@ class MainActivity : ComponentActivity() {
                 LaunchedEffect(key1 = true) {
                     scope.launch {
                      //   val result = registerUseCase.execute(RegisterUserModel("", "", "", ""))
-
                      //   val result = loginUseCase.execute(LoginRequestModel("", "", "", "", ""))
-                        val result = resetPasswordUseCase.execute()
-                        Timber.d("API Response %s", result)
+                    //    val result = resetPasswordUseCase.execute()
+                    //    Timber.d("API Response %s", result)
                     }
                 }
             }
