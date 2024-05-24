@@ -9,7 +9,7 @@ import me.androidbox.data.mappers.toResetPasswordModel
 import me.androidbox.data.models.AuthorizationInfoSerializable
 import me.androidbox.data.service.AuthorizationRemoteDataSource
 import me.androidbox.domain.authorization.AuthorizationInfo
-import me.androidbox.domain.authorization.AuthorizationRepository
+import me.androidbox.domain.repository.AuthorizationRepository
 import me.androidbox.domain.authorization.models.LoginRequestModel
 import me.androidbox.domain.authorization.models.LoginResponseModel
 import me.androidbox.domain.authorization.models.RegisterUserModel

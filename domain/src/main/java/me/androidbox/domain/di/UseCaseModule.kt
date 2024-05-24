@@ -1,6 +1,6 @@
 package me.androidbox.domain.di
 
-import me.androidbox.domain.authorization.AuthorizationRepository
+import me.androidbox.domain.repository.AuthorizationRepository
 import me.androidbox.domain.authorization.usecases.FetchTokenAuthorizationUseCase
 import me.androidbox.domain.authorization.usecases.LoginUseCase
 import me.androidbox.domain.authorization.usecases.RegisterUseCase
@@ -9,6 +9,9 @@ import me.androidbox.domain.authorization.usecases.imp.FetchTokenAuthorizationUs
 import me.androidbox.domain.authorization.usecases.imp.LoginUseCaseImp
 import me.androidbox.domain.authorization.usecases.imp.RegisterUseCaseImp
 import me.androidbox.domain.authorization.usecases.imp.ResetPasswordUseCaseImp
+import me.androidbox.domain.repository.SurveyRepository
+import me.androidbox.domain.survey.usecases.FetchSurveyListUseCase
+import me.androidbox.domain.survey.usecases.imp.FetchSurveyListUseCaseImp
 import org.koin.dsl.module
 
 val useCaseModule = module {
@@ -27,5 +30,9 @@ val useCaseModule = module {
 
     factory<FetchTokenAuthorizationUseCase> {
         FetchTokenAuthorizationUseCaseImp(get<AuthorizationRepository>())
+    }
+
+    factory<FetchSurveyListUseCase> {
+        FetchSurveyListUseCaseImp(get<SurveyRepository>())
     }
 }
