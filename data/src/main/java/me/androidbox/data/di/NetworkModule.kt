@@ -1,7 +1,7 @@
 package me.androidbox.data.di
 
 import io.ktor.client.HttpClient
-import me.androidbox.data.authorization.AuthorizationRepositoryImp
+import me.androidbox.data.repository.AuthorizationRepositoryImp
 import me.androidbox.data.network_clients.HttpKtorClient
 import me.androidbox.data.service.AuthorizationRemoteDataSource
 import me.androidbox.data.service.imp.AuthorizationRemoteDataSourceImp
