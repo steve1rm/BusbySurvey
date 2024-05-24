@@ -23,7 +23,7 @@ class SurveyRemoteDataSourceImp(
             httpClient
                 .get(urlString = "https://survey-api.nimblehq.co/api/v1/surveys?page[number]=1&page[size]=4") {
                     headers {
-                        append(HttpHeaders.Authorization, "Bearer hFB5n44eeeI4H1FUtjc0LsKth0E4tB1H0TFvRajjhf8")
+                        append(HttpHeaders.Authorization, "Bearer $accessToken")
                     }
                 }
                 .body<SurveyListDto>()

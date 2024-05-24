@@ -22,8 +22,8 @@ data class AttributesDto(
     @SerialName("survey_type")
     val surveyType: String,
     @SerialName("thank_email_above_threshold")
-    val thankEmailAboveThreshold: String,
+    val thankEmailAboveThreshold: String = "",
     @SerialName("thank_email_below_threshold")
-    val thankEmailBelowThreshold: String,
+    val thankEmailBelowThreshold: String = "",
     val title: String
 )
