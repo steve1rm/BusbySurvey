@@ -1,9 +1,11 @@
 package me.androidbox.domain.di
 
 import me.androidbox.domain.authorization.AuthorizationRepository
+import me.androidbox.domain.authorization.usecases.FetchTokenAuthorizationUseCase
 import me.androidbox.domain.authorization.usecases.LoginUseCase
 import me.androidbox.domain.authorization.usecases.RegisterUseCase
 import me.androidbox.domain.authorization.usecases.ResetPasswordUseCase
+import me.androidbox.domain.authorization.usecases.imp.FetchTokenAuthorizationUseCaseImp
 import me.androidbox.domain.authorization.usecases.imp.LoginUseCaseImp
 import me.androidbox.domain.authorization.usecases.imp.RegisterUseCaseImp
 import me.androidbox.domain.authorization.usecases.imp.ResetPasswordUseCaseImp
@@ -21,5 +23,9 @@ val useCaseModule = module {
 
     factory<ResetPasswordUseCase> {
         ResetPasswordUseCaseImp(get<AuthorizationRepository>())
+    }
+
+    factory<FetchTokenAuthorizationUseCase> {
+        FetchTokenAuthorizationUseCaseImp(get<AuthorizationRepository>())
     }
 }

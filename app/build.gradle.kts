@@ -67,7 +67,8 @@ dependencies {
     implementation(project(":data"))
     implementation(project(":domain"))
     implementation(project(":presentation"))
-    
+
+    implementation(libs.androidx.core.splashscreen)
     implementation(libs.koin.core)
     implementation(libs.koin.android)
     implementation(libs.voyager.navigator)

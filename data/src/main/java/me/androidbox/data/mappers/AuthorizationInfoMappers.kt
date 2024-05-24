@@ -14,7 +14,6 @@ fun AuthorizationInfo.toAuthorizationSerializable(): AuthorizationInfoSerializab
     return AuthorizationInfoSerializable(
         accessToken = this.accessToken,
         refreshToken = this.refreshToken,
-        userId = this.userId
     )
 }
 
@@ -22,7 +21,6 @@ fun AuthorizationInfoSerializable.toAuthorizationInfo(): AuthorizationInfo {
     return AuthorizationInfo(
         accessToken = this.accessToken,
         refreshToken = this.refreshToken,
-        userId = this.userId
     )
 }
 
