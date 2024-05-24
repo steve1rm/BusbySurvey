@@ -10,4 +10,5 @@ interface AuthorizationRepository {
     suspend fun register(registerUserUserModel: RegisterUserModel): APIResponse<Unit>
     suspend fun login(loginRequestModel: LoginRequestModel): APIResponse<LoginResponseModel>
     suspend fun resetPassword(): APIResponse<ResetPasswordModel>
+    suspend fun fetchTokenAuthorization(): AuthorizationInfo?
 }
