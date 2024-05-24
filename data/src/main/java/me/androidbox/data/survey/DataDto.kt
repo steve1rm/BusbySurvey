@@ -6,8 +6,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class DataDto(
-    val attributes: AttributesDto,
+    val attributes: AttributesDto = AttributesDto(),
     @SerialName("id")
-    val id: String,
-    val type: String
+    val id: String = "",
+    val type: String = ""
 )

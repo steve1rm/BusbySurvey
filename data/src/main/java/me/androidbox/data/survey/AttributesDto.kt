@@ -8,22 +8,22 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class AttributesDto(
     @SerialName("active_at")
-    val activeAt: String,
+    val activeAt: String = "",
     @SerialName("cover_image_url")
-    val coverImageUrl: String,
+    val coverImageUrl: String = "",
     @SerialName("created_at")
-    val createdAt: String,
-    val description: String,
+    val createdAt: String = "",
+    val description: String = "",
     @SerialName("inactive_at")
     @Contextual
-    val inactiveAt: Any?,
+    val inactiveAt: Any? = null,
     @SerialName("is_active")
-    val isActive: Boolean,
+    val isActive: Boolean = false,
     @SerialName("survey_type")
-    val surveyType: String,
+    val surveyType: String = "",
     @SerialName("thank_email_above_threshold")
     val thankEmailAboveThreshold: String = "",
     @SerialName("thank_email_below_threshold")
     val thankEmailBelowThreshold: String = "",
-    val title: String
+    val title: String = ""
 )

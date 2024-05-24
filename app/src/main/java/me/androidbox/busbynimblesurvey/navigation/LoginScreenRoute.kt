@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import me.androidbox.busbynimblesurvey.MainActivity
 import me.androidbox.presentation.authentication.login.LoginScreen
 import me.androidbox.presentation.authentication.login.LoginViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -24,6 +23,7 @@ object LoginScreenRoot : Screen {
             onLoginSuccess = {
                 /** Navigate to the home screen */
                 Timber.d("onLoginSuccess")
+                navigator.push(HomeScreenRoot)
             },
             onLoginFailure = {
                 /** Display message */
