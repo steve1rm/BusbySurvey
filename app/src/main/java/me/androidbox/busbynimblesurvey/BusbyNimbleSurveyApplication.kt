@@ -24,7 +24,8 @@ class BusbyNimbleSurveyApplication : Application() {
                 networkModule,
                 localCacheModule,
                 useCaseModule,
-                authenticationModule
+                authenticationModule,
+                appModule
             )
         }
     }

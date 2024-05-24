@@ -11,14 +11,15 @@ import me.androidbox.presentation.authentication.reset.ResetPasswordViewModel
 import me.androidbox.presentation.authentication.reset.ResetPasswordScreen
 import me.androidbox.presentation.components.GradientBackground
 import org.koin.androidx.compose.koinViewModel
+import org.koin.compose.koinInject
 
 object ResetScreenRoute : Screen {
 
     @Composable
     override fun Content() {
         val resetPasswordViewModel = koinViewModel<ResetPasswordViewModel>()
+        val notificationHandler = koinInject<NotificationHandler>()
         val navigator = LocalNavigator.currentOrThrow
-        val context = LocalContext.current
 
         GradientBackground {
             ResetPasswordScreen(
@@ -27,7 +28,6 @@ object ResetScreenRoute : Screen {
                     navigator.pop()
                 },
                 onResetPasswordSuccess = { message ->
-                    val notificationHandler = NotificationHandler(context)
                     notificationHandler.start(MainActivity::class.java, message)
                 },
                 onResetPasswordAction = resetPasswordViewModel::resetPasswordAction
