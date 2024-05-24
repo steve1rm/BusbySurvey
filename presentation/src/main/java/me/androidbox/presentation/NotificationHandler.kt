@@ -18,16 +18,15 @@ class NotificationHandler(
         private val CHANNEL_NAME = "reset_password"
     }
 
-    private val notificationManager =
+    private val notificationManager by lazy {
         context.applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
+    }
 
     fun <T> start(activityClass: Class<T>, message: String) {
-
         createNotificationChannel()
 
         val activityIntent = Intent(context, activityClass).apply {
-            this.data = "busbyrunner://active_run".toUri()
+            this.data = "busbynimblesurvey://login_screen".toUri()
             addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
         }
 
@@ -57,19 +56,3 @@ class NotificationHandler(
         }
     }
 }
-
-
-
-
-
-
-/*
-inline fun <reified T : Any> getSystemName() {
-    serviceClassName(T::class.java)
-}
-
-fun <T> serviceClassName(nameOfClass: Class<T>) {
-    println(nameOfClass)
-}
-*/
-
