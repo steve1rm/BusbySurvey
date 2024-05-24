@@ -36,7 +36,8 @@ class ResetPasswordViewModel(
             when(resetPasswordResult) {
                 is APIResponse.OnSuccess -> {
                     resetPasswordState = resetPasswordState.copy(
-                        isResetPasswordSuccess = true)
+                        isResetPasswordSuccess = true,
+                        message = resetPasswordResult.data.meta.message)
                 }
                 is APIResponse.OnFailure -> {
                     resetPasswordState = resetPasswordState.copy(

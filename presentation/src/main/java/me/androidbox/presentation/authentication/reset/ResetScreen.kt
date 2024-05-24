@@ -20,6 +20,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
@@ -34,12 +35,19 @@ import me.androidbox.presentation.ui.theme.BusbyNimbleSurveyTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ResetScreen(
+fun ResetPasswordScreen(
     resetPasswordState: ResetPasswordState,
     modifier: Modifier = Modifier,
     onResetPasswordAction: (ResetPasswordAction) -> Unit,
-    onBackPressed: () -> Unit
+    onBackPressed: () -> Unit,
+    onResetPasswordSuccess: (message: String) -> Unit
 ) {
+
+    LaunchedEffect(key1 = resetPasswordState.isResetPasswordSuccess) {
+        if(resetPasswordState.isResetPasswordSuccess && resetPasswordState.message.isNotBlank()) {
+            onResetPasswordSuccess(resetPasswordState.message)
+        }
+    }
 
     Scaffold(
         modifier = modifier,
@@ -100,10 +108,12 @@ fun ResetScreen(
 fun PreviewResetScreen() {
     BusbyNimbleSurveyTheme {
         GradientBackground {
-            ResetScreen(
+            ResetPasswordScreen(
                 resetPasswordState = ResetPasswordState(),
                 onResetPasswordAction = {},
-                onBackPressed = {}
+                onBackPressed = {},
+                onResetPasswordSuccess = {
+                }
             )
         }
     }
