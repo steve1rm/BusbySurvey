@@ -24,6 +24,7 @@ class HttpKtorClient {
                     Json {
                         prettyPrint = true
                         ignoreUnknownKeys = true
+                        coerceInputValues = true
                     }
                 )
             }

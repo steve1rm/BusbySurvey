@@ -1,7 +1,7 @@
 package me.androidbox.domain.authorization.usecases.imp
 
 import me.androidbox.domain.authorization.AuthorizationInfo
-import me.androidbox.domain.authorization.AuthorizationRepository
+import me.androidbox.domain.repository.AuthorizationRepository
 import me.androidbox.domain.authorization.usecases.FetchTokenAuthorizationUseCase
 
 class FetchTokenAuthorizationUseCaseImp(
