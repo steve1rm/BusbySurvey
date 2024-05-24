@@ -1,6 +1,7 @@
 package me.androidbox.presentation.authentication.login
 
 import android.content.res.Configuration
+import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -10,9 +11,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -29,8 +32,21 @@ import me.androidbox.presentation.ui.theme.BusbyNimbleSurveyTheme
 fun LoginScreen(
     modifier: Modifier = Modifier,
     loginState: LoginState,
+    onLoginSuccess: () -> Unit,
+    onLoginFailure: () -> Unit,
+    onForgotPassword: () -> Unit,
     onLoginAction: (LoginAction) -> Unit
 ) {
+
+    LaunchedEffect(key1 = loginState.isLoginSuccess) {
+        if(loginState.isLoginSuccess) {
+            onLoginSuccess()
+        }
+        else {
+            onLoginFailure()
+        }
+    }
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -57,7 +73,7 @@ fun LoginScreen(
             state = loginState.password,
             hint = stringResource(R.string.password),
             onForgotPassword = {
-                onLoginAction(LoginAction.OnForgotPassword)
+                onForgotPassword()
             }
         )
 
@@ -68,6 +84,11 @@ fun LoginScreen(
             onButtonClicked = {
                 onLoginAction(LoginAction.OnLoginClicked)
             })
+    }
+
+    if(loginState.isLoginSuccess) {
+        Toast.makeText(LocalContext.current, "Failed to login", Toast.LENGTH_LONG)
+            .show()
     }
 }
 
@@ -81,7 +102,10 @@ fun PreviewLoginScreen() {
             LoginScreen(
                 modifier = Modifier,
                 loginState = LoginState(),
-                onLoginAction = {}
+                onLoginAction = {},
+                onLoginSuccess = {},
+                onLoginFailure = {},
+                onForgotPassword = {}
             )
         }
     }

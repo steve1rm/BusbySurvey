@@ -9,19 +9,24 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import me.androidbox.domain.authorization.models.LoginRequestModel
+import me.androidbox.domain.authorization.usecases.LoginUseCase
+import me.androidbox.domain.repository.APIResponse
 
-class LoginViewModel : ViewModel() {
+class LoginViewModel(
+    private val loginUseCase: LoginUseCase
+) : ViewModel() {
 
     var loginState by mutableStateOf(LoginState())
         private set
 
-    fun LoginAction(loginAction: LoginAction) {
+    fun loginAction(loginAction: LoginAction) {
         when(loginAction) {
-            LoginAction.OnForgotPassword -> {
-
-            }
             LoginAction.OnLoginClicked -> {
                 login()
+            }
+            LoginAction.OnResetScreen -> {
+                loginState = LoginState()
             }
         }
     }
@@ -32,11 +37,26 @@ class LoginViewModel : ViewModel() {
                 isLoggingIn = true)
 
             /* Make request to login */
-
-            loginState = loginState.copy(
-                isLoggingIn = true
+            val loginResult = loginUseCase.execute(
+                LoginRequestModel(
+                    email = loginState.email.text.toString().trim(),
+                    password = loginState.password.text.toString())
             )
 
+            when(loginResult) {
+                is APIResponse.OnSuccess -> {
+                    loginState = loginState.copy(
+                        isLoginSuccess = true,
+                        isLoggingIn = false
+                    )
+                }
+                is APIResponse.OnFailure -> {
+                    loginState = loginState.copy(
+                        isLoginSuccess = false,
+                        isLoggingIn = false
+                    )
+                }
+            }
         }
     }
 }
