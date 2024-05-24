@@ -11,6 +11,9 @@ import me.androidbox.domain.authorization.models.LoginRequestModel
 import me.androidbox.domain.authorization.models.RegisterUserModel
 import me.androidbox.domain.authorization.usecases.LoginUseCase
 import me.androidbox.domain.authorization.usecases.RegisterUseCase
+import me.androidbox.presentation.authentication.login.LoginScreen
+import me.androidbox.presentation.authentication.login.LoginState
+import me.androidbox.presentation.components.GradientBackground
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 
@@ -27,6 +30,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             BusbyNimbleSurveyTheme {
                 val scope = rememberCoroutineScope()
+
+                GradientBackground {
+                    LoginScreen(loginState = LoginState()) {
+
+                    }
+                }
 
                 LaunchedEffect(key1 = true) {
                     scope.launch {

@@ -2,7 +2,6 @@ package me.androidbox.presentation.components
 
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -10,20 +9,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.BlurredEdgeTreatment
-import androidx.compose.ui.draw.blur
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import me.androidbox.presentation.ui.theme.BusbyNimbleSurveyTheme
 import me.androidbox.presentation.R
+import me.androidbox.presentation.ui.theme.BusbyNimbleSurveyTheme
 
 @Composable
 fun GradientBackground(
     modifier: Modifier = Modifier,
-    enableOverlay: Boolean = false,
     hasToolbar: Boolean = true,
     content: @Composable ColumnScope.() -> Unit
 ) {
@@ -32,20 +26,10 @@ fun GradientBackground(
         .fillMaxSize()) {
 
         Image(
+            contentScale = ContentScale.Fit,
             modifier = Modifier
-                .fillMaxSize()
-                .blur(radius = 32.dp, edgeTreatment = BlurredEdgeTreatment.Rectangle),
-            painter = painterResource(id = R.drawable.splash), contentDescription = null)
-
-        if(enableOverlay) {
-            Box(
-                modifier = modifier
-                    .fillMaxSize()
-                    .background(brush = Brush.verticalGradient(
-                        listOf(Color.Transparent, Color.Black),
-                    )
-            ))
-        }
+                .fillMaxSize(),
+            painter = painterResource(id = R.drawable.signinbackground), contentDescription = null)
 
         Column(
             modifier = Modifier
@@ -71,7 +55,6 @@ fun PreviewGradientBackground() {
     BusbyNimbleSurveyTheme {
         GradientBackground(
             modifier = Modifier,
-            enableOverlay = true,
             hasToolbar = true
         ) {
 
