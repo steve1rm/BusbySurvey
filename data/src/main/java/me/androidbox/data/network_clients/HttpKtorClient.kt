@@ -17,7 +17,6 @@ import io.ktor.client.request.setBody
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
-import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import me.androidbox.data.BuildConfig
 import me.androidbox.data.authorization.LoginResponseDto
@@ -88,6 +87,7 @@ class HttpKtorClient(
                                 }
                                 .body<LoginResponseDto?>()
 
+                            /** Save updated token to the cache */
                             if(requestedBearerTokens != null) {
                                 val authorizationInfo = AuthorizationInfo(
                                     accessToken = requestedBearerTokens.data.attributes.accessToken,
@@ -96,12 +96,14 @@ class HttpKtorClient(
 
                                 authorizationLocalDataSource.set(authorizationInfo)
 
+                                /** Updated tokens */
                                 BearerTokens(
                                     accessToken = requestedBearerTokens.data.attributes.accessToken,
                                     refreshToken = requestedBearerTokens.data.attributes.refreshToken
                                 )
                             }
                             else {
+                                /** Just return empty as request failed to get tokens */
                                 BearerTokens(
                                     accessToken = "",
                                     refreshToken = ""
