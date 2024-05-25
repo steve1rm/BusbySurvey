@@ -60,7 +60,10 @@ fun HomeScreen(
                     resource = asyncPainterResource(
                         data = homeState.homeItems[index].imageUrl),
                     contentDescription = null,
-                    contentScale = ContentScale.FillBounds
+                    contentScale = ContentScale.FillHeight,
+                    onLoading = {
+                        CircularProgressIndicator()
+                    }
                 )
 
                 Column(modifier = Modifier
