@@ -24,6 +24,8 @@ import me.androidbox.presentation.ui.theme.BusbyNimbleSurveyTheme
 
 @Composable
 fun Header(
+    header: String,
+    subHeader: String,
     modifier: Modifier = Modifier,
     profileImageClicked: () -> Unit
 ) {
@@ -31,7 +33,7 @@ fun Header(
         modifier = modifier.fillMaxWidth()
     ) {
         Text(
-            text = "Monday, June 15",
+            text = header,
             fontSize = 16.sp,
             fontWeight = FontWeight.SemiBold
         )
@@ -42,7 +44,7 @@ fun Header(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "Today",
+                text = subHeader,
                 fontSize = 28.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -66,6 +68,8 @@ fun Header(
 fun PreviewHeader() {
     BusbyNimbleSurveyTheme {
         Header(
+            header = "Monday, June 15",
+            subHeader = "Today",
             profileImageClicked = {}
         )
     }
