@@ -18,7 +18,7 @@ import org.koin.dsl.module
 val networkModule = module {
 
     single<HttpClient> { _ ->
-       HttpKtorClient().build()
+       HttpKtorClient(get<AuthorizationLocalDataSource>()).build()
     }
 
     factory<AuthorizationRemoteDataSource> {
