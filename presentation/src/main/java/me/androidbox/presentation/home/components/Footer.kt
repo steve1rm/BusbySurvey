@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -24,6 +25,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import me.androidbox.presentation.ui.theme.BusbyNimbleSurveyTheme
@@ -44,8 +47,12 @@ fun Footer(
             text = title,
             fontSize = 28.sp,
             fontWeight = FontWeight.Bold,
-            maxLines = 2
+            color = Color.White,
+            maxLines = 2,
+            lineHeight = TextUnit(32F, TextUnitType.Sp)
         )
+
+        Spacer(modifier = Modifier.height(16.dp))
 
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -57,6 +64,7 @@ fun Footer(
                 text = description,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Thin,
+                color = Color.White,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
@@ -68,7 +76,7 @@ fun Footer(
                     .size(50.dp)
                     .clip(CircleShape)
                     .background(
-                        color = Color.Gray
+                        color = Color.White
                     )
                     .padding(12.dp),
                 contentAlignment = Alignment.Center
