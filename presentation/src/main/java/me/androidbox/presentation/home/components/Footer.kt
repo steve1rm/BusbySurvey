@@ -36,7 +36,7 @@ fun Footer(
     title: String,
     description: String,
     modifier: Modifier = Modifier,
-    profileImageClicked: () -> Unit) {
+    onNextPageClicked: () -> Unit) {
     Column(
         modifier = modifier.fillMaxWidth()
     ) {
@@ -84,7 +84,7 @@ fun Footer(
                 Icon(
                     modifier = Modifier
                         .size(28.dp)
-                        .clickable(onClick = profileImageClicked),
+                        .clickable(onClick = onNextPageClicked),
                     imageVector = Icons.AutoMirrored.Default.ArrowForward,
                     contentDescription = null
                 )
@@ -100,7 +100,7 @@ fun PreviewFooter() {
         Footer(
             title = "Working from home Check-In",
             description = "We would like to know you feel about our work from home",
-            profileImageClicked = {}
+            onNextPageClicked = {}
         )
     }
 }

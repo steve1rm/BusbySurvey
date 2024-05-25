@@ -2,6 +2,8 @@
 
 package me.androidbox.presentation.home
 
+import androidx.compose.animation.core.AnimationSpec
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,8 +14,8 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PageSize
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -21,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
+import kotlinx.coroutines.launch
 import me.androidbox.presentation.home.components.Footer
 import me.androidbox.presentation.home.components.Header
 import me.androidbox.presentation.ui.theme.BusbyNimbleSurveyTheme
@@ -37,6 +40,8 @@ fun HomeScreen(
             homeState.homeItems.count()
         }
     )
+
+    val coroutineScope = rememberCoroutineScope()
 
     Box(
         modifier = modifier
@@ -58,12 +63,14 @@ fun HomeScreen(
                     contentScale = ContentScale.FillBounds
                 )
 
-                Column(modifier = Modifier.fillMaxSize().padding(
-                    start = 16.dp,
-                    end = 16.dp,
-                    top = 20.dp,
-                    bottom = 32.dp
-                )) {
+                Column(modifier = Modifier
+                    .fillMaxSize()
+                    .padding(
+                        start = 16.dp,
+                        end = 16.dp,
+                        top = 20.dp,
+                        bottom = 32.dp
+                    )) {
                     Box(modifier = Modifier.fillMaxWidth(),
                         contentAlignment = Alignment.TopStart) {
 
@@ -78,7 +85,11 @@ fun HomeScreen(
                         contentAlignment = Alignment.BottomStart) {
                         Footer( title = "Working from home Check-In",
                             description = "We would like to know you feel about our work from home",
-                            profileImageClicked = {})
+                            onNextPageClicked = {
+                                coroutineScope.launch {
+                                    pagerState.animateScrollToPage(page = pagerState.currentPage + 1)
+                                }
+                            })
                     }
                 }
             }
