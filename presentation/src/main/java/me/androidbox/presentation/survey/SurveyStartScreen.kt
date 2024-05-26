@@ -7,6 +7,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -18,10 +19,12 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -35,11 +38,21 @@ fun SurveyStartScreen(
     modifier: Modifier = Modifier,
     onBackPressed: () -> Unit
 ) {
-
+    Box(modifier.fillMaxSize()) {
+        Image(
+            modifier = Modifier.fillMaxSize(),
+            painter = painterResource(id = R.drawable.surveybackground),
+            contentScale = ContentScale.FillWidth,
+            contentDescription = null
+        )
         Scaffold(
-            modifier = modifier,
+            modifier = modifier.fillMaxSize(),
+            containerColor = Color.Transparent,
             topBar = {
                 TopAppBar(
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = Color.Transparent
+                    ),
                     title = {},
                     navigationIcon = {
                         Icon(
@@ -54,16 +67,8 @@ fun SurveyStartScreen(
             }
         ) {
 
-            Box(modifier.fillMaxSize()) {
-                Image(
-                    modifier = Modifier.fillMaxSize(),
-                    painter = painterResource(id = R.drawable.surveybackground),
-                    contentDescription = null
-                )
-
-
             Column(
-                modifier = Modifier
+                modifier = Modifier.background(color = Color.Transparent)
                     .padding(it)
                     .padding(
                         start = 16.dp,
@@ -80,7 +85,7 @@ fun SurveyStartScreen(
                 )
 
                 Box(
-                    modifier = modifier.fillMaxSize(),
+                    modifier = modifier.fillMaxSize().background(color = Color.Transparent),
                     contentAlignment = Alignment.BottomEnd
                 ) {
                     ActionButton(

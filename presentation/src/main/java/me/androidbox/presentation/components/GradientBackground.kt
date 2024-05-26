@@ -26,7 +26,7 @@ fun GradientBackground(
         .fillMaxSize()) {
 
         Image(
-            contentScale = ContentScale.Fit,
+            contentScale = ContentScale.FillWidth,
             modifier = Modifier
                 .fillMaxSize(),
             painter = painterResource(id = R.drawable.signinbackground), contentDescription = null)
