@@ -2,8 +2,6 @@
 
 package me.androidbox.presentation.home
 
-import androidx.compose.animation.core.AnimationSpec
-import androidx.compose.animation.core.spring
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,7 +29,7 @@ import timber.log.Timber
 
 @Composable
 fun HomeScreen(
-    onHomeAction: (HomeAction) -> Unit,
+    onForwardButtonClicked: () -> Unit,
     homeState: HomeState,
     modifier: Modifier = Modifier
 ) {
@@ -92,6 +90,7 @@ fun HomeScreen(
                             onNextPageClicked = {
                                 if(pagerState.currentPage == pagerState.pageCount - 1) {
                                     Timber.d("Go to the survey screen")
+                                    onForwardButtonClicked()
                                 }
                                 else {
                                     coroutineScope.launch {
@@ -117,7 +116,7 @@ fun HomeScreen(
 fun PreviewHomeScreen() {
     BusbyNimbleSurveyTheme {
         HomeScreen(
-            onHomeAction = {},
+            onForwardButtonClicked = {},
             homeState = HomeState()
         )
     }
