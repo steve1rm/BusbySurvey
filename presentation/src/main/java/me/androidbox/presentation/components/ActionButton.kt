@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -24,6 +25,7 @@ import androidx.compose.ui.unit.sp
 fun ActionButton(
     modifier: Modifier = Modifier,
     label: String,
+    fontSize: TextUnit = 24.sp,
     showLoading: Boolean = false,
     onButtonClicked: () -> Unit
 ) {
@@ -52,7 +54,7 @@ fun ActionButton(
                 Text(text = label,
                     style = LocalTextStyle.current.copy(
                         color = MaterialTheme.colorScheme.onPrimary,
-                        fontSize = 24.sp,
+                        fontSize = fontSize,
                         fontWeight = FontWeight.Medium
                     ))
             }
