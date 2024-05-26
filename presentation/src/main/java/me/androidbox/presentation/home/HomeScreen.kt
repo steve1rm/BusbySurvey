@@ -27,6 +27,7 @@ import kotlinx.coroutines.launch
 import me.androidbox.presentation.home.components.Footer
 import me.androidbox.presentation.home.components.Header
 import me.androidbox.presentation.ui.theme.BusbyNimbleSurveyTheme
+import timber.log.Timber
 
 @Composable
 fun HomeScreen(
@@ -89,8 +90,13 @@ fun HomeScreen(
                         Footer( title = "Working from home Check-In",
                             description = "We would like to know you feel about our work from home",
                             onNextPageClicked = {
-                                coroutineScope.launch {
-                                    pagerState.animateScrollToPage(page = pagerState.currentPage + 1)
+                                if(pagerState.currentPage == pagerState.pageCount - 1) {
+                                    Timber.d("Go to the survey screen")
+                                }
+                                else {
+                                    coroutineScope.launch {
+                                        pagerState.animateScrollToPage(page = pagerState.currentPage + 1)
+                                    }
                                 }
                             })
                     }
