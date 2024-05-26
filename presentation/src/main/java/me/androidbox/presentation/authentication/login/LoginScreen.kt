@@ -1,7 +1,6 @@
 package me.androidbox.presentation.authentication.login
 
 import android.content.res.Configuration
-import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -15,7 +14,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -33,17 +31,13 @@ fun LoginScreen(
     modifier: Modifier = Modifier,
     loginState: LoginState,
     onLoginSuccess: () -> Unit,
-    onLoginFailure: () -> Unit,
     onForgotPassword: () -> Unit,
     onLoginAction: (LoginAction) -> Unit
 ) {
 
     LaunchedEffect(key1 = loginState.isLoginSuccess) {
-        if(loginState.isLoginSuccess) {
+        if (loginState.isLoginSuccess) {
             onLoginSuccess()
-        }
-        else {
-            onLoginFailure()
         }
     }
 
@@ -85,11 +79,6 @@ fun LoginScreen(
                 onLoginAction(LoginAction.OnLoginClicked)
             })
     }
-
-    if(!loginState.isLoginSuccess) {
-        Toast.makeText(LocalContext.current, "Failed to login", Toast.LENGTH_LONG)
-            .show()
-    }
 }
 
 @Composable
@@ -104,7 +93,6 @@ fun PreviewLoginScreen() {
                 loginState = LoginState(),
                 onLoginAction = {},
                 onLoginSuccess = {},
-                onLoginFailure = {},
                 onForgotPassword = {}
             )
         }

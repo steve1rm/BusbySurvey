@@ -1,6 +1,8 @@
 package me.androidbox.busbynimblesurvey.navigation
 
+import android.widget.Toast
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
@@ -16,6 +18,7 @@ object LoginScreenRoot : Screen {
     override fun Content() {
         val loginViewModel = koinViewModel<LoginViewModel>()
         val navigator = LocalNavigator.currentOrThrow
+        val context = LocalContext.current
 
         LoginScreen(
             loginState = loginViewModel.loginState,
@@ -25,10 +28,6 @@ object LoginScreenRoot : Screen {
                 Timber.d("onLoginSuccess")
 
                 navigator.replaceAll(HomeScreenRoute)
-            },
-            onLoginFailure = {
-                /** Display message */
-                Timber.d("onLoginFailure")
             },
             onForgotPassword = {
                 /** Navigate to the home screen */
