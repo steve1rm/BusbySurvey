@@ -8,18 +8,13 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import cafe.adriel.voyager.navigator.Navigator
 import kotlinx.coroutines.launch
-import me.androidbox.busbynimblesurvey.navigation.HomeScreenRoot
+import me.androidbox.busbynimblesurvey.navigation.HomeScreenRoute
 import me.androidbox.busbynimblesurvey.navigation.LoginScreenRoot
-import me.androidbox.busbynimblesurvey.navigation.ResetScreenRoute
 import me.androidbox.busbynimblesurvey.ui.theme.BusbyNimbleSurveyTheme
-import me.androidbox.domain.authorization.usecases.FetchTokenAuthorizationUseCase
-import me.androidbox.domain.authorization.usecases.ResetPasswordUseCase
 import me.androidbox.domain.survey.usecases.FetchSurveyListUseCase
-import me.androidbox.presentation.NotificationHandler
 import me.androidbox.presentation.components.GradientBackground
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class MainActivity : ComponentActivity() {
 
@@ -51,7 +46,7 @@ class MainActivity : ComponentActivity() {
                 val scope = rememberCoroutineScope()
 
                 if(mainViewModel.mainState.isLoggedIn) {
-                    Navigator(screen = HomeScreenRoot)
+                    Navigator(screen = HomeScreenRoute)
                 }
                 else {
                     GradientBackground {

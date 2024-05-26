@@ -5,7 +5,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import me.androidbox.presentation.ui.theme.BusbyNimbleSurveyTheme
 
 @Composable
-fun SurveyScreen() {
+fun SurveyStartScreen() {
 
 }
 
@@ -13,6 +13,6 @@ fun SurveyScreen() {
 @Preview(showBackground = true)
 fun PreviewSurveyScreen() {
     BusbyNimbleSurveyTheme {
-        SurveyScreen()
+        SurveyStartScreen()
     }
 }

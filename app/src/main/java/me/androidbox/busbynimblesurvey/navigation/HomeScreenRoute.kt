@@ -8,7 +8,7 @@ import me.androidbox.presentation.home.HomeScreen
 import me.androidbox.presentation.home.HomeViewModel
 import org.koin.androidx.compose.koinViewModel
 
-object HomeScreenRoot : Screen {
+object HomeScreenRoute : Screen {
 
     @Composable
     override fun Content() {
@@ -18,7 +18,7 @@ object HomeScreenRoot : Screen {
 
         HomeScreen(
             onForwardButtonClicked = {
-                navigator.push(SurveyScreenRoot)
+                navigator.push(SurveyStartScreenRoute)
             },
             homeState = homeState
         )
