@@ -6,6 +6,8 @@ import me.androidbox.data.di.localCacheModule
 import me.androidbox.data.di.networkModule
 import me.androidbox.domain.di.useCaseModule
 import me.androidbox.presentation.di.authenticationModule
+import me.androidbox.presentation.di.homeModule
+import me.androidbox.presentation.di.surveyModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -26,7 +28,9 @@ class BusbyNimbleSurveyApplication : Application() {
                 localCacheModule,
                 useCaseModule,
                 authenticationModule,
-                appModule
+                appModule,
+                homeModule,
+                surveyModule
             )
         }
     }

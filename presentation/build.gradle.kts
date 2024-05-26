@@ -61,6 +61,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.timber)
+    implementation(libs.kamil.image.loader)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

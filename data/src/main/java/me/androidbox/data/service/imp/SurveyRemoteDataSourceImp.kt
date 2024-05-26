@@ -21,7 +21,7 @@ class SurveyRemoteDataSourceImp(
 
         return safeApiRequest {
             httpClient
-                .get(urlString = "https://survey-api.nimblehq.co/api/v1/surveys?page[number]=1&page[size]=4") {
+                .get(urlString = "https://survey-api.nimblehq.co/api/v1/surveys?page[number]=1&page[size]=5") {
                     headers {
                         append(HttpHeaders.Authorization, "Bearer $accessToken")
                     }

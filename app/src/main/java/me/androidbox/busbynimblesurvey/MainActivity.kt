@@ -8,6 +8,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import cafe.adriel.voyager.navigator.Navigator
 import kotlinx.coroutines.launch
+import me.androidbox.busbynimblesurvey.navigation.HomeScreenRoot
 import me.androidbox.busbynimblesurvey.navigation.LoginScreenRoot
 import me.androidbox.busbynimblesurvey.navigation.ResetScreenRoute
 import me.androidbox.busbynimblesurvey.ui.theme.BusbyNimbleSurveyTheme
@@ -49,24 +50,24 @@ class MainActivity : ComponentActivity() {
             BusbyNimbleSurveyTheme {
                 val scope = rememberCoroutineScope()
 
-                GradientBackground {
-                    if(mainViewModel.mainState.isLoggedIn) {
-                        Navigator(screen = ResetScreenRoute)
-                    }
-                    else {
+                if(mainViewModel.mainState.isLoggedIn) {
+                    Navigator(screen = HomeScreenRoot)
+                }
+                else {
+                    GradientBackground {
                         Navigator(screen = LoginScreenRoot)
                     }
                 }
 
                 LaunchedEffect(key1 = true) {
                     scope.launch {
-                     //   val result = registerUseCase.execute(RegisterUserModel("", "", "", ""))
-                     //   val result = loginUseCase.execute(LoginRequestModel("", "", "", "", ""))
-                    //    val result = resetPasswordUseCase.execute()
-                    //    val result = fetchTokenAuthorizationUseCase.execute()
+                        //   val result = registerUseCase.execute(RegisterUserModel("", "", "", ""))
+                        //   val result = loginUseCase.execute(LoginRequestModel("", "", "", "", ""))
+                        //    val result = resetPasswordUseCase.execute()
+                        //    val result = fetchTokenAuthorizationUseCase.execute()
+                        // val result = fetchSurveyListUseCase.execute()
 
-                        val result = fetchSurveyListUseCase.execute()
-                        Timber.d("API Response %s", result)
+                        // Timber.d("API Response %s", result)
                     }
                 }
             }

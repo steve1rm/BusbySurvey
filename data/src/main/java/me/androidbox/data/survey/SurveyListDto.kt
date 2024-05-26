@@ -5,6 +5,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class SurveyListDto(
-    val data: List<DataDto>,
-    val meta: MetaDto
+    val data: List<DataDto> = emptyList(),
+    val meta: MetaDto = MetaDto()
 )

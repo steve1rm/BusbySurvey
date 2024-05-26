@@ -6,9 +6,9 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class MetaDto(
-    val page: Int,
+    val page: Int = 0,
     @SerialName("page_size")
-    val pageSize: Int,
-    val pages: Int,
-    val records: Int
+    val pageSize: Int = 0,
+    val pages: Int = 0,
+    val records: Int = 0
 )
