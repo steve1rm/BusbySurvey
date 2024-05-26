@@ -23,7 +23,8 @@ object LoginScreenRoot : Screen {
             onLoginSuccess = {
                 /** Navigate to the home screen */
                 Timber.d("onLoginSuccess")
-                navigator.push(HomeScreenRoute)
+
+                navigator.replaceAll(HomeScreenRoute)
             },
             onLoginFailure = {
                 /** Display message */

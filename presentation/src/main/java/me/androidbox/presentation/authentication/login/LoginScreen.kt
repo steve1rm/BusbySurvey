@@ -86,7 +86,7 @@ fun LoginScreen(
             })
     }
 
-    if(loginState.isLoginSuccess) {
+    if(!loginState.isLoginSuccess) {
         Toast.makeText(LocalContext.current, "Failed to login", Toast.LENGTH_LONG)
             .show()
     }
