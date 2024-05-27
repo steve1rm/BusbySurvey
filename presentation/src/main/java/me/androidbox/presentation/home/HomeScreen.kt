@@ -90,8 +90,9 @@ fun HomeScreen(
                         Column(modifier = Modifier.fillMaxWidth()) {
                             Indicators(pagerState)
 
-                            Footer(title = "Working from home Check-In",
-                                description = "We would like to know you feel about our work from home",
+                            Footer(
+                                title = homeState.homeItems[index].title,
+                                description = homeState.homeItems[index].description,
                                 onNextPageClicked = {
                                     if (pagerState.currentPage == pagerState.pageCount - 1) {
                                         Timber.d("Go to the survey screen")

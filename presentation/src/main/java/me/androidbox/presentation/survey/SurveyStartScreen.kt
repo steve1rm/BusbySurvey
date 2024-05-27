@@ -7,6 +7,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -26,6 +27,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -68,24 +72,37 @@ fun SurveyStartScreen(
         ) {
 
             Column(
-                modifier = Modifier.background(color = Color.Transparent)
+                modifier = Modifier
+                    .background(color = Color.Transparent)
                     .padding(it)
                     .padding(
                         start = 16.dp,
                         end = 16.dp,
-                        top = 20.dp,
                         bottom = 32.dp
                     )
             ) {
-                Text(text = "Working from Check-In", color = Color.White)
+                Text(
+                    text = stringResource(R.string.working_from_check_in),
+                    color = Color.White,
+                    fontSize = 28.sp,
+                    fontWeight = FontWeight.Bold,
+                    maxLines = 2)
+
+                Spacer(modifier = Modifier.width(16.dp))
 
                 Text(
-                    text = "We would like to know how you feel about our work from home (WFH) experience",
-                    color = Color.White
+                    text = stringResource(R.string.subtitle),
+                    color = Color.White,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Thin,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
                 )
 
                 Box(
-                    modifier = modifier.fillMaxSize().background(color = Color.Transparent),
+                    modifier = modifier
+                        .fillMaxSize()
+                        .background(color = Color.Transparent),
                     contentAlignment = Alignment.BottomEnd
                 ) {
                     ActionButton(
