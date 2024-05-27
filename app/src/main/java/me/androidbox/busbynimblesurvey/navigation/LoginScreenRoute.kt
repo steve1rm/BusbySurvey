@@ -1,6 +1,5 @@
 package me.androidbox.busbynimblesurvey.navigation
 
-import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import cafe.adriel.voyager.core.screen.Screen
@@ -12,13 +11,12 @@ import org.koin.androidx.compose.koinViewModel
 import timber.log.Timber
 
 
-object LoginScreenRoot : Screen {
+object LoginScreenRoute : Screen {
 
     @Composable
     override fun Content() {
         val loginViewModel = koinViewModel<LoginViewModel>()
         val navigator = LocalNavigator.currentOrThrow
-        val context = LocalContext.current
 
         LoginScreen(
             loginState = loginViewModel.loginState,

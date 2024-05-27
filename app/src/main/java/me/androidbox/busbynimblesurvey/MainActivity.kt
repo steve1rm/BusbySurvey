@@ -7,9 +7,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import cafe.adriel.voyager.navigator.Navigator
+import cafe.adriel.voyager.transitions.FadeTransition
 import kotlinx.coroutines.launch
 import me.androidbox.busbynimblesurvey.navigation.HomeScreenRoute
-import me.androidbox.busbynimblesurvey.navigation.LoginScreenRoot
+import me.androidbox.busbynimblesurvey.navigation.LoginScreenRoute
 import me.androidbox.busbynimblesurvey.ui.theme.BusbyNimbleSurveyTheme
 import me.androidbox.domain.survey.usecases.FetchSurveyListUseCase
 import me.androidbox.presentation.components.GradientBackground
@@ -50,7 +51,7 @@ class MainActivity : ComponentActivity() {
                 }
                 else {
                     GradientBackground {
-                        Navigator(screen = LoginScreenRoot)
+                        Navigator(screen = LoginScreenRoute)
                     }
                 }
 
