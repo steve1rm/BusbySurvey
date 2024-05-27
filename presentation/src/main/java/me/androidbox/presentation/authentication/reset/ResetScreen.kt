@@ -109,7 +109,8 @@ fun ResetPasswordScreen(
                 label = stringResource(R.string.reset),
                 onButtonClicked = {
                     onResetPasswordAction(ResetPasswordAction.OnPasswordResetClicked)
-                })
+                },
+                showLoading = resetPasswordState.isLoading)
         }
     }
 }
