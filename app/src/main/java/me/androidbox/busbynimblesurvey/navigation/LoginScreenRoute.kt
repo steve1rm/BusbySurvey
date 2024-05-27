@@ -11,7 +11,7 @@ import org.koin.androidx.compose.koinViewModel
 import timber.log.Timber
 
 
-object LoginScreenRoute : Screen {
+data class LoginScreenRoute(private val surveyListModel: SurveyListModel) : Screen {
 
     @Composable
     override fun Content() {
@@ -25,7 +25,7 @@ object LoginScreenRoute : Screen {
                 /** Navigate to the home screen */
                 Timber.d("onLoginSuccess")
 
-                navigator.replaceAll(HomeScreenRoute(surveyListModel = SurveyListModel()))
+                navigator.replaceAll(HomeScreenRoute(surveyListModel = surveyListModel))
             },
             onForgotPassword = {
                 /** Navigate to the home screen */

@@ -51,7 +51,7 @@ class MainActivity : ComponentActivity() {
                 }
                 else {
                     GradientBackground {
-                        Navigator(screen = LoginScreenRoute)
+                        Navigator(screen = LoginScreenRoute(mainViewModel.mainState.surveyListModel))
                     }
                 }
 
