@@ -4,19 +4,27 @@ package me.androidbox.presentation.home
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PageSize
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
@@ -90,19 +98,41 @@ fun HomeScreen(
 
                     Box(modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.BottomStart) {
-                        Footer( title = "Working from home Check-In",
-                            description = "We would like to know you feel about our work from home",
-                            onNextPageClicked = {
-                                if(pagerState.currentPage == pagerState.pageCount - 1) {
-                                    Timber.d("Go to the survey screen")
-                                    onForwardButtonClicked()
+
+                        Column(modifier = Modifier.fillMaxWidth()) {
+                            Row(
+                                Modifier
+                                    .wrapContentHeight()
+                                    .fillMaxWidth()
+                                    .padding(bottom = 8.dp),
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                repeat(pagerState.pageCount) { iteration ->
+                                    val color =
+                                        if (pagerState.currentPage == iteration) Color.White else Color.LightGray
+                                    Box(
+                                        modifier = Modifier
+                                            .padding(2.dp)
+                                            .clip(CircleShape)
+                                            .background(color)
+                                            .size(8.dp)
+                                    )
                                 }
-                                else {
-                                    coroutineScope.launch {
-                                        pagerState.animateScrollToPage(page = pagerState.currentPage + 1)
+                            }
+
+                            Footer(title = "Working from home Check-In",
+                                description = "We would like to know you feel about our work from home",
+                                onNextPageClicked = {
+                                    if (pagerState.currentPage == pagerState.pageCount - 1) {
+                                        Timber.d("Go to the survey screen")
+                                        onForwardButtonClicked()
+                                    } else {
+                                        coroutineScope.launch {
+                                            pagerState.animateScrollToPage(page = pagerState.currentPage + 1)
+                                        }
                                     }
-                                }
-                            })
+                                })
+                        }
                     }
                 }
             }
