@@ -4,14 +4,13 @@ import androidx.compose.runtime.Composable
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import me.androidbox.domain.survey.models.SurveyListModel
 import me.androidbox.presentation.authentication.login.LoginScreen
 import me.androidbox.presentation.authentication.login.LoginViewModel
 import org.koin.androidx.compose.koinViewModel
 import timber.log.Timber
 
 
-data class LoginScreenRoute(private val surveyListModel: SurveyListModel) : Screen {
+data object LoginScreenRoute : Screen {
 
     @Composable
     override fun Content() {
@@ -25,7 +24,7 @@ data class LoginScreenRoute(private val surveyListModel: SurveyListModel) : Scre
                 /** Navigate to the home screen */
                 Timber.d("onLoginSuccess")
 
-                navigator.replaceAll(HomeScreenRoute(surveyListModel = surveyListModel))
+                navigator.replaceAll(HomeScreenRoute())
             },
             onForgotPassword = {
                 /** Navigate to the home screen */

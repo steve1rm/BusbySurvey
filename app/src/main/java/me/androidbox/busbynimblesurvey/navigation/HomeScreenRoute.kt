@@ -11,7 +11,7 @@ import me.androidbox.presentation.home.HomeScreen
 import me.androidbox.presentation.home.HomeViewModel
 import org.koin.androidx.compose.koinViewModel
 
-data class HomeScreenRoute(private val surveyListModel: SurveyListModel) : Screen {
+data class HomeScreenRoute(private val surveyListModel: SurveyListModel = SurveyListModel()) : Screen {
 
     @Composable
     override fun Content() {

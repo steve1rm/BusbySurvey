@@ -26,17 +26,23 @@ class MainViewModel(
 
             val authorizationInfo = fetchTokenAuthorizationUseCase.execute()
             Timber.d("FETCHED Authorization ${authorizationInfo?.accessToken}")
-            when(val surveyList = fetchSurveyListUseCase.execute()) {
-                is APIResponse.OnSuccess -> {
-                    mainState = mainState.copy(
-                        surveyListModel = surveyList.data
-                    )
+
+            /** If we don't have a token then we are not currently logged in and don't have a
+             *  valid token to request surveys */
+            if(authorizationInfo != null) {
+                when (val surveyList = fetchSurveyListUseCase.execute()) {
+                    is APIResponse.OnSuccess -> {
+                        mainState = mainState.copy(
+                            surveyListModel = surveyList.data
+                        )
+                    }
+
+                    is APIResponse.OnFailure -> {
+                        /** Handle failed to get survey list */
+                    }
                 }
-                is APIResponse.OnFailure -> {
-                    /** Handle failed to get survey list */
-                }
+                Timber.d("FETCHED SurveyList")
             }
-            Timber.d("FETCHED SurveyList")
 
             mainState = mainState.copy(
                 isLoggedIn = authorizationInfo != null)
