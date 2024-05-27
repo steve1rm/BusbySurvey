@@ -1,10 +1,10 @@
 package me.androidbox.busbynimblesurvey.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import me.androidbox.domain.survey.models.SurveyListModel
 import me.androidbox.presentation.authentication.login.LoginScreen
 import me.androidbox.presentation.authentication.login.LoginViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -25,7 +25,7 @@ object LoginScreenRoute : Screen {
                 /** Navigate to the home screen */
                 Timber.d("onLoginSuccess")
 
-                navigator.replaceAll(HomeScreenRoute)
+                navigator.replaceAll(HomeScreenRoute(surveyListModel = SurveyListModel()))
             },
             onForgotPassword = {
                 /** Navigate to the home screen */

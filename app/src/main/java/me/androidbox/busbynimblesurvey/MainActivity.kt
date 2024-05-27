@@ -47,7 +47,7 @@ class MainActivity : ComponentActivity() {
                 val scope = rememberCoroutineScope()
 
                 if(mainViewModel.mainState.isLoggedIn) {
-                    Navigator(screen = HomeScreenRoute)
+                    Navigator(screen = HomeScreenRoute(mainViewModel.mainState.surveyListModel))
                 }
                 else {
                     GradientBackground {
