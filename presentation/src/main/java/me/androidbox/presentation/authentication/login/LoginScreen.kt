@@ -1,6 +1,7 @@
 package me.androidbox.presentation.authentication.login
 
 import android.content.res.Configuration
+import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -12,14 +13,13 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -41,10 +41,20 @@ fun LoginScreen(
     onLoginAction: (LoginAction) -> Unit
 ) {
 
-    LaunchedEffect(key1 = loginState.isLoginSuccess) {
+    val context = LocalContext.current
+
+    LaunchedEffect(key1 = loginState.isLoginSuccess, key2 = loginState.isLoggingIn) {
         if (loginState.isLoginSuccess) {
             onLoginSuccess()
         }
+
+        if(!loginState.isLoginSuccess && loginState.errorMessage.isNotBlank()) {
+            Toast.makeText(context, loginState.errorMessage, Toast.LENGTH_LONG)
+                .show()
+
+            onLoginAction(LoginAction.OnResetScreen)
+        }
+
     }
 
     Column(
@@ -88,7 +98,8 @@ fun LoginScreen(
             label = stringResource(R.string.login),
             onButtonClicked = {
                 onLoginAction(LoginAction.OnLoginClicked)
-            })
+            },
+            showLoading = loginState.isLoggingIn)
     }
 }
 

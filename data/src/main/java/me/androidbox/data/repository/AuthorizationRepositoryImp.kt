@@ -1,5 +1,7 @@
 package me.androidbox.data.repository
 
+import me.androidbox.data.BuildConfig
+import me.androidbox.data.authorization.LoginResponseDto
 import me.androidbox.data.authorization.RegisterUserDto
 import me.androidbox.data.authorization.UserDto
 import me.androidbox.data.local.AuthorizationLocalDataSource
@@ -23,10 +25,15 @@ class AuthorizationRepositoryImp(
     override suspend fun register(registerUserUserModel: RegisterUserModel): APIResponse<Unit> {
         return authorizationRemoteDataSource.registerUser(
             RegisterUserDto(
-            user = UserDto("", "", "", ""),
-            clientSecret = "",
-            clientId = ""
-        )
+                user = UserDto(
+                    email = registerUserUserModel.email,
+                    name = registerUserUserModel.name,
+                    password = registerUserUserModel.password,
+                    passwordConfirmation = registerUserUserModel.passwordConfirmation
+                ),
+                clientSecret = BuildConfig.CLIENT_SECRET,
+                clientId = BuildConfig.CLIENT_KEY
+            )
         )
     }
 
