@@ -1,10 +1,9 @@
 package me.androidbox.presentation.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.LocalTextStyle
@@ -12,7 +11,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -27,23 +25,17 @@ fun ActionButton(
     label: String,
     fontSize: TextUnit = 24.sp,
     showLoading: Boolean = false,
+    colors: ButtonColors = ButtonDefaults.buttonColors(),
     onButtonClicked: () -> Unit
 ) {
     Button(
         modifier = modifier
             .fillMaxWidth()
-            .height(56.dp)
-            .background(brush = Brush.linearGradient(
-                colors = listOf(MaterialTheme.colorScheme.primary, MaterialTheme.colorScheme.tertiary)
-            ),
-                shape = RoundedCornerShape(16.dp)
-            ),
-        colors = ButtonDefaults.buttonColors(
-            containerColor = Color.Transparent,
-        ),
+            .height(56.dp),
         onClick = {
             onButtonClicked()
         },
+        colors = colors,
         content = {
             if(showLoading) {
                 CircularProgressIndicator(
@@ -53,9 +45,9 @@ fun ActionButton(
             else {
                 Text(text = label,
                     style = LocalTextStyle.current.copy(
-                        color = MaterialTheme.colorScheme.onPrimary,
+                        color = Color.Black,
                         fontSize = fontSize,
-                        fontWeight = FontWeight.Medium
+                        fontWeight = FontWeight.SemiBold
                     ))
             }
         }

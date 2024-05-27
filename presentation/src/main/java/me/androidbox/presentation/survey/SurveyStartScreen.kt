@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
@@ -108,12 +109,17 @@ fun SurveyStartScreen(
                     ActionButton(
                         modifier = Modifier
                             .width(140.dp)
-                            .background(color = Color.Transparent, shape = RoundedCornerShape(4.dp)),
+                            .background(color = Color.White, shape = RoundedCornerShape(8.dp)),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color.White,
+                            contentColor = Color.Black
+                        ),
                         label = "Start Survey",
-                        fontSize = 16.sp
-                    ) {
-
-                    }
+                        fontSize = 16.sp,
+                        onButtonClicked = {
+                            /** Navigate to next screen */
+                        }
+                    )
                 }
             }
         }
