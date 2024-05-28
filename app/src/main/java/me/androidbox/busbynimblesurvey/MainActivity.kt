@@ -11,6 +11,8 @@ import kotlinx.coroutines.launch
 import me.androidbox.busbynimblesurvey.navigation.HomeScreenRoute
 import me.androidbox.busbynimblesurvey.navigation.LoginScreenRoute
 import me.androidbox.busbynimblesurvey.ui.theme.BusbyNimbleSurveyTheme
+import me.androidbox.domain.authorization.models.RegisterUserModel
+import me.androidbox.domain.authorization.usecases.RegisterUseCase
 import me.androidbox.domain.survey.usecases.FetchSurveyListUseCase
 import me.androidbox.presentation.components.GradientBackground
 import org.koin.android.ext.android.inject
@@ -23,7 +25,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-   //     val registerUseCase by inject<RegisterUseCase>()
+    //    val registerUseCase by inject<RegisterUseCase>()
     //    val loginUseCase by inject<LoginUseCase>()*/
        // val resetPasswordUseCase by inject<ResetPasswordUseCase>()
       //  val fetchTokenAuthorizationUseCase by inject<FetchTokenAuthorizationUseCase>()
@@ -56,7 +58,7 @@ class MainActivity : ComponentActivity() {
 
                 LaunchedEffect(key1 = true) {
                     scope.launch {
-                        //   val result = registerUseCase.execute(RegisterUserModel("", "", "", ""))
+                        //   val result = registerUseCase.execute(RegisterUserModel("far@mail.com", "far", "1234567", "1234567"))
                         //   val result = loginUseCase.execute(LoginRequestModel("", "", "", "", ""))
                         //    val result = resetPasswordUseCase.execute()
                         //    val result = fetchTokenAuthorizationUseCase.execute()
