@@ -21,6 +21,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -114,14 +115,12 @@ fun PasswordTextField(
                         innerBox()
                     }
 
-                    IconButton(
-                        modifier = Modifier.weight(1f),
+                    TextButton(
                         onClick = { onForgotPassword() }) {
                         Text(
                             textAlign = TextAlign.End,
                             text = "forgot?",
                             color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.4f),
-                            modifier = Modifier.fillMaxWidth()
                         )
                     }
                 }

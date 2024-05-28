@@ -27,7 +27,6 @@ class SurveyRepositoryImp(
     }
 
     override suspend fun fetchSurveyDetails(): APIResponse<SurveyListModel> {
-        surveyRemoteDataSource.fetchSurveyList()
-        TODO()
+        TODO("Survey Details not supported")
     }
 }

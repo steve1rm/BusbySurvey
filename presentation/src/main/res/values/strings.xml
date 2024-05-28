@@ -5,4 +5,6 @@
     <string name="login">Login</string>
     <string name="reset">Reset</string>
     <string name="check_your_email">Check your email</string>
+    <string name="working_from_check_in">Working from Check-In</string>
+    <string name="subtitle">We would like to know how you feel about our work from home (WFH) experience</string>
 </resources>

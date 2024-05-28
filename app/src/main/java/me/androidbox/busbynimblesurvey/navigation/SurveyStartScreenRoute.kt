@@ -4,23 +4,21 @@ import androidx.compose.runtime.Composable
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import me.androidbox.presentation.home.HomeScreen
-import me.androidbox.presentation.home.HomeViewModel
+import me.androidbox.presentation.survey.SurveyStartScreen
+import me.androidbox.presentation.survey.SurveyViewModel
 import org.koin.androidx.compose.koinViewModel
 
-object HomeScreenRoot : Screen {
+object SurveyStartScreenRoute : Screen {
 
     @Composable
     override fun Content() {
-        val homeViewModel = koinViewModel<HomeViewModel>()
-        val homeState = homeViewModel.homeState
+        val surveyViewModel = koinViewModel<SurveyViewModel>()
         val navigator = LocalNavigator.currentOrThrow
 
-        HomeScreen(
-            onForwardButtonClicked = {
-                navigator.push(SurveyScreenRoot)
-            },
-            homeState = homeState
+        SurveyStartScreen(
+            onBackPressed = {
+                navigator.pop()
+            }
         )
     }
 }

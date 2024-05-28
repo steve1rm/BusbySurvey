@@ -78,6 +78,7 @@ securityCrypto = { module = "androidx.security:security-crypto-ktx", version.ref
 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
 voyager-screenModel = { module = "cafe.adriel.voyager:voyager-screenmodel", version.ref = "voyager" }
 voyager-koin = { module = "cafe.adriel.voyager:voyager-koin", version.ref = "voyager" }
+voyager-transitions = { module = "cafe.adriel.voyager:voyager-transitions", version.ref = "voyager" }
 
 # Testing
 junit = { group = "junit", name = "junit", version.ref = "junit" }

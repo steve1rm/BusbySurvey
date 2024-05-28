@@ -8,18 +8,15 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import cafe.adriel.voyager.navigator.Navigator
 import kotlinx.coroutines.launch
-import me.androidbox.busbynimblesurvey.navigation.HomeScreenRoot
-import me.androidbox.busbynimblesurvey.navigation.LoginScreenRoot
-import me.androidbox.busbynimblesurvey.navigation.ResetScreenRoute
+import me.androidbox.busbynimblesurvey.navigation.HomeScreenRoute
+import me.androidbox.busbynimblesurvey.navigation.LoginScreenRoute
 import me.androidbox.busbynimblesurvey.ui.theme.BusbyNimbleSurveyTheme
-import me.androidbox.domain.authorization.usecases.FetchTokenAuthorizationUseCase
-import me.androidbox.domain.authorization.usecases.ResetPasswordUseCase
+import me.androidbox.domain.authorization.models.RegisterUserModel
+import me.androidbox.domain.authorization.usecases.RegisterUseCase
 import me.androidbox.domain.survey.usecases.FetchSurveyListUseCase
-import me.androidbox.presentation.NotificationHandler
 import me.androidbox.presentation.components.GradientBackground
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class MainActivity : ComponentActivity() {
 
@@ -28,7 +25,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-   //     val registerUseCase by inject<RegisterUseCase>()
+    //    val registerUseCase by inject<RegisterUseCase>()
     //    val loginUseCase by inject<LoginUseCase>()*/
        // val resetPasswordUseCase by inject<ResetPasswordUseCase>()
       //  val fetchTokenAuthorizationUseCase by inject<FetchTokenAuthorizationUseCase>()
@@ -51,17 +48,17 @@ class MainActivity : ComponentActivity() {
                 val scope = rememberCoroutineScope()
 
                 if(mainViewModel.mainState.isLoggedIn) {
-                    Navigator(screen = HomeScreenRoot)
+                    Navigator(screen = HomeScreenRoute(mainViewModel.mainState.surveyListModel))
                 }
                 else {
                     GradientBackground {
-                        Navigator(screen = LoginScreenRoot)
+                        Navigator(screen = LoginScreenRoute)
                     }
                 }
 
                 LaunchedEffect(key1 = true) {
                     scope.launch {
-                        //   val result = registerUseCase.execute(RegisterUserModel("", "", "", ""))
+                        //   val result = registerUseCase.execute(RegisterUserModel("far@mail.com", "far", "1234567", "1234567"))
                         //   val result = loginUseCase.execute(LoginRequestModel("", "", "", "", ""))
                         //    val result = resetPasswordUseCase.execute()
                         //    val result = fetchTokenAuthorizationUseCase.execute()

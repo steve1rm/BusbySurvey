@@ -10,5 +10,6 @@ data class LoginState @OptIn(ExperimentalFoundationApi::class) constructor(
     val isValidEmail: Boolean = false,
     val canLogin: Boolean = false,
     val isLoggingIn: Boolean = false,
-    val isLoginSuccess: Boolean = false
+    val isLoginSuccess: Boolean = false,
+    val errorMessage: String = ""
 )

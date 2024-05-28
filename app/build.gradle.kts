@@ -72,6 +72,7 @@ dependencies {
     implementation(libs.koin.core)
     implementation(libs.koin.android)
     implementation(libs.voyager.navigator)
+    implementation(libs.voyager.transitions)
     implementation(libs.koin.androidx.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

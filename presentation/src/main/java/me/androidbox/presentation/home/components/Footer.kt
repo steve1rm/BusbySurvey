@@ -41,8 +41,6 @@ fun Footer(
         modifier = modifier.fillMaxWidth()
     ) {
 
-        /** Indicator dots */
-
         Text(
             text = title,
             fontSize = 28.sp,
@@ -52,7 +50,7 @@ fun Footer(
             lineHeight = TextUnit(32F, TextUnitType.Sp)
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(8.dp))
 
         Row(
             modifier = Modifier.fillMaxWidth(),

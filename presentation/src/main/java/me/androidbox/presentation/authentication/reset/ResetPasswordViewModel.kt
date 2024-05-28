@@ -29,8 +29,11 @@ class ResetPasswordViewModel(
 
     private fun resetPassword() {
         viewModelScope.launch {
+            resetPasswordState = resetPasswordState.copy(
+                isLoading = true
+            )
 
-            /* Make request to login */
+            /* Make request to reset password */
             val resetPasswordResult = resetPasswordUseCase.execute()
 
             when(resetPasswordResult) {
@@ -44,6 +47,10 @@ class ResetPasswordViewModel(
                         isResetPasswordSuccess = false)
                 }
             }
+
+            resetPasswordState = resetPasswordState.copy(
+                isLoading = false
+            )
         }
     }
 }

@@ -53,6 +53,7 @@ class LoginViewModel(
                 is APIResponse.OnFailure -> {
                     loginState = loginState.copy(
                         isLoginSuccess = false,
+                        errorMessage = "Check our email or password",
                         isLoggingIn = false
                     )
                 }

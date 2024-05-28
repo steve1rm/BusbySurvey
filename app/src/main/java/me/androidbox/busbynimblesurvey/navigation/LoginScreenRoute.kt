@@ -10,7 +10,7 @@ import org.koin.androidx.compose.koinViewModel
 import timber.log.Timber
 
 
-object LoginScreenRoot : Screen {
+data object LoginScreenRoute : Screen {
 
     @Composable
     override fun Content() {
@@ -23,11 +23,8 @@ object LoginScreenRoot : Screen {
             onLoginSuccess = {
                 /** Navigate to the home screen */
                 Timber.d("onLoginSuccess")
-                navigator.push(HomeScreenRoot)
-            },
-            onLoginFailure = {
-                /** Display message */
-                Timber.d("onLoginFailure")
+
+                navigator.replaceAll(HomeScreenRoute())
             },
             onForgotPassword = {
                 /** Navigate to the home screen */
