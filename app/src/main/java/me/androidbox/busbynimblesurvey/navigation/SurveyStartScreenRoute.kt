@@ -18,6 +18,10 @@ object SurveyStartScreenRoute : Screen {
         SurveyStartScreen(
             onBackPressed = {
                 navigator.pop()
+            },
+            onStartSurveyClicked = {
+                navigator.pop()
+                navigator.push(ThankYouScreenRoute)
             }
         )
     }
