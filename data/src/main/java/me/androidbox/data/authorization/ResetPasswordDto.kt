@@ -7,5 +7,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class ResetPasswordDto(
     @SerialName("meta")
-    val meta: MetaModel
+    val meta: MetaModelDto
 )
