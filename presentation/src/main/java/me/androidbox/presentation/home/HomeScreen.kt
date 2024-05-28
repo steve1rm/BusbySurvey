@@ -34,6 +34,8 @@ fun HomeScreen(
     homeState: HomeState,
     modifier: Modifier = Modifier
 ) {
+
+
     val pagerState = rememberPagerState(
         initialPage = 0,
         pageCount = {
