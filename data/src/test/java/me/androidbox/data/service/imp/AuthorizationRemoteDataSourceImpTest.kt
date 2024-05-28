@@ -13,7 +13,6 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.encodeToString
 import me.androidbox.data.authorization.AttributesDto
-import me.androidbox.data.authorization.LoginRequestDto
 import me.androidbox.data.authorization.LoginResponseDto
 import me.androidbox.data.service.AuthorizationRemoteDataSource
 import me.androidbox.domain.authorization.models.LoginRequestModel
@@ -50,7 +49,7 @@ class AuthorizationRemoteDataSourceImpTest {
         val client = createMockEngine(loginResponseString)
         authorizationRemoteDataSource = AuthorizationRemoteDataSourceImp(client)
 
-       val loginRequestDto = LoginRequestDto(
+       val loginRequestDto = LoginRequestModel(
             grantType = "password",
             email = UUID.randomUUID().toString(),
             password =  UUID.randomUUID().toString(),
