@@ -6,6 +6,7 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import me.androidbox.presentation.survey.SurveyStartScreen
 import me.androidbox.presentation.survey.SurveyViewModel
+import me.androidbox.presentation.thankyou.ThankYouScreen
 import org.koin.androidx.compose.koinViewModel
 
 object SurveyStartScreenRoute : Screen {
@@ -18,6 +19,9 @@ object SurveyStartScreenRoute : Screen {
         SurveyStartScreen(
             onBackPressed = {
                 navigator.pop()
+            },
+            onStartSurveyClicked = {
+                navigator.push(ThankYouScreenRoute)
             }
         )
     }
