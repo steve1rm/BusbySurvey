@@ -29,7 +29,7 @@ class HomeViewModel(
     }
 
     private fun fetchSurveyList() {
-        if(homeState.homeItems.isNotEmpty()) {
+        if(homeState.homeItems.isEmpty()) {
             viewModelScope.launch {
                 homeState = homeState.copy(
                     isLoading = true
