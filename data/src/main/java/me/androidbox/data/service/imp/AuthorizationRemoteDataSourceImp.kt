@@ -16,6 +16,7 @@ import me.androidbox.data.service.AuthorizationRemoteDataSource
 import me.androidbox.data.util.safeApiRequest
 import me.androidbox.domain.authorization.models.LoginRequestModel
 import me.androidbox.domain.repository.APIResponse
+import timber.log.Timber
 
 class AuthorizationRemoteDataSourceImp(
     private val httpClient: HttpClient
@@ -26,8 +27,12 @@ class AuthorizationRemoteDataSourceImp(
             httpClient
                 .post("https://survey-api.nimblehq.co/api/v1/registrations") {
                     setBody(RegisterUserDto(
-                        UserDto(
-                            email = "test6@mail.com", "steve", "Test12345", "Test12345"),
+                        user = UserDto(
+                            email = registerUserDto.user.email,
+                            registerUserDto.user.name,
+                            registerUserDto.user.password,
+                            registerUserDto.user.passwordConfirmation
+                        ),
                         clientId = BuildConfig.CLIENT_KEY,
                         clientSecret = BuildConfig.CLIENT_SECRET))
                 }
@@ -41,12 +46,11 @@ class AuthorizationRemoteDataSourceImp(
                 .post("https://survey-api.nimblehq.co/api/v1/oauth/token") {
                     setBody(LoginRequestDto(
                         grantType = "password",
-                        email = "test6@mail.com",
-                        password =  "Test12345",
+                        email = loginRequestModel.email,
+                        password =  loginRequestModel.password,
                         clientId = BuildConfig.CLIENT_KEY,
                         clientSecret = BuildConfig.CLIENT_SECRET))
-                }
-                .body<LoginResponseDto>()
+                }.body<LoginResponseDto>()
         }
     }
 

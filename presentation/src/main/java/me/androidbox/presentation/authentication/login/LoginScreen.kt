@@ -4,18 +4,23 @@ import android.content.res.Configuration
 import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -33,18 +38,27 @@ fun LoginScreen(
     modifier: Modifier = Modifier,
     loginState: LoginState,
     onLoginSuccess: () -> Unit,
-    onLoginFailure: () -> Unit,
     onForgotPassword: () -> Unit,
     onLoginAction: (LoginAction) -> Unit
 ) {
 
-    LaunchedEffect(key1 = loginState.isLoginSuccess) {
-        if(loginState.isLoginSuccess) {
+    val context = LocalContext.current
+    val keyboard = LocalSoftwareKeyboardController.current
+
+    LaunchedEffect(key1 = loginState.isLoginSuccess, key2 = loginState.isLoggingIn) {
+        if (loginState.isLoginSuccess) {
+            keyboard?.hide()
             onLoginSuccess()
         }
-        else {
-            onLoginFailure()
+
+        if(!loginState.isLoginSuccess && loginState.errorMessage.isNotBlank()) {
+            keyboard?.hide()
+            Toast.makeText(context, loginState.errorMessage, Toast.LENGTH_LONG)
+                .show()
+
+            onLoginAction(LoginAction.OnResetScreen)
         }
+
     }
 
     Column(
@@ -80,15 +94,16 @@ fun LoginScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         ActionButton(
+            modifier = Modifier.background(color = Color.White, shape = RoundedCornerShape(8.dp)),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.White,
+                contentColor = Color.Black
+            ),
             label = stringResource(R.string.login),
             onButtonClicked = {
                 onLoginAction(LoginAction.OnLoginClicked)
-            })
-    }
-
-    if(loginState.isLoginSuccess) {
-        Toast.makeText(LocalContext.current, "Failed to login", Toast.LENGTH_LONG)
-            .show()
+            },
+            showLoading = loginState.isLoggingIn)
     }
 }
 
@@ -104,7 +119,6 @@ fun PreviewLoginScreen() {
                 loginState = LoginState(),
                 onLoginAction = {},
                 onLoginSuccess = {},
-                onLoginFailure = {},
                 onForgotPassword = {}
             )
         }

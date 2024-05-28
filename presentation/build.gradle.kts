@@ -53,6 +53,8 @@ dependencies {
     implementation(libs.voyager.koin)
     implementation(libs.voyager.navigator)
     implementation(libs.voyager.screenModel)
+    implementation(libs.voyager.transitions)
+
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
@@ -61,6 +63,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.timber)
+    implementation(libs.kamil.image.loader)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

@@ -4,14 +4,13 @@ import androidx.compose.runtime.Composable
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import me.androidbox.busbynimblesurvey.MainActivity
 import me.androidbox.presentation.authentication.login.LoginScreen
 import me.androidbox.presentation.authentication.login.LoginViewModel
 import org.koin.androidx.compose.koinViewModel
 import timber.log.Timber
 
 
-object LoginScreenRoot : Screen {
+data object LoginScreenRoute : Screen {
 
     @Composable
     override fun Content() {
@@ -24,10 +23,8 @@ object LoginScreenRoot : Screen {
             onLoginSuccess = {
                 /** Navigate to the home screen */
                 Timber.d("onLoginSuccess")
-            },
-            onLoginFailure = {
-                /** Display message */
-                Timber.d("onLoginFailure")
+
+                navigator.replaceAll(HomeScreenRoute())
             },
             onForgotPassword = {
                 /** Navigate to the home screen */
@@ -37,4 +34,3 @@ object LoginScreenRoot : Screen {
         )
     }
 }
-
