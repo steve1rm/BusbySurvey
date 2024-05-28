@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -42,13 +43,16 @@ fun LoginScreen(
 ) {
 
     val context = LocalContext.current
+    val keyboard = LocalSoftwareKeyboardController.current
 
     LaunchedEffect(key1 = loginState.isLoginSuccess, key2 = loginState.isLoggingIn) {
         if (loginState.isLoginSuccess) {
+            keyboard?.hide()
             onLoginSuccess()
         }
 
         if(!loginState.isLoginSuccess && loginState.errorMessage.isNotBlank()) {
+            keyboard?.hide()
             Toast.makeText(context, loginState.errorMessage, Toast.LENGTH_LONG)
                 .show()
 

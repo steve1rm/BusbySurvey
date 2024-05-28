@@ -29,33 +29,35 @@ class HomeViewModel(
     }
 
     private fun fetchSurveyList() {
-        viewModelScope.launch {
-            homeState = homeState.copy(
-                isLoading = true
-            )
+        if(homeState.homeItems.isNotEmpty()) {
+            viewModelScope.launch {
+                homeState = homeState.copy(
+                    isLoading = true
+                )
 
-            when (val apiResponse = fetchSurveyListUseCase.execute()) {
-                is APIResponse.OnSuccess -> {
-                    homeState = homeState.copy(
-                        homeItems = apiResponse.data.data.map { data ->
-                            HomeItems(
-                                title = data.attributes.title,
-                                description = data.attributes.description,
-                                imageUrl = data.attributes.coverImageUrl
-                            )
-                        }
-                    )
-                    Timber.d("HomeViewModel ${homeState.homeItems.count()}")
+                when (val apiResponse = fetchSurveyListUseCase.execute()) {
+                    is APIResponse.OnSuccess -> {
+                        homeState = homeState.copy(
+                            homeItems = apiResponse.data.data.map { data ->
+                                HomeItems(
+                                    title = data.attributes.title,
+                                    description = data.attributes.description,
+                                    imageUrl = data.attributes.coverImageUrl
+                                )
+                            }
+                        )
+                        Timber.d("HomeViewModel ${homeState.homeItems.count()}")
+                    }
+
+                    is APIResponse.OnFailure -> {
+                        /** Show error cannot load data */
+                    }
                 }
 
-                is APIResponse.OnFailure -> {
-                    /** Show error cannot load data */
-                }
+                homeState = homeState.copy(
+                    isLoading = false
+                )
             }
-
-            homeState = homeState.copy(
-                isLoading = false
-            )
         }
     }
 
