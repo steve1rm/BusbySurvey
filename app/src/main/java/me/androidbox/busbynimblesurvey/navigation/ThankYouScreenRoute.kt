@@ -13,7 +13,7 @@ data object ThankYouScreenRoute : Screen {
         val navigator = LocalNavigator.currentOrThrow
 
         ThankYouScreen(onTerminateScreen = {
-            navigator.replace(HomeScreenRoute)
+            navigator.pop()
         })
     }
 }
