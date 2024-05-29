@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.sp
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import me.androidbox.presentation.components.ActionButton
+import me.androidbox.presentation.components.ActionOutlineButton
 import me.androidbox.presentation.components.HomeDialog
 import me.androidbox.presentation.home.components.Footer
 import me.androidbox.presentation.home.components.Header
@@ -140,10 +141,11 @@ fun HomeScreen(
                 },
                 description = "You are about to logout",
                 secondaryButton = {
-                    ActionButton(
-                        fontSize = 16.sp,
+                    ActionOutlineButton(
                         modifier = Modifier.weight(1f),
-                        label = "Cancel") {
+                        fontSize = 16.sp,
+                        text = "Cancel",
+                        isLoading = false ) {
                         onHomeAction(HomeAction.CancelLogout)
                     }
                 },

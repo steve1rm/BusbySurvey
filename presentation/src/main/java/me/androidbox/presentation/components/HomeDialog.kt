@@ -75,16 +75,17 @@ fun PreviewBusbyRunnerDialog() {
             title = "Warning",
             onDismiss = {},
             description = "You are about to logout",
+            secondaryButton ={
+                ActionOutlineButton(
+                    text = "Cancel",
+                    isLoading = false, modifier = Modifier.weight(1f)
+                ) {
+                }
+            },
             primaryButton = {
                 ActionButton(
                     modifier = Modifier.weight(1f),
-                    label = "Resume", showLoading = false ) {
-                }
-            },
-            secondaryButton ={
-                ActionButton(
-                    modifier = Modifier.weight(1f),
-                    label = "Finish", showLoading = false ) {
+                    label = "Continue", showLoading = false ) {
                 }
             },
             modifier = Modifier,
