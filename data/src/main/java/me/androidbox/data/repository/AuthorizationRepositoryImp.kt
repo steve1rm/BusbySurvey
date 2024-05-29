@@ -75,4 +75,23 @@ class AuthorizationRepositoryImp(
     override suspend fun fetchTokenAuthorization(): AuthorizationInfo? {
         return authorizationLocalDataSource.get()
     }
+
+    override suspend fun setTokenAuthorization(authorizationInfo: AuthorizationInfo?) {
+        return authorizationLocalDataSource.set(authorizationInfo)
+    }
+
+    override suspend fun logout(): APIResponse<Unit> {
+        return when(val apiResponse = authorizationRemoteDataSource.logoutUser()) {
+            is APIResponse.OnSuccess -> {
+                APIResponse.OnSuccess(Unit)
+            }
+            is APIResponse.OnFailure -> {
+                APIResponse.OnFailure(apiResponse.error)
+            }
+
+            else -> {
+                throw IllegalStateException("Something unknown happened")
+            }
+        }
+    }
 }
