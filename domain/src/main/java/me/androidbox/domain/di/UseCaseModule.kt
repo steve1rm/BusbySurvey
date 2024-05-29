@@ -6,11 +6,13 @@ import me.androidbox.domain.authorization.usecases.LoginUseCase
 import me.androidbox.domain.authorization.usecases.LogoutUserUseCase
 import me.androidbox.domain.authorization.usecases.RegisterUseCase
 import me.androidbox.domain.authorization.usecases.ResetPasswordUseCase
+import me.androidbox.domain.authorization.usecases.SetTokenAuthorizationUseCase
 import me.androidbox.domain.authorization.usecases.imp.FetchTokenAuthorizationUseCaseImp
 import me.androidbox.domain.authorization.usecases.imp.LoginUseCaseImp
 import me.androidbox.domain.authorization.usecases.imp.LogoutUserUseCaseImp
 import me.androidbox.domain.authorization.usecases.imp.RegisterUseCaseImp
 import me.androidbox.domain.authorization.usecases.imp.ResetPasswordUseCaseImp
+import me.androidbox.domain.authorization.usecases.imp.SetTokenAuthorizationUseCaseImp
 import me.androidbox.domain.repository.SurveyRepository
 import me.androidbox.domain.survey.usecases.FetchSurveyListUseCase
 import me.androidbox.domain.survey.usecases.imp.FetchSurveyListUseCaseImp
@@ -32,6 +34,10 @@ val useCaseModule = module {
 
     factory<FetchTokenAuthorizationUseCase> {
         FetchTokenAuthorizationUseCaseImp(get<AuthorizationRepository>())
+    }
+
+    factory<SetTokenAuthorizationUseCase> {
+        SetTokenAuthorizationUseCaseImp(get<AuthorizationRepository>())
     }
 
     factory<FetchSurveyListUseCase> {

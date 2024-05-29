@@ -76,6 +76,10 @@ class AuthorizationRepositoryImp(
         return authorizationLocalDataSource.get()
     }
 
+    override suspend fun setTokenAuthorization(authorizationInfo: AuthorizationInfo?) {
+        return authorizationLocalDataSource.set(authorizationInfo)
+    }
+
     override suspend fun logout(): APIResponse<Unit> {
         return when(val apiResponse = authorizationRemoteDataSource.logoutUser()) {
             is APIResponse.OnSuccess -> {

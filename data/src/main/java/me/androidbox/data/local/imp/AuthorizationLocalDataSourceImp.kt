@@ -30,20 +30,22 @@ class AuthorizationLocalDataSourceImp(
     }
 
     override suspend fun set(authorizationInfo: AuthorizationInfo?) {
-        if (authorizationInfo != null) {
+        if (authorizationInfo == null) {
             withContext(Dispatchers.IO) {
                 sharedPreferences
                     .edit()
                     .remove(KEY_AUTH_INFO)
-                    .commit()
-
-                val json = Json.encodeToString(authorizationInfo.toAuthorizationSerializable())
-
-                sharedPreferences
-                    .edit()
-                    .putString(KEY_AUTH_INFO, json)
-                    .commit()
+                    .apply()
             }
+        }
+        else {
+            val json = Json.encodeToString(authorizationInfo.toAuthorizationSerializable())
+
+            sharedPreferences
+                .edit()
+                .putString(KEY_AUTH_INFO, json)
+                .apply()
         }
     }
 }
+
