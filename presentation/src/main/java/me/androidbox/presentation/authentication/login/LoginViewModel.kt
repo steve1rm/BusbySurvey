@@ -26,7 +26,12 @@ class LoginViewModel(
                 login()
             }
             LoginAction.OnResetScreen -> {
-                loginState = LoginState()
+                loginState = loginState.copy(
+                    isLoginSuccess = false,
+                    canLogin = false,
+                    errorMessage = "",
+                    isLoggingIn = false
+                )
             }
         }
     }

@@ -57,8 +57,8 @@ class AuthorizationRepositoryImp(
         }
     }
 
-    override suspend fun resetPassword(): APIResponse<ResetPasswordModel> {
-        return when(val apiResponse = authorizationRemoteDataSource.resetPassword()) {
+    override suspend fun resetPassword(email: String): APIResponse<ResetPasswordModel> {
+        return when(val apiResponse = authorizationRemoteDataSource.resetPassword(email)) {
             is APIResponse.OnSuccess -> {
                 APIResponse.OnSuccess(apiResponse.data.toResetPasswordModel())
             }

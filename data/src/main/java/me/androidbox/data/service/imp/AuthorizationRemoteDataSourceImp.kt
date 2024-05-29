@@ -59,20 +59,20 @@ class AuthorizationRemoteDataSourceImp(
         }
     }
 
-    override suspend fun resetPassword(): APIResponse<ResetPasswordDto> {
-       return safeApiRequest {
-           httpClient
-               .post("https://survey-api.nimblehq.co/api/v1/passwords") {
-                   setBody(ResetPasswordRequestDto(
-                       user = UserPasswordRequestDto(
-                           email = "test6@test.com"
-                       ),
-                       clientId = BuildConfig.CLIENT_KEY,
-                       clientSecret = BuildConfig.CLIENT_SECRET
-                   ))
-               }
-               .body<ResetPasswordDto>()
-       }
+    override suspend fun resetPassword(email: String): APIResponse<ResetPasswordDto> {
+        return safeApiRequest {
+            httpClient
+                .post("https://survey-api.nimblehq.co/api/v1/passwords") {
+                    setBody(ResetPasswordRequestDto(
+                        user = UserPasswordRequestDto(
+                            email = email
+                        ),
+                        clientId = BuildConfig.CLIENT_KEY,
+                        clientSecret = BuildConfig.CLIENT_SECRET
+                    ))
+                }
+                .body<ResetPasswordDto>()
+        }
     }
 
     override suspend fun logoutUser(): APIResponse<Unit> {

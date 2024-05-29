@@ -23,8 +23,7 @@ data object LoginScreenRoute : Screen {
             onLoginSuccess = {
                 /** Navigate to the home screen */
                 Timber.d("onLoginSuccess")
-
-                navigator.replaceAll(HomeScreenRoute)
+                navigator.replace(HomeScreenRoute)
             },
             onForgotPassword = {
                 /** Navigate to the home screen */

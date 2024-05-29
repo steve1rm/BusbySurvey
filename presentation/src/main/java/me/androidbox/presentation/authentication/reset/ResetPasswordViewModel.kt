@@ -34,7 +34,8 @@ class ResetPasswordViewModel(
             )
 
             /* Make request to reset password */
-            val resetPasswordResult = resetPasswordUseCase.execute()
+            val resetPasswordResult = resetPasswordUseCase
+                .execute(resetPasswordState.email.text.toString().trim())
 
             when(resetPasswordResult) {
                 is APIResponse.OnSuccess -> {
