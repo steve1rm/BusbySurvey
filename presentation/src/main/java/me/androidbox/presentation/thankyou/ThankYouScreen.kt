@@ -23,6 +23,8 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.graphics.ColorUtils
+import androidx.core.graphics.toColorInt
 import coil.ImageLoader
 import coil.compose.rememberAsyncImagePainter
 import coil.decode.GifDecoder
@@ -45,7 +47,7 @@ fun ThankYouScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color.Black)
+            .background(color = Color("#15151A".toColorInt()))
             .padding(60.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -68,7 +70,7 @@ fun ThankYouScreen(
                         size(coil.size.Size.ORIGINAL)
                     }).build(), imageLoader = imageLoader
             ),
-            contentDescription = null,
+            contentDescription = null
         )
 
         Text(

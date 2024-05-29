@@ -9,5 +9,6 @@ import me.androidbox.domain.repository.APIResponse
 interface AuthorizationRemoteDataSource {
     suspend fun registerUser(registerUserDto: RegisterUserDto): APIResponse<Unit>
     suspend fun loginUser(loginRequestModel: LoginRequestModel): APIResponse<LoginResponseDto>
-    suspend fun resetPassword(): APIResponse<ResetPasswordDto>
+    suspend fun resetPassword(email: String): APIResponse<ResetPasswordDto>
+    suspend fun logoutUser(): APIResponse<Unit>
 }

@@ -13,28 +13,38 @@ import androidx.compose.foundation.pager.PageSize
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
-import kotlinx.coroutines.launch
+import me.androidbox.presentation.components.ActionButton
+import me.androidbox.presentation.components.ActionOutlineButton
+import me.androidbox.presentation.components.HomeDialog
 import me.androidbox.presentation.home.components.Footer
 import me.androidbox.presentation.home.components.Header
 import me.androidbox.presentation.home.components.Indicators
 import me.androidbox.presentation.ui.theme.BusbyNimbleSurveyTheme
-import timber.log.Timber
 
 @Composable
 fun HomeScreen(
-    onForwardButtonClicked: () -> Unit,
     homeState: HomeState,
+    onHomeAction: (action: HomeAction) -> Unit,
+    onForwardButtonClicked: () -> Unit,
+    onLogoutSuccess: () -> Unit,
     modifier: Modifier = Modifier
 ) {
 
+    LaunchedEffect(homeState.isSuccessLogout) {
+        if(homeState.isSuccessLogout) {
+            onLogoutSuccess()
+        }
+    }
 
     val pagerState = rememberPagerState(
         initialPage = 0,
@@ -82,7 +92,10 @@ fun HomeScreen(
                         Header(
                             header = "Saturday, December 25",
                             subHeader = "Today",
-                            profileImageClicked = {}
+                            profileImageClicked = {
+                                /** Logout */
+                                onHomeAction(HomeAction.LogoutUser)
+                            }
                         )
                     }
 
@@ -119,6 +132,33 @@ fun HomeScreen(
                 modifier.align(Alignment.Center)
             )
         }
+
+        if(homeState.showShowDialog) {
+            HomeDialog(
+                title = "Warning",
+                onDismiss = {
+                    onHomeAction(HomeAction.CancelLogout)
+                },
+                description = "You are about to logout",
+                secondaryButton = {
+                    ActionOutlineButton(
+                        modifier = Modifier.weight(1f),
+                        fontSize = 16.sp,
+                        text = "Cancel",
+                        isLoading = false ) {
+                        onHomeAction(HomeAction.CancelLogout)
+                    }
+                },
+                primaryButton = {
+                    ActionButton(
+                        fontSize = 16.sp,
+                        modifier = Modifier.weight(1f),
+                        label = "Continue") {
+                        onHomeAction(HomeAction.ContinueLogout)
+                    }
+                }
+            )
+        }
     }
 }
 
@@ -128,7 +168,9 @@ fun PreviewHomeScreen() {
     BusbyNimbleSurveyTheme {
         HomeScreen(
             onForwardButtonClicked = {},
-            homeState = HomeState()
+            homeState = HomeState(),
+            onHomeAction = {},
+            onLogoutSuccess = {}
         )
     }
 }

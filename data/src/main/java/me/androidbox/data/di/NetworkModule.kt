@@ -22,7 +22,9 @@ val networkModule = module {
     }
 
     factory<AuthorizationRemoteDataSource> {
-        AuthorizationRemoteDataSourceImp(get<HttpClient>())
+        AuthorizationRemoteDataSourceImp(
+            get<HttpClient>(),
+            get<AuthorizationLocalDataSource>())
     }
 
     factory<AuthorizationLocalDataSource> {
