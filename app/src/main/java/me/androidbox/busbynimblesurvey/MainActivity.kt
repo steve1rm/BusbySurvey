@@ -29,10 +29,10 @@ class MainActivity : ComponentActivity() {
     //    val loginUseCase by inject<LoginUseCase>()*/
        // val resetPasswordUseCase by inject<ResetPasswordUseCase>()
       //  val fetchTokenAuthorizationUseCase by inject<FetchTokenAuthorizationUseCase>()
-        val fetchSurveyListUseCase by inject<FetchSurveyListUseCase>()
+     //   val fetchSurveyListUseCase by inject<FetchSurveyListUseCase>()
 
-        println(BuildConfig.CLIENT_KEY)
-        println(BuildConfig.CLIENT_SECRET)
+  //      println(BuildConfig.CLIENT_KEY)
+    //    println(BuildConfig.CLIENT_SECRET)
 
    /*     val notification = NotificationHandler(this@MainActivity)
         notification.start(MainActivity::class.java)
