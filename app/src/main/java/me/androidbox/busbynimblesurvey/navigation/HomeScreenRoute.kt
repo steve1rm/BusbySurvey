@@ -34,7 +34,8 @@ data object HomeScreenRoute : Screen {
             onForwardButtonClicked = {
                 navigator.push(SurveyStartScreenRoute)
             },
-            homeState = homeState
+            homeState = homeState,
+            onHomeAction = homeViewModel::homeAction
         )
     }
 }

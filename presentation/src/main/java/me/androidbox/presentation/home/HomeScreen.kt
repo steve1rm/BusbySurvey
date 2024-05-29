@@ -32,6 +32,7 @@ import timber.log.Timber
 fun HomeScreen(
     onForwardButtonClicked: () -> Unit,
     homeState: HomeState,
+    onHomeAction: (action: HomeAction) -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -82,7 +83,10 @@ fun HomeScreen(
                         Header(
                             header = "Saturday, December 25",
                             subHeader = "Today",
-                            profileImageClicked = {}
+                            profileImageClicked = {
+                                /** Logout */
+                                onHomeAction(HomeAction.LogoutUser)
+                            }
                         )
                     }
 
@@ -128,7 +132,8 @@ fun PreviewHomeScreen() {
     BusbyNimbleSurveyTheme {
         HomeScreen(
             onForwardButtonClicked = {},
-            homeState = HomeState()
+            homeState = HomeState(),
+            onHomeAction = {}
         )
     }
 }

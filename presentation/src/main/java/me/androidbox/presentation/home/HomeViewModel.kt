@@ -6,13 +6,15 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import me.androidbox.domain.authorization.usecases.LogoutUserUseCase
 import me.androidbox.domain.repository.APIResponse
 import me.androidbox.domain.survey.models.SurveyListModel
 import me.androidbox.domain.survey.usecases.FetchSurveyListUseCase
 import timber.log.Timber
 
 class HomeViewModel(
-    private val fetchSurveyListUseCase: FetchSurveyListUseCase
+    private val fetchSurveyListUseCase: FetchSurveyListUseCase,
+    private val logoutUserUseCase: LogoutUserUseCase
 ) : ViewModel() {
 
     var homeState by mutableStateOf(HomeState())
@@ -69,6 +71,15 @@ class HomeViewModel(
             is HomeAction.FetchFromSplash -> {
                 fillSurveyList(homeAction.surveyListModel)
             }
+            is HomeAction.LogoutUser -> {
+                logoutUser()
+            }
+        }
+    }
+
+    private fun logoutUser() {
+        viewModelScope.launch {
+            logoutUserUseCase.execute()
         }
     }
 }

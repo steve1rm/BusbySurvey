@@ -3,10 +3,12 @@ package me.androidbox.domain.di
 import me.androidbox.domain.repository.AuthorizationRepository
 import me.androidbox.domain.authorization.usecases.FetchTokenAuthorizationUseCase
 import me.androidbox.domain.authorization.usecases.LoginUseCase
+import me.androidbox.domain.authorization.usecases.LogoutUserUseCase
 import me.androidbox.domain.authorization.usecases.RegisterUseCase
 import me.androidbox.domain.authorization.usecases.ResetPasswordUseCase
 import me.androidbox.domain.authorization.usecases.imp.FetchTokenAuthorizationUseCaseImp
 import me.androidbox.domain.authorization.usecases.imp.LoginUseCaseImp
+import me.androidbox.domain.authorization.usecases.imp.LogoutUserUseCaseImp
 import me.androidbox.domain.authorization.usecases.imp.RegisterUseCaseImp
 import me.androidbox.domain.authorization.usecases.imp.ResetPasswordUseCaseImp
 import me.androidbox.domain.repository.SurveyRepository
@@ -34,5 +36,9 @@ val useCaseModule = module {
 
     factory<FetchSurveyListUseCase> {
         FetchSurveyListUseCaseImp(get<SurveyRepository>())
+    }
+
+    factory<LogoutUserUseCase> {
+        LogoutUserUseCaseImp(get<AuthorizationRepository>())
     }
 }
