@@ -81,7 +81,7 @@ fun LoginScreen(
             hint = stringResource(R.string.email)
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(24.dp))
 
         PasswordTextField(
             state = loginState.password,
@@ -91,7 +91,7 @@ fun LoginScreen(
             }
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(24.dp))
 
         ActionButton(
             modifier = Modifier.background(color = Color.White, shape = RoundedCornerShape(8.dp)),
