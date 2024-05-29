@@ -20,8 +20,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
+import me.androidbox.presentation.components.ActionButton
+import me.androidbox.presentation.components.HomeDialog
 import me.androidbox.presentation.home.components.Footer
 import me.androidbox.presentation.home.components.Header
 import me.androidbox.presentation.home.components.Indicators
@@ -126,6 +129,32 @@ fun HomeScreen(
         if(homeState.isLoading) {
             CircularProgressIndicator(
                 modifier.align(Alignment.Center)
+            )
+        }
+
+        if(homeState.showShowDialog) {
+            HomeDialog(
+                title = "Warning",
+                onDismiss = {
+                    onHomeAction(HomeAction.CancelLogout)
+                },
+                description = "You are about to logout",
+                secondaryButton = {
+                    ActionButton(
+                        fontSize = 16.sp,
+                        modifier = Modifier.weight(1f),
+                        label = "Cancel") {
+                        onHomeAction(HomeAction.CancelLogout)
+                    }
+                },
+                primaryButton = {
+                    ActionButton(
+                        fontSize = 16.sp,
+                        modifier = Modifier.weight(1f),
+                        label = "Continue") {
+                        onHomeAction(HomeAction.ContinueLogout)
+                    }
+                }
             )
         }
     }

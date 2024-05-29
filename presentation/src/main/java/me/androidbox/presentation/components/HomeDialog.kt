@@ -31,7 +31,8 @@ fun HomeDialog(
     primaryButton: @Composable RowScope.() -> Unit,
     secondaryButton: @Composable (RowScope.() -> Unit)? = null,
 ) {
-    Dialog(onDismissRequest = onDismiss,
+    Dialog(
+        onDismissRequest = onDismiss,
         properties = DialogProperties()
     ) {
         Column(modifier = modifier
@@ -71,16 +72,18 @@ fun HomeDialog(
 fun PreviewBusbyRunnerDialog() {
     BusbyNimbleSurveyTheme {
         HomeDialog(
-            title = "notification",
+            title = "Warning",
             onDismiss = {},
-            description = "Resume or finish your run",
+            description = "You are about to logout",
             primaryButton = {
                 ActionButton(
+                    modifier = Modifier.weight(1f),
                     label = "Resume", showLoading = false ) {
                 }
             },
             secondaryButton ={
                 ActionButton(
+                    modifier = Modifier.weight(1f),
                     label = "Finish", showLoading = false ) {
                 }
             },

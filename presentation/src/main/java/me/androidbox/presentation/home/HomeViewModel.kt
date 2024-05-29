@@ -74,6 +74,17 @@ class HomeViewModel(
                 fillSurveyList(homeAction.surveyListModel)
             }
             is HomeAction.LogoutUser -> {
+                homeState = homeState.copy(
+                    showShowDialog = true
+                )
+            }
+            is HomeAction.CancelLogout -> {
+                homeState = homeState.copy(
+                    showShowDialog = false
+                )
+            }
+            is HomeAction.ContinueLogout -> {
+                homeState = homeState.copy(showShowDialog = false)
                 logoutUser()
             }
         }
