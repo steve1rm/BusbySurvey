@@ -6,6 +6,8 @@ import io.ktor.client.request.forms.FormDataContent
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.http.Parameters
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import me.androidbox.data.BuildConfig
 import me.androidbox.data.authorization.LoginRequestDto
 import me.androidbox.data.authorization.LoginResponseDto
@@ -75,18 +77,26 @@ class AuthorizationRemoteDataSourceImp(
 
     override suspend fun logoutUser(): APIResponse<Unit> {
         return safeApiRequest {
-            val requestBody = Parameters.build {
-                append("access_token", authorizationLocalDataSource.get()?.accessToken ?: "")
-                append("client_id", BuildConfig.CLIENT_KEY)
-                append("client_secrert", BuildConfig.CLIENT_SECRET)
-            }
+            val requestBody = RequestBody(
+                accessToken = authorizationLocalDataSource.get()?.accessToken ?: "",
+                clientId = BuildConfig.CLIENT_KEY,
+                clientSecret = BuildConfig.CLIENT_SECRET)
 
             httpClient
                 .post("https://survey-api.nimblehq.co/api/v1/oauth/revoke") {
-                    setBody(FormDataContent(requestBody))
+                    setBody(requestBody)
                 }
                 .body<Unit>()
-
         }
     }
+
+    @Serializable
+    data class RequestBody(
+        @SerialName("access_token")
+        val accessToken: String,
+        @SerialName("client_id")
+        val clientId: String,
+        @SerialName("client_secret")
+        val clientSecret: String
+    )
 }
