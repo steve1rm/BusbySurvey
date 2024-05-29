@@ -34,6 +34,9 @@ data object HomeScreenRoute : Screen {
             onForwardButtonClicked = {
                 navigator.push(SurveyStartScreenRoute)
             },
+            onLogoutSuccess = {
+                navigator.replaceAll(LoginScreenRoute)
+            },
             homeState = homeState,
             onHomeAction = homeViewModel::homeAction
         )

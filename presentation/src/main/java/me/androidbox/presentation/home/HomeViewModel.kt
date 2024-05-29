@@ -6,11 +6,9 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import me.androidbox.domain.authorization.usecases.FetchTokenAuthorizationUseCase
 import me.androidbox.domain.authorization.usecases.LogoutUserUseCase
 import me.androidbox.domain.authorization.usecases.SetTokenAuthorizationUseCase
 import me.androidbox.domain.repository.APIResponse
-import me.androidbox.domain.repository.AuthorizationRepository
 import me.androidbox.domain.survey.models.SurveyListModel
 import me.androidbox.domain.survey.usecases.FetchSurveyListUseCase
 import timber.log.Timber
@@ -83,8 +81,16 @@ class HomeViewModel(
 
     private fun logoutUser() {
         viewModelScope.launch {
+            homeState = homeState.copy(
+                isLoading = true,
+                isSuccessLogout = false
+            )
+
             logoutUserUseCase.execute()
             setTokenAuthorizationUseCase.execute(null)
+
+            homeState = homeState.copy(isLoading = false)
+            homeState = homeState.copy(isSuccessLogout = true)
         }
     }
 }
