@@ -101,6 +101,8 @@ fun LoginScreen(
             ),
             label = stringResource(R.string.login),
             onButtonClicked = {
+                keyboard?.hide()
+
                 onLoginAction(LoginAction.OnLoginClicked)
             },
             showLoading = loginState.isLoggingIn)
