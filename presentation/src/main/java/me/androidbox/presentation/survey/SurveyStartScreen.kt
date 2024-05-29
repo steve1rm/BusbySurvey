@@ -8,7 +8,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -41,7 +40,8 @@ import me.androidbox.presentation.ui.theme.BusbyNimbleSurveyTheme
 @Composable
 fun SurveyStartScreen(
     modifier: Modifier = Modifier,
-    onBackPressed: () -> Unit
+    onBackPressed: () -> Unit,
+    onStartSurveyClicked: () -> Unit
 ) {
     Box(modifier.fillMaxSize()) {
         Image(
@@ -118,6 +118,7 @@ fun SurveyStartScreen(
                         fontSize = 16.sp,
                         onButtonClicked = {
                             /** Navigate to next screen */
+                            onStartSurveyClicked()
                         }
                     )
                 }
@@ -131,7 +132,8 @@ fun SurveyStartScreen(
 fun PreviewSurveyScreen() {
     BusbyNimbleSurveyTheme {
         SurveyStartScreen(
-            onBackPressed = {}
+            onBackPressed = {},
+            onStartSurveyClicked = {}
         )
     }
 }

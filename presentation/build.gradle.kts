@@ -54,6 +54,8 @@ dependencies {
     implementation(libs.voyager.navigator)
     implementation(libs.voyager.screenModel)
     implementation(libs.voyager.transitions)
+    implementation(libs.coil.gif)
+    implementation(libs.coil.compose)
 
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -64,6 +66,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.timber)
     implementation(libs.kamil.image.loader)
+    implementation(libs.androidx.animation.graphics.android)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

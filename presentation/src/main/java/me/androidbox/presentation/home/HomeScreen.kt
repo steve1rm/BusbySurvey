@@ -34,6 +34,8 @@ fun HomeScreen(
     homeState: HomeState,
     modifier: Modifier = Modifier
 ) {
+
+
     val pagerState = rememberPagerState(
         initialPage = 0,
         pageCount = {
@@ -94,14 +96,17 @@ fun HomeScreen(
                                 title = homeState.homeItems[index].title,
                                 description = homeState.homeItems[index].description,
                                 onNextPageClicked = {
-                                    if (pagerState.currentPage == pagerState.pageCount - 1) {
+                                    /** Clicking the arrow right will always go to the survey screen */
+                                    onForwardButtonClicked()
+
+                                  /*  if (pagerState.currentPage == pagerState.pageCount - 1) {
                                         Timber.d("Go to the survey screen")
                                         onForwardButtonClicked()
                                     } else {
                                         coroutineScope.launch {
                                             pagerState.animateScrollToPage(page = pagerState.currentPage + 1)
                                         }
-                                    }
+                                    }*/
                                 })
                         }
                     }
