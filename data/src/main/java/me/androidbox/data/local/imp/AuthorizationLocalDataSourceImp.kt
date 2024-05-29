@@ -1,6 +1,7 @@
 package me.androidbox.data.local.imp
 
 import android.content.SharedPreferences
+import androidx.core.content.edit
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
@@ -33,18 +34,20 @@ class AuthorizationLocalDataSourceImp(
         if (authorizationInfo == null) {
             withContext(Dispatchers.IO) {
                 sharedPreferences
-                    .edit()
-                    .remove(KEY_AUTH_INFO)
-                    .apply()
+                    .edit {
+                        this.remove(KEY_AUTH_INFO)
+                        this.apply()
+                    }
             }
         }
         else {
             val json = Json.encodeToString(authorizationInfo.toAuthorizationSerializable())
 
             sharedPreferences
-                .edit()
-                .putString(KEY_AUTH_INFO, json)
-                .apply()
+                .edit {
+                    this.putString(KEY_AUTH_INFO, json)
+                    this.apply()
+                }
         }
     }
 }

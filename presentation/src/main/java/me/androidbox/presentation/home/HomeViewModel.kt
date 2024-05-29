@@ -84,8 +84,7 @@ class HomeViewModel(
     private fun logoutUser() {
         viewModelScope.launch {
             logoutUserUseCase.execute()
-
-
+            setTokenAuthorizationUseCase.execute(null)
         }
     }
 }
