@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class DataDto(
-    val attributes: Attributes,
+    val attributes: AttributesDto,
     val id: String,
     val type: String
 )

@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Attributes(
+data class AttributesDto(
     @SerialName("access_token")
     val accessToken: String,
     @SerialName("created_at")

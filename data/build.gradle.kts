@@ -36,11 +36,11 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
 
     buildFeatures {
@@ -59,7 +59,11 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.koin.ktor)
     implementation(libs.securityCrypto)
+    testImplementation("com.google.truth:truth:1.4.2")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:5.3.1")
 
+    testImplementation(libs.ktor.client.mock)
+    testImplementation(libs.coroutinesTest)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
 }
