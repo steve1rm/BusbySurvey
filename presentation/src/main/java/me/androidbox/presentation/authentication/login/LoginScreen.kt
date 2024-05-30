@@ -61,49 +61,57 @@ fun LoginScreen(
 
     }
 
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(horizontal = 16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
+    GradientBackground {
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(horizontal = 16.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
 
-        Image(
-            imageVector = ImageVector.vectorResource(id = R.drawable.nimblelogo),
-            contentDescription = null
-        )
+            Image(
+                imageVector = ImageVector.vectorResource(id = R.drawable.nimblelogo),
+                contentDescription = null
+            )
 
-        Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(32.dp))
 
-        EmailTextField(
-            state = loginState.email,
-            hint = stringResource(R.string.email)
-        )
+            EmailTextField(
+                state = loginState.email,
+                hint = stringResource(R.string.email)
+            )
 
-        Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
-        PasswordTextField(
-            state = loginState.password,
-            hint = stringResource(R.string.password),
-            onForgotPassword = {
-                onForgotPassword()
-            }
-        )
+            PasswordTextField(
+                state = loginState.password,
+                hint = stringResource(R.string.password),
+                onForgotPassword = {
+                    onForgotPassword()
+                }
+            )
 
-        Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
-        ActionButton(
-            modifier = Modifier.background(color = Color.White, shape = RoundedCornerShape(8.dp)),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color.White,
-                contentColor = Color.Black
-            ),
-            label = stringResource(R.string.login),
-            onButtonClicked = {
-                onLoginAction(LoginAction.OnLoginClicked)
-            },
-            showLoading = loginState.isLoggingIn)
+            ActionButton(
+                modifier = Modifier.background(
+                    color = Color.White,
+                    shape = RoundedCornerShape(8.dp)
+                ),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.White,
+                    contentColor = Color.Black
+                ),
+                label = stringResource(R.string.login),
+                onButtonClicked = {
+                    keyboard?.hide()
+
+                    onLoginAction(LoginAction.OnLoginClicked)
+                },
+                showLoading = loginState.isLoggingIn
+            )
+        }
     }
 }
 

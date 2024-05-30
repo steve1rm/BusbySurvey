@@ -10,6 +10,7 @@ import me.androidbox.presentation.home.HomeAction
 import me.androidbox.presentation.home.HomeScreen
 import me.androidbox.presentation.home.HomeViewModel
 import org.koin.androidx.compose.koinViewModel
+import timber.log.Timber
 
 data object HomeScreenRoute : Screen {
 
@@ -34,7 +35,12 @@ data object HomeScreenRoute : Screen {
             onForwardButtonClicked = {
                 navigator.push(SurveyStartScreenRoute)
             },
-            homeState = homeState
+            onLogoutSuccess = {
+                Timber.d("ON_LOGOUT_SUCCESS")
+                navigator.replace(LoginScreenRoute)
+            },
+            homeState = homeState,
+            onHomeAction = homeViewModel::homeAction
         )
     }
 }

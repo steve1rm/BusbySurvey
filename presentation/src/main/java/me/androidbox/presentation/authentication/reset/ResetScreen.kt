@@ -19,21 +19,22 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import cafe.adriel.voyager.navigator.currentOrThrow
 import me.androidbox.presentation.R
 import me.androidbox.presentation.components.ActionButton
 import me.androidbox.presentation.components.EmailTextField
@@ -49,6 +50,8 @@ fun ResetPasswordScreen(
     onBackPressed: () -> Unit,
     onResetPasswordSuccess: (message: String) -> Unit
 ) {
+
+    val keyboard = LocalSoftwareKeyboardController.currentOrThrow
 
     LaunchedEffect(key1 = resetPasswordState.isResetPasswordSuccess) {
         if(resetPasswordState.isResetPasswordSuccess && resetPasswordState.message.isNotBlank()) {
@@ -89,7 +92,11 @@ fun ResetPasswordScreen(
             )
             Spacer(modifier = Modifier.height(32.dp))
 
-            Text(text = "Enter your email for instructions for resetting your password")
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center,
+                text = stringResource(R.string.reset_password_title),
+                fontSize = 16.sp)
 
             Spacer(modifier = Modifier.height(32.dp))
 
@@ -98,7 +105,7 @@ fun ResetPasswordScreen(
                 hint = stringResource(R.string.email)
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(32.dp))
 
             ActionButton(
                 modifier = Modifier.background(color = Color.White, shape = RoundedCornerShape(8.dp)),
@@ -108,6 +115,7 @@ fun ResetPasswordScreen(
                 ),
                 label = stringResource(R.string.reset),
                 onButtonClicked = {
+                    keyboard.hide()
                     onResetPasswordAction(ResetPasswordAction.OnPasswordResetClicked)
                 },
                 showLoading = resetPasswordState.isLoading)

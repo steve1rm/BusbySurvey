@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -57,22 +58,23 @@ fun EmailTextField(
         lineLimits = TextFieldLineLimits.SingleLine,
         cursorBrush = SolidColor(MaterialTheme.colorScheme.onBackground),
         modifier = modifier
-            .clip(RoundedCornerShape(16.dp))
+            .height(56.dp)
+            .clip(RoundedCornerShape(8.dp))
             .background(
                 color = if (isFocused) {
-                    MaterialTheme.colorScheme.primary.copy(alpha = 0.05f)
+                    Color.DarkGray
                 } else {
-                    MaterialTheme.colorScheme.surface
+                    Color.DarkGray
                 }
             )
             .border(
                 width = 1.dp,
                 color = if (isFocused) {
-                    MaterialTheme.colorScheme.primary
+                    Color.Gray
                 } else {
                     Color.Transparent
                 },
-                shape = RoundedCornerShape(16.dp)
+                shape = RoundedCornerShape(8.dp)
             )
             .padding(12.dp)
             .onFocusChanged { focusState ->

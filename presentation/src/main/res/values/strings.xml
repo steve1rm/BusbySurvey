@@ -8,4 +8,5 @@
     <string name="working_from_check_in">Working from Check-In</string>
     <string name="subtitle">We would like to know how you feel about our work from home (WFH) experience</string>
     <string name="thank_you">Thank you for taking the survey</string>
+    <string name="reset_password_title">Enter your email for instructions for resetting your password</string>
 </resources>
