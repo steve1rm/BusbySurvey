@@ -5,7 +5,10 @@ import io.ktor.client.call.body
 import io.ktor.client.request.forms.FormDataContent
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
+import io.ktor.client.utils.EmptyContent.contentType
+import io.ktor.http.ContentType
 import io.ktor.http.Parameters
+import io.ktor.http.contentType
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import me.androidbox.data.BuildConfig
@@ -49,6 +52,8 @@ class AuthorizationRemoteDataSourceImp(
         return safeApiRequest {
             httpClient
                 .post("https://survey-api.nimblehq.co/api/v1/oauth/token") {
+                    contentType(ContentType.Application.Json)
+
                     setBody(LoginRequestDto(
                         grantType = "password",
                         email = loginRequestModel.email,

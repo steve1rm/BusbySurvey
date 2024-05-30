@@ -33,12 +33,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
 }
 
@@ -68,7 +68,11 @@ dependencies {
     implementation(libs.kamil.image.loader)
     implementation(libs.androidx.animation.graphics.android)
 
+    testImplementation("com.google.truth:truth:1.4.2")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:5.3.1")
+    testImplementation(libs.mockito.core)
     testImplementation(libs.junit)
+    testImplementation(libs.coroutinesTest)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
