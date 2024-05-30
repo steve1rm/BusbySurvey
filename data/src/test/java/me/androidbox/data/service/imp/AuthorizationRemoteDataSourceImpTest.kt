@@ -55,7 +55,6 @@ class AuthorizationRemoteDataSourceImpTest {
             clientId = UUID.randomUUID().toString(),
             clientSecret = UUID.randomUUID().toString())
 
-
         // Act
         val actual = authorizationRemoteDataSource.loginUser(loginRequestDto) as APIResponse.OnSuccess
 

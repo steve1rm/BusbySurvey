@@ -56,9 +56,10 @@ class SurveyRemoteDataSourceImpTest {
                     title
                 ), "", "")))
 
-        val surveyListDtoString = kotlinx.serialization.json.Json.encodeToString(surveyListDto)
-        val client = createMockEngine(surveyListDtoString)
+        val surveyListDtoString =
+            kotlinx.serialization.json.Json.encodeToString(surveyListDto)
 
+        val client = createMockEngine(surveyListDtoString)
         surveyRemoteDataSource = SurveyRemoteDataSourceImp(client, authorizationLocalDataSource)
 
         // Act
