@@ -4,7 +4,6 @@ import io.ktor.client.HttpClient
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.respond
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.http.ContentType
 import io.ktor.http.ContentType.Application.Json
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
@@ -61,7 +60,7 @@ class AuthorizationRemoteDataSourceImpTest {
         val actual = authorizationRemoteDataSource.loginUser(loginRequestDto) as APIResponse.OnSuccess
 
         // Assert
-        Assert.assertEquals(loginRequestDto, actual.data)
+        Assert.assertEquals(loginResponseDto, actual.data)
     }
 
     private fun createMockEngine(content: String): HttpClient {
@@ -77,17 +76,10 @@ class AuthorizationRemoteDataSourceImpTest {
             install(ContentNegotiation) {
                 this.json(
                     json = kotlinx.serialization.json.Json,
-                    contentType = ContentType.Any
+                    contentType = Json
                 )
 
             }
         }
     }
 }
-
-/*
-Fail to prepare request body for sending.
-The body type is: class me.androidbox.data.authorization.LoginRequestDto, with Content-Type: null.
-
-If you expect serialized body, please check that you have installed the corresponding plugin(like `ContentNegotiation`) and set `Content-Type` header.
-* */
