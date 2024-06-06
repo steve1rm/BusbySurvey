@@ -32,9 +32,9 @@ android {
     signingConfigs {
         create("release") {
             this.keyAlias = "busbynimblesurvey"
-            this.keyPassword = "nimble"
+            this.keyPassword = "${properties["KEY_PASSWORD"]}"
             this.storeFile = file("keystore/busbynimblesurvey-release-key.keystore")
-            this.storePassword = "nimble"
+            this.storePassword = "${properties["STORE_PASSWORD"]}"
         }
     }
 
