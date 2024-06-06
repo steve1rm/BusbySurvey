@@ -2,9 +2,6 @@ package me.androidbox.presentation
 
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
-import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.performScrollToIndex
-import kotlinx.coroutines.test.runTest
 import me.androidbox.presentation.home.HomeItems
 import me.androidbox.presentation.home.HomeScreen
 import me.androidbox.presentation.home.HomeState
