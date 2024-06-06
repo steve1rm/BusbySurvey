@@ -29,6 +29,15 @@ android {
         buildConfigField("String", "CLIENT_SECRET", "\"${properties.getProperty("CLIENT_SECRET")}\"")
     }
 
+    signingConfigs {
+        create("release") {
+            this.keyAlias = "busbynimblesurvey"
+            this.keyPassword = "nimble"
+            this.storeFile = file("keystore/busbynimblesurvey-release-key.keystore")
+            this.storePassword = "nimble"
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = true
@@ -36,6 +45,10 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            isShrinkResources = true
+            isDebuggable = false
+            isJniDebuggable = false
+            signingConfig = signingConfigs.getByName("release")
         }
         debug {
             isMinifyEnabled = false
