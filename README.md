@@ -1,6 +1,17 @@
 # BusbyNimbleSurvey
 Fetches and conducts a user survey
 
+- [x] Jetpack Compose
+- [x] Koin dependency injection
+- [x] Ktor client
+- [x] Clean architecture
+- [x] Gradle version catalog
+- [x] kotlin coroutines
+- [x] Flows
+- [x] MVVM
+- [x] Material design 3
+- [x] oAuth authentication
+
 https://github.com/steve1rm/BusbyNimbleSurvey/assets/14260802/5a74dbbf-06c7-4e84-adb1-b586bca45c6a
 
 ![Screenshot from 2024-05-29 23-04-43](https://github.com/steve1rm/BusbyNimbleSurvey/assets/14260802/8f1d87b1-2311-4e0b-b3a2-e06fe29607b7)
