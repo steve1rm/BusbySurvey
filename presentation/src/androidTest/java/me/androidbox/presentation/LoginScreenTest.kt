@@ -12,13 +12,12 @@ import org.junit.Rule
 import org.junit.Test
 import java.util.UUID
 
-
-class LoginTest {
+class LoginScreenTest {
     @get:Rule
     val rule = createComposeRule()
 
     @Test
-    fun shouldEnterEmail() {
+    fun should_enter_email() {
         // Arrange
         rule.setContent {
             LoginScreen(
@@ -30,8 +29,28 @@ class LoginTest {
 
         // Act & Assert
         val input = UUID.randomUUID().toString()
+
         rule.onNodeWithText("Email").assertExists()
         rule.onNodeWithTag("email").performTextInput(input)
+        rule.onNodeWithText(input).isDisplayed()
+        rule.onNodeWithText("Login").performClick()
+    }
+
+    @Test
+    fun should_enter_password() {
+        rule.setContent {
+            LoginScreen(
+                loginState = LoginState(),
+                onLoginSuccess = { },
+                onForgotPassword = { },
+                onLoginAction = { } )
+        }
+
+        // Act & Assert
+        val input = UUID.randomUUID().toString()
+
+        rule.onNodeWithText("Password").assertExists()
+        rule.onNodeWithTag("password").performTextInput(input)
         rule.onNodeWithText(input).isDisplayed()
         rule.onNodeWithText("Login").performClick()
     }
