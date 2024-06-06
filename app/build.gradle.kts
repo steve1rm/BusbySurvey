@@ -29,6 +29,15 @@ android {
         buildConfigField("String", "CLIENT_SECRET", "\"${properties.getProperty("CLIENT_SECRET")}\"")
     }
 
+    signingConfigs {
+        create("release") {
+            this.keyAlias = "busbynimblesurvey"
+            this.keyPassword = "nimble"
+            this.storeFile = file("keystore/busbynimblesurvey-release-key.keystore")
+            this.storePassword = "nimble"
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = true
@@ -39,6 +48,7 @@ android {
             isShrinkResources = true
             isDebuggable = false
             isJniDebuggable = false
+            signingConfigs = signingConfigs.getByName("release")
         }
         debug {
             isMinifyEnabled = false
