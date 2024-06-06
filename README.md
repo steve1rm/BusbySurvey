@@ -14,6 +14,7 @@ Uses the Nimble Survey to allow users to fetch and conduct surveys
 # Libraries and architecture
 - [x] Jetpack Compose
 - [x] Koin dependency injection
+- [x] Voyager for navigation
 - [x] Ktor client
 - [x] Clean architecture
 - [x] Gradle version catalog
