@@ -24,6 +24,7 @@ Uses the Nimble Survey to allow users to fetch and conduct surveys
 - [x] Horizontal Pager
 - [x] Material design 3
 - [x] oAuth authentication
+- [X] Timber for logging 
 
 # Demo video
 https://github.com/steve1rm/BusbyNimbleSurvey/assets/14260802/5a74dbbf-06c7-4e84-adb1-b586bca45c6a
