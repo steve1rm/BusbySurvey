@@ -1,6 +1,17 @@
-# BusbyNimbleSurvey
-Fetches and conducts a user survey
+# Busby Nimble Survey
 
+# In a nutshell
+Uses the Nimble Survey to allow users to fetch and conduct surveys
+
+# Features:
+- Splash Screen that loads surveys
+- Login and Logout that uses oAuth
+- Home screen that allows users swipe surveys
+- Start suvery
+- And a Thank You for your participation
+
+ 
+# Libraries and architecture
 - [x] Jetpack Compose
 - [x] Koin dependency injection
 - [x] Ktor client
@@ -9,6 +20,7 @@ Fetches and conducts a user survey
 - [x] kotlin coroutines
 - [x] Flows
 - [x] MVVM
+- [x] Horizontal Pager
 - [x] Material design 3
 - [x] oAuth authentication
 
