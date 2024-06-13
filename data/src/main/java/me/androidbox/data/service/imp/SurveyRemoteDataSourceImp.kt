@@ -19,7 +19,7 @@ class SurveyRemoteDataSourceImp(
     override suspend fun fetchSurveyList(): APIResponse<SurveyListDto> {
         val accessToken = authorizationLocalDataSource.get()?.accessToken ?: ""
 
-        return safeApiRequest {
+       /* return safeApiRequest {
             httpClient
                 .get(urlString = "https://survey-api.nimblehq.co/api/v1/surveys?page[number]=1&page[size]=5") {
                     headers {
@@ -27,7 +27,9 @@ class SurveyRemoteDataSourceImp(
                     }
                 }
                 .body<SurveyListDto>()
-        }
+        }*/
+
+        return APIResponse.OnSuccess(SurveyListDto())
     }
 
     override suspend fun fetchSurveyDetails(): APIResponse<SurveyListDto> {

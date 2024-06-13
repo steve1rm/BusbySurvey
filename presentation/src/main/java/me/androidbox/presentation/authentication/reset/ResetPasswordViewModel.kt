@@ -9,8 +9,8 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import me.androidbox.domain.CheckResult
 import me.androidbox.domain.authorization.usecases.ResetPasswordUseCase
-import me.androidbox.domain.repository.APIResponse
 
 class ResetPasswordViewModel(
     private val resetPasswordUseCase: ResetPasswordUseCase
@@ -38,12 +38,12 @@ class ResetPasswordViewModel(
                 .execute(resetPasswordState.email.text.toString().trim())
 
             when(resetPasswordResult) {
-                is APIResponse.OnSuccess -> {
+                is CheckResult.Success -> {
                     resetPasswordState = resetPasswordState.copy(
                         isResetPasswordSuccess = true,
                         message = resetPasswordResult.data.meta.message)
                 }
-                is APIResponse.OnFailure -> {
+                is CheckResult.Failure -> {
                     resetPasswordState = resetPasswordState.copy(
                         isResetPasswordSuccess = false)
                 }
