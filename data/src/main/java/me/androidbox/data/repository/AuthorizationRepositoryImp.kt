@@ -9,7 +9,6 @@ import me.androidbox.data.mappers.toErrorResponseModel
 import me.androidbox.data.mappers.toLoginResponseModel
 import me.androidbox.data.mappers.toResetPasswordModel
 import me.androidbox.data.models.AuthorizationInfoSerializable
-import me.androidbox.data.models.ErrorResponseDto
 import me.androidbox.data.service.AuthorizationRemoteDataSource
 import me.androidbox.domain.CheckResult
 import me.androidbox.domain.DataError
@@ -19,26 +18,33 @@ import me.androidbox.domain.authorization.models.LoginRequestModel
 import me.androidbox.domain.authorization.models.LoginResponseModel
 import me.androidbox.domain.authorization.models.RegisterUserModel
 import me.androidbox.domain.authorization.models.ResetPasswordModel
-import me.androidbox.domain.repository.APIResponse
 import me.androidbox.domain.repository.AuthorizationRepository
 
 class AuthorizationRepositoryImp(
     private val authorizationRemoteDataSource: AuthorizationRemoteDataSource,
     private val authorizationLocalDataSource: AuthorizationLocalDataSource
 ) : AuthorizationRepository {
-    override suspend fun register(registerUserUserModel: RegisterUserModel): APIResponse<Unit> {
-        return authorizationRemoteDataSource.registerUser(
-            RegisterUserDto(
-                user = UserDto(
-                    email = registerUserUserModel.email,
-                    name = registerUserUserModel.name,
-                    password = registerUserUserModel.password,
-                    passwordConfirmation = registerUserUserModel.passwordConfirmation
-                ),
-                clientSecret = BuildConfig.CLIENT_SECRET,
-                clientId = BuildConfig.CLIENT_KEY
-            )
+    override suspend fun register(registerUserUserModel: RegisterUserModel): CheckResult<Unit, DataError.Network, ErrorResponseModel> {
+        val registerUser = RegisterUserDto(
+            user = UserDto(
+                email = registerUserUserModel.email,
+                name = registerUserUserModel.name,
+                password = registerUserUserModel.password,
+                passwordConfirmation = registerUserUserModel.passwordConfirmation
+            ),
+            clientSecret = BuildConfig.CLIENT_SECRET,
+            clientId = BuildConfig.CLIENT_KEY
         )
+
+        val response = authorizationRemoteDataSource.registerUser(registerUser)
+        return when(response) {
+            is CheckResult.Failure -> {
+                CheckResult.Failure(response.exceptionError, response.responseError!!.toErrorResponseModel())
+            }
+            is CheckResult.Success -> {
+               CheckResult.Success(data = response.data)
+            }
+        }
     }
 
     override suspend fun login(loginRequestModel: LoginRequestModel): CheckResult<LoginResponseModel, DataError.Network, ErrorResponseModel> {
@@ -63,17 +69,13 @@ class AuthorizationRepositoryImp(
         }
     }
 
-    override suspend fun resetPassword(email: String): APIResponse<ResetPasswordModel> {
-        return when(val apiResponse = authorizationRemoteDataSource.resetPassword(email)) {
-            is APIResponse.OnSuccess -> {
-                APIResponse.OnSuccess(apiResponse.data.toResetPasswordModel())
+    override suspend fun resetPassword(email: String): CheckResult<ResetPasswordModel, DataError.Network, ErrorResponseModel> {
+        return when(val response = authorizationRemoteDataSource.resetPassword(email)) {
+            is CheckResult.Success -> {
+                CheckResult.Success(response.data.toResetPasswordModel())
             }
-            is APIResponse.OnFailure -> {
-                APIResponse.OnFailure(apiResponse.error)
-            }
-
-            else -> {
-                throw IllegalStateException("Something unknown happened")
+            is CheckResult.Failure -> {
+                CheckResult.Failure(exceptionError = response.exceptionError, responseError = response.responseError!!.toErrorResponseModel())
             }
         }
     }
@@ -86,17 +88,13 @@ class AuthorizationRepositoryImp(
         return authorizationLocalDataSource.set(authorizationInfo)
     }
 
-    override suspend fun logout(): APIResponse<Unit> {
-        return when(val apiResponse = authorizationRemoteDataSource.logoutUser()) {
-            is APIResponse.OnSuccess -> {
-                APIResponse.OnSuccess(Unit)
+    override suspend fun logout(): CheckResult<Unit, DataError.Network, ErrorResponseModel> {
+        return when(val response = authorizationRemoteDataSource.logoutUser()) {
+            is CheckResult.Success -> {
+                CheckResult.Success(data = response.data)
             }
-            is APIResponse.OnFailure -> {
-                APIResponse.OnFailure(apiResponse.error)
-            }
-
-            else -> {
-                throw IllegalStateException("Something unknown happened")
+            is CheckResult.Failure -> {
+                CheckResult.Failure(exceptionError = response.exceptionError, responseError = response.responseError!!.toErrorResponseModel())
             }
         }
     }

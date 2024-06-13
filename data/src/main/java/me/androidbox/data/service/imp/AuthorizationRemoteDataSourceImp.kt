@@ -1,7 +1,6 @@
 package me.androidbox.data.service.imp
 
 import io.ktor.client.HttpClient
-import io.ktor.client.call.body
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.http.ContentType
@@ -23,18 +22,14 @@ import me.androidbox.data.util.safeApiRequest
 import me.androidbox.domain.CheckResult
 import me.androidbox.domain.DataError
 import me.androidbox.domain.authorization.models.LoginRequestModel
-import me.androidbox.domain.authorization.models.LoginResponseModel
-import me.androidbox.domain.repository.APIResponse
-import timber.log.Timber
 
 class AuthorizationRemoteDataSourceImp(
     private val httpClient: HttpClient,
     private val authorizationLocalDataSource: AuthorizationLocalDataSource
 ) : AuthorizationRemoteDataSource {
-    override suspend fun registerUser(registerUserDto: RegisterUserDto): APIResponse<Unit> {
-
-      /*  return safeApiRequest {
-            httpClient
+    override suspend fun registerUser(registerUserDto: RegisterUserDto): CheckResult<Unit, DataError.Network, ErrorResponseDto> {
+        val safeResult = safeApiRequest<Unit> {
+            val response =httpClient
                 .post("https://survey-api.nimblehq.co/api/v1/registrations") {
                     setBody(RegisterUserDto(
                         user = UserDto(
@@ -46,16 +41,16 @@ class AuthorizationRemoteDataSourceImp(
                         clientId = BuildConfig.CLIENT_KEY,
                         clientSecret = BuildConfig.CLIENT_SECRET))
                 }
-                .body<Unit>()
+            response
         }
-*/
-        TODO()
+
+        return safeResult
     }
 
     override suspend fun loginUser(loginRequestModel: LoginRequestModel): CheckResult<LoginResponseDto, DataError.Network, ErrorResponseDto> {
 
-        val safeResult = safeApiRequest<LoginResponseDto, DataError.Network> {
-            val clientResult = httpClient
+        val safeResult = safeApiRequest<LoginResponseDto> {
+            val response = httpClient
                 .post("https://survey-api.nimblehq.co/api/v1/oauth/token") {
                     contentType(ContentType.Application.Json)
 
@@ -67,56 +62,48 @@ class AuthorizationRemoteDataSourceImp(
                         clientSecret = BuildConfig.CLIENT_SECRET))
                 }
 
-            return if(clientResult.status.value == 200) {
-                CheckResult.Success(clientResult.body<LoginResponseDto>())
-            }
-            else {
-                val result = clientResult.body<ErrorResponseDto>()
-                Timber.d("Result ${result.errors}")
-                CheckResult.Failure(responseError = clientResult.body<ErrorResponseDto>())
-            }
+            response
         }
 
         return safeResult
     }
 
-    override suspend fun resetPassword(email: String): APIResponse<ResetPasswordDto> {
-/*
-        return safeApiRequest {
-            httpClient
+    override suspend fun resetPassword(email: String): CheckResult<ResetPasswordDto, DataError.Network, ErrorResponseDto> {
+        val safeResult = safeApiRequest<ResetPasswordDto> {
+            val response = httpClient
                 .post("https://survey-api.nimblehq.co/api/v1/passwords") {
-                    setBody(ResetPasswordRequestDto(
-                        user = UserPasswordRequestDto(
-                            email = email
-                        ),
-                        clientId = BuildConfig.CLIENT_KEY,
-                        clientSecret = BuildConfig.CLIENT_SECRET
-                    ))
+                    setBody(
+                        ResetPasswordRequestDto(
+                            user = UserPasswordRequestDto(
+                                email = email
+                            ),
+                            clientId = BuildConfig.CLIENT_KEY,
+                            clientSecret = BuildConfig.CLIENT_SECRET
+                        )
+                    )
                 }
-                .body<ResetPasswordDto>()
+            response
         }
-*/
 
-        TODO()
+        return safeResult
     }
 
-    override suspend fun logoutUser(): APIResponse<Unit> {
-/*
-        return safeApiRequest {
+    override suspend fun logoutUser(): CheckResult<Unit, DataError.Network, ErrorResponseDto> {
+        val safeResult = safeApiRequest<Unit> {
             val requestBody = RequestBody(
                 accessToken = authorizationLocalDataSource.get()?.accessToken ?: "",
                 clientId = BuildConfig.CLIENT_KEY,
                 clientSecret = BuildConfig.CLIENT_SECRET)
 
-            httpClient
+            val response = httpClient
                 .post("https://survey-api.nimblehq.co/api/v1/oauth/revoke") {
                     setBody(requestBody)
                 }
-                .body<Unit>()
-        }
-*/
 
-        TODO()
+            response
+        }
+
+        return safeResult
     }
 
     @Serializable
