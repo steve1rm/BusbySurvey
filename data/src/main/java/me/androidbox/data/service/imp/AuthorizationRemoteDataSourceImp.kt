@@ -18,6 +18,7 @@ import me.androidbox.data.authorization.UserPasswordRequestDto
 import me.androidbox.data.local.AuthorizationLocalDataSource
 import me.androidbox.data.models.ErrorResponseDto
 import me.androidbox.data.service.AuthorizationRemoteDataSource
+import me.androidbox.data.service.Routes
 import me.androidbox.data.util.safeApiRequest
 import me.androidbox.domain.CheckResult
 import me.androidbox.domain.DataError
@@ -30,7 +31,7 @@ class AuthorizationRemoteDataSourceImp(
     override suspend fun registerUser(registerUserDto: RegisterUserDto): CheckResult<Unit, DataError.Network, ErrorResponseDto> {
         val safeResult = safeApiRequest<Unit> {
             val response =httpClient
-                .post("https://survey-api.nimblehq.co/api/v1/registrations") {
+                .post(Routes.REGISTER) {
                     setBody(RegisterUserDto(
                         user = UserDto(
                             email = registerUserDto.user.email,
@@ -51,7 +52,7 @@ class AuthorizationRemoteDataSourceImp(
 
         val safeResult = safeApiRequest<LoginResponseDto> {
             val response = httpClient
-                .post("https://survey-api.nimblehq.co/api/v1/oauth/token") {
+                .post(Routes.LOGIN) {
                     contentType(ContentType.Application.Json)
 
                     setBody(LoginRequestDto(
@@ -71,7 +72,7 @@ class AuthorizationRemoteDataSourceImp(
     override suspend fun resetPassword(email: String): CheckResult<ResetPasswordDto, DataError.Network, ErrorResponseDto> {
         val safeResult = safeApiRequest<ResetPasswordDto> {
             val response = httpClient
-                .post("https://survey-api.nimblehq.co/api/v1/passwords") {
+                .post(Routes.RESET_PASSWORD) {
                     setBody(
                         ResetPasswordRequestDto(
                             user = UserPasswordRequestDto(
@@ -96,7 +97,7 @@ class AuthorizationRemoteDataSourceImp(
                 clientSecret = BuildConfig.CLIENT_SECRET)
 
             val response = httpClient
-                .post("https://survey-api.nimblehq.co/api/v1/oauth/revoke") {
+                .post(Routes.LOGOUT) {
                     setBody(requestBody)
                 }
 
