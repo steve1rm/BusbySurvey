@@ -1,6 +1,9 @@
 package me.androidbox.presentation.ui
 
+import android.content.Context
+import me.androidbox.domain.CheckResult
 import me.androidbox.domain.DataError
+import me.androidbox.domain.authorization.models.ErrorResponseModel
 import me.androidbox.presentation.R
 
 fun DataError.toUiText(): UiText {
@@ -29,5 +32,14 @@ fun DataError.toUiText(): UiText {
         else -> UiText.StringResource(
             resId = R.string.error_unknown
         )
+    }
+}
+
+fun CheckResult.Failure<DataError, ErrorResponseModel>.asErrorText(): UiText {
+    return if(this.responseError != null) {
+        UiText.DynamicString(this.responseError?.errors?.first()?.detail ?: "")
+    }
+    else {
+        (this.exceptionError as DataError).toUiText()
     }
 }

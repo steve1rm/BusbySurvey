@@ -8,6 +8,7 @@ import androidx.compose.ui.res.stringResource
 sealed interface UiText {
     data class DynamicString(val value: String) : UiText
     class StringResource(@StringRes val resId: Int, val args: Array<Any> = arrayOf()) : UiText
+    data object Empty : UiText
 
     /** Used from composables */
     @Composable
@@ -18,6 +19,9 @@ sealed interface UiText {
             }
             is StringResource -> {
                 stringResource(id = this.resId, this.args)
+            }
+            is Empty -> {
+                ""
             }
         }
     }
@@ -30,6 +34,9 @@ sealed interface UiText {
             }
             is StringResource -> {
                 context.getString(this.resId, this.args)
+            }
+            is Empty -> {
+                ""
             }
         }
     }

@@ -12,6 +12,8 @@ import kotlinx.coroutines.launch
 import me.androidbox.domain.CheckResult
 import me.androidbox.domain.authorization.models.LoginRequestModel
 import me.androidbox.domain.authorization.usecases.LoginUseCase
+import me.androidbox.presentation.ui.UiText
+import me.androidbox.presentation.ui.asErrorText
 
 class LoginViewModel(
     private val loginUseCase: LoginUseCase
@@ -29,7 +31,7 @@ class LoginViewModel(
                 loginState = loginState.copy(
                     isLoginSuccess = false,
                     canLogin = false,
-                    errorMessage = "",
+                    errorMessage = UiText.Empty,
                     isLoggingIn = false
                 )
             }
@@ -58,7 +60,7 @@ class LoginViewModel(
                 is CheckResult.Failure -> {
                     loginState = loginState.copy(
                         isLoginSuccess = false,
-                        errorMessage = loginResult.responseError?.errors?.first()?.detail ?: "",
+                        errorMessage = loginResult.asErrorText(),
                         isLoggingIn = false
                     )
                 }
