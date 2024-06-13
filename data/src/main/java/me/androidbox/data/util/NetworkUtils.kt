@@ -1,22 +1,34 @@
 package me.androidbox.data.util
 
-import me.androidbox.domain.repository.APIResponse
+import io.ktor.client.plugins.ResponseException
+import me.androidbox.domain.CheckResult
+import me.androidbox.domain.DataError
 import timber.log.Timber
 import java.util.concurrent.CancellationException
 
-inline fun <T> safeApiRequest(block: () -> T): APIResponse<T> {
+inline fun <D, E: DataError.Network> safeApiRequest(block: () -> D): CheckResult<D, E, Nothing> {
     return try {
         val data = block()
         Timber.d("Response %s", data.toString())
-        APIResponse.OnSuccess(data = data)
-    } catch (exception: Exception) {
+        CheckResult.Success(data = data)
+    } catch (exception: ResponseException) {
+
+        val code = exception.response.status.value
+        Timber.e("Response Code %d", code)
+        val result = when(code) {
+            408 -> DataError.Network.REQUEST_TIMEOUT
+            else -> {
+                DataError.Network.UNKNOWN
+            }
+        }
+
+        CheckResult.Failure(exceptionError = result)
+    }
+    catch (exception: Exception) {
         if (exception is CancellationException) {
             Timber.e(exception)
             throw exception
         }
-        else {
-            Timber.e(exception)
-            APIResponse.OnFailure(exception)
-        }
+        CheckResult.Failure(DataError.Network.UNKNOWN)
     }
 }

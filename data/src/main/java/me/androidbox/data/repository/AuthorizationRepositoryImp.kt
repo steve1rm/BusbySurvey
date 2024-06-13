@@ -1,22 +1,26 @@
 package me.androidbox.data.repository
 
 import me.androidbox.data.BuildConfig
-import me.androidbox.data.authorization.LoginResponseDto
 import me.androidbox.data.authorization.RegisterUserDto
 import me.androidbox.data.authorization.UserDto
 import me.androidbox.data.local.AuthorizationLocalDataSource
 import me.androidbox.data.mappers.toAuthorizationInfo
+import me.androidbox.data.mappers.toErrorResponseModel
 import me.androidbox.data.mappers.toLoginResponseModel
 import me.androidbox.data.mappers.toResetPasswordModel
 import me.androidbox.data.models.AuthorizationInfoSerializable
+import me.androidbox.data.models.ErrorResponseDto
 import me.androidbox.data.service.AuthorizationRemoteDataSource
+import me.androidbox.domain.CheckResult
+import me.androidbox.domain.DataError
 import me.androidbox.domain.authorization.AuthorizationInfo
-import me.androidbox.domain.repository.AuthorizationRepository
+import me.androidbox.domain.authorization.models.ErrorResponseModel
 import me.androidbox.domain.authorization.models.LoginRequestModel
 import me.androidbox.domain.authorization.models.LoginResponseModel
 import me.androidbox.domain.authorization.models.RegisterUserModel
 import me.androidbox.domain.authorization.models.ResetPasswordModel
 import me.androidbox.domain.repository.APIResponse
+import me.androidbox.domain.repository.AuthorizationRepository
 
 class AuthorizationRepositoryImp(
     private val authorizationRemoteDataSource: AuthorizationRemoteDataSource,
@@ -37,22 +41,24 @@ class AuthorizationRepositoryImp(
         )
     }
 
-    override suspend fun login(loginRequestModel: LoginRequestModel): APIResponse<LoginResponseModel> {
+    override suspend fun login(loginRequestModel: LoginRequestModel): CheckResult<LoginResponseModel, DataError.Network, ErrorResponseModel> {
         return when(val apiResponse = authorizationRemoteDataSource.loginUser(loginRequestModel)) {
-            is APIResponse.OnSuccess -> {
+            is CheckResult.Success -> {
                 val authorizationInfoSerializable = AuthorizationInfoSerializable(
                     accessToken = apiResponse.data.data.attributes.accessToken,
                     refreshToken = apiResponse.data.data.attributes.refreshToken)
 
                 authorizationLocalDataSource.set(authorizationInfoSerializable.toAuthorizationInfo())
-                APIResponse.OnSuccess(apiResponse.data.toLoginResponseModel())
+                CheckResult.Success(apiResponse.data.toLoginResponseModel())
             }
-            is APIResponse.OnFailure -> {
-                APIResponse.OnFailure(apiResponse.error)
-            }
-
-            else -> {
-                throw IllegalStateException("Something unknown happened")
+            is CheckResult.Failure -> {
+                if(apiResponse.responseError != null) {
+                    /** Should not happen so safe to use the !! */
+                    CheckResult.Failure(responseError = apiResponse.responseError!!.toErrorResponseModel())
+                }
+                else {
+                    CheckResult.Failure(exceptionError = apiResponse.exceptionError)
+                }
             }
         }
     }

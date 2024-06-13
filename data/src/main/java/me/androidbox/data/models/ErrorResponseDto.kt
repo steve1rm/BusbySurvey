@@ -1,6 +1,8 @@
 package me.androidbox.data.models
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class ErrorResponseDto(
-    val code: String,
-    val detail: String
+    val errors: List<ErrorDto>
 )
