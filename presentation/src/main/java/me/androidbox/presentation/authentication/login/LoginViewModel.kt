@@ -9,9 +9,11 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import me.androidbox.domain.CheckResult
 import me.androidbox.domain.authorization.models.LoginRequestModel
 import me.androidbox.domain.authorization.usecases.LoginUseCase
-import me.androidbox.domain.repository.APIResponse
+import me.androidbox.presentation.ui.UiText
+import me.androidbox.presentation.ui.asErrorText
 
 class LoginViewModel(
     private val loginUseCase: LoginUseCase
@@ -29,7 +31,7 @@ class LoginViewModel(
                 loginState = loginState.copy(
                     isLoginSuccess = false,
                     canLogin = false,
-                    errorMessage = "",
+                    errorMessage = UiText.Empty,
                     isLoggingIn = false
                 )
             }
@@ -49,16 +51,16 @@ class LoginViewModel(
             )
 
             when(loginResult) {
-                is APIResponse.OnSuccess -> {
+                is CheckResult.Success-> {
                     loginState = loginState.copy(
                         isLoginSuccess = true,
                         isLoggingIn = false
                     )
                 }
-                is APIResponse.OnFailure -> {
+                is CheckResult.Failure -> {
                     loginState = loginState.copy(
                         isLoginSuccess = false,
-                        errorMessage = "Check our email or password",
+                        errorMessage = loginResult.asErrorText(),
                         isLoggingIn = false
                     )
                 }

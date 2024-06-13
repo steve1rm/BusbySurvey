@@ -20,6 +20,7 @@ android {
 
         buildConfigField("String", "CLIENT_KEY", "\"${properties.getProperty("CLIENT_KEY")}\"")
         buildConfigField("String", "CLIENT_SECRET", "\"${properties.getProperty("CLIENT_SECRET")}\"")
+        buildConfigField("String", "BASE_BUSBY_NIMBLE_ENDPOINT", "\"https://survey-api.nimblehq.co/api/v1\"")
     }
 
     buildTypes {

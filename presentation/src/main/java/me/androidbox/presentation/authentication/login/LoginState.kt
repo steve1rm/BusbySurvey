@@ -2,6 +2,7 @@ package me.androidbox.presentation.authentication.login
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.text2.input.TextFieldState
+import me.androidbox.presentation.ui.UiText
 
 data class LoginState @OptIn(ExperimentalFoundationApi::class) constructor(
     val email: TextFieldState = TextFieldState(),
@@ -11,5 +12,5 @@ data class LoginState @OptIn(ExperimentalFoundationApi::class) constructor(
     val canLogin: Boolean = false,
     val isLoggingIn: Boolean = false,
     val isLoginSuccess: Boolean = false,
-    val errorMessage: String = ""
+    val errorMessage: UiText = UiText.Empty
 )

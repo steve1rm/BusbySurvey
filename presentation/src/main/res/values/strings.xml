@@ -9,4 +9,14 @@
     <string name="subtitle">We would like to know how you feel about our work from home (WFH) experience</string>
     <string name="thank_you">Thank you for taking the survey</string>
     <string name="reset_password_title">Enter your email for instructions for resetting your password</string>
+
+    <!-- Error messages -->
+    <string name="error_disk_full">Failed to save the item because your disk is full</string>
+    <string name="error_request_timeout">The request timed out</string>
+    <string name="error_too_many_requests">You have exceeded your rate limit</string>
+    <string name="error_no_internet">Could not reach server because no Internet connection</string>
+    <string name="error_payload_too_large">The file you are trying to upload is too large</string>
+    <string name="error_server_error">Oops. Something went wrong please try again</string>
+    <string name="error_serialization">Oops, could not parse the data</string>
+    <string name="error_unknown">Oops, something went wrong, and I do not know what</string>
 </resources>

@@ -3,9 +3,12 @@ package me.androidbox.data.mappers
 import me.androidbox.data.authorization.LoginResponseDto
 import me.androidbox.data.authorization.ResetPasswordDto
 import me.androidbox.data.models.AuthorizationInfoSerializable
+import me.androidbox.data.models.ErrorResponseDto
 import me.androidbox.domain.authorization.AuthorizationInfo
 import me.androidbox.domain.authorization.models.AttributesModel
 import me.androidbox.domain.authorization.models.DataModel
+import me.androidbox.domain.authorization.models.ErrorModel
+import me.androidbox.domain.authorization.models.ErrorResponseModel
 import me.androidbox.domain.authorization.models.LoginResponseModel
 import me.androidbox.domain.authorization.models.MetaModel
 import me.androidbox.domain.authorization.models.ResetPasswordModel
@@ -45,5 +48,16 @@ fun ResetPasswordDto.toResetPasswordModel(): ResetPasswordModel {
         meta = MetaModel(
             message = this.meta.message
         )
+    )
+}
+
+fun ErrorResponseDto.toErrorResponseModel(): ErrorResponseModel {
+    return ErrorResponseModel(
+        errors = this.errors.map { errorDto ->
+            ErrorModel(
+                code = errorDto.code,
+                detail = errorDto.detail
+            )
+        }
     )
 }

@@ -51,9 +51,9 @@ fun LoginScreen(
             onLoginSuccess()
         }
 
-        if(!loginState.isLoginSuccess && loginState.errorMessage.isNotBlank()) {
+        if(!loginState.isLoginSuccess && loginState.errorMessage.asString(context).isNotBlank()) {
             keyboard?.hide()
-            Toast.makeText(context, loginState.errorMessage, Toast.LENGTH_LONG)
+            Toast.makeText(context, loginState.errorMessage.asString(context), Toast.LENGTH_LONG)
                 .show()
 
             onLoginAction(LoginAction.OnResetScreen)
