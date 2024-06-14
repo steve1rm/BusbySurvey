@@ -6,8 +6,8 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import me.androidbox.domain.CheckResult
 import me.androidbox.domain.authorization.usecases.FetchTokenAuthorizationUseCase
-import me.androidbox.domain.repository.APIResponse
 import me.androidbox.domain.survey.usecases.FetchSurveyListUseCase
 import timber.log.Timber
 
@@ -30,15 +30,15 @@ class MainViewModel(
             /** If we don't have a token then we are not currently logged in and don't have a
              *  valid token to request surveys */
             if(authorizationInfo != null) {
-                when (val surveyList = fetchSurveyListUseCase.execute()) {
-                    is APIResponse.OnSuccess -> {
+                when (val apiResponse = fetchSurveyListUseCase.execute()) {
+                    is CheckResult.Success -> {
                         mainState = mainState.copy(
-                            surveyListModel = surveyList.data
+                            surveyListModel = apiResponse.data
                         )
                     }
 
-                    is APIResponse.OnFailure -> {
-                        /** Handle failed to get survey list */
+                    is CheckResult.Failure -> {
+                        Timber.d("Survey %s %s", apiResponse.exceptionError, apiResponse.responseError?.errors?.first()?.detail)
                     }
                 }
                 Timber.d("FETCHED SurveyList")
