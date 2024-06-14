@@ -6,9 +6,9 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import me.androidbox.domain.CheckResult
 import me.androidbox.domain.authorization.usecases.LogoutUserUseCase
 import me.androidbox.domain.authorization.usecases.SetTokenAuthorizationUseCase
-import me.androidbox.domain.repository.APIResponse
 import me.androidbox.domain.survey.models.SurveyListModel
 import me.androidbox.domain.survey.usecases.FetchSurveyListUseCase
 import timber.log.Timber
@@ -40,7 +40,7 @@ class HomeViewModel(
                 )
 
                 when (val apiResponse = fetchSurveyListUseCase.execute()) {
-                    is APIResponse.OnSuccess -> {
+                    is CheckResult.Success -> {
                         homeState = homeState.copy(
                             homeItems = apiResponse.data.data.map { data ->
                                 HomeItems(
@@ -53,8 +53,8 @@ class HomeViewModel(
                         Timber.d("HomeViewModel ${homeState.homeItems.count()}")
                     }
 
-                    is APIResponse.OnFailure -> {
-                        /** Show error cannot load data */
+                    is CheckResult.Failure -> {
+                        Timber.d("Survey %s %s", apiResponse.exceptionError, apiResponse.responseError?.errors?.first()?.detail)
                     }
                 }
 
