@@ -30,7 +30,7 @@ class AuthorizationRemoteDataSourceImp(
 ) : AuthorizationRemoteDataSource {
     override suspend fun registerUser(registerUserDto: RegisterUserDto): CheckResult<Unit, DataError.Network, ErrorResponseDto> {
         val safeResult = safeApiRequest<Unit> {
-            val response =httpClient
+            val response = httpClient
                 .post(Routes.REGISTER) {
                     setBody(RegisterUserDto(
                         user = UserDto(

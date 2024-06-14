@@ -21,7 +21,10 @@ class SurveyRepositoryImp(
                CheckResult.Success(data = apiResponse.data.toSurveyListModel())
            }
            is CheckResult.Failure -> {
-               CheckResult.Failure(exceptionError = apiResponse.exceptionError, responseError = apiResponse.responseError!!.toErrorResponseModel())
+               CheckResult.Failure(
+                   exceptionError = apiResponse.exceptionError,
+                   responseError = apiResponse.responseError!!.toErrorResponseModel()
+               )
            }
        }
     }
