@@ -2,7 +2,7 @@ package me.androidbox.data.repository
 
 import me.androidbox.data.mappers.toErrorResponseModel
 import me.androidbox.data.mappers.toSurveyListModel
-import me.androidbox.data.service.SurveyRemoteDataSource
+import me.androidbox.data.remote.SurveyRemoteDataSource
 import me.androidbox.domain.CheckResult
 import me.androidbox.domain.DataError
 import me.androidbox.domain.authorization.models.ErrorResponseModel

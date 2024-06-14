@@ -9,7 +9,7 @@ import me.androidbox.data.mappers.toErrorResponseModel
 import me.androidbox.data.mappers.toLoginResponseModel
 import me.androidbox.data.mappers.toResetPasswordModel
 import me.androidbox.data.models.AuthorizationInfoSerializable
-import me.androidbox.data.service.AuthorizationRemoteDataSource
+import me.androidbox.data.remote.AuthorizationRemoteDataSource
 import me.androidbox.domain.CheckResult
 import me.androidbox.domain.DataError
 import me.androidbox.domain.authorization.AuthorizationInfo

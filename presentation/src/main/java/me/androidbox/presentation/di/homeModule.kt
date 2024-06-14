@@ -1,5 +1,6 @@
 package me.androidbox.presentation.di
 
+import me.androidbox.domain.authorization.usecases.FetchTokenAuthorizationUseCase
 import me.androidbox.domain.authorization.usecases.LogoutUserUseCase
 import me.androidbox.domain.authorization.usecases.SetTokenAuthorizationUseCase
 import me.androidbox.domain.survey.usecases.FetchSurveyListUseCase

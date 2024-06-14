@@ -60,8 +60,10 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.koin.ktor)
     implementation(libs.securityCrypto)
-    testImplementation("com.google.truth:truth:1.4.2")
-    testImplementation("org.mockito.kotlin:mockito-kotlin:5.3.1")
+    implementation(libs.library.base)
+
+    testImplementation(libs.truth)
+    testImplementation(libs.mockito.kotlin)
 
     testImplementation(libs.ktor.client.mock)
     testImplementation(libs.coroutinesTest)

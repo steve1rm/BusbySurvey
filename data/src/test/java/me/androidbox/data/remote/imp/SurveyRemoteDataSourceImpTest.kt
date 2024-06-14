@@ -1,4 +1,4 @@
-package me.androidbox.data.service.imp
+package me.androidbox.data.remote.imp
 
 import com.google.common.truth.Truth.assertThat
 import io.ktor.client.HttpClient
@@ -13,7 +13,7 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.encodeToString
 import me.androidbox.data.local.AuthorizationLocalDataSource
-import me.androidbox.data.service.SurveyRemoteDataSource
+import me.androidbox.data.remote.SurveyRemoteDataSource
 import me.androidbox.data.survey.AttributesDto
 import me.androidbox.data.survey.DataDto
 import me.androidbox.data.survey.SurveyListDto

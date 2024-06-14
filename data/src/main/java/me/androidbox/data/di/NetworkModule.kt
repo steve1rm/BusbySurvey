@@ -7,10 +7,10 @@ import me.androidbox.data.local.imp.AuthorizationLocalDataSourceImp
 import me.androidbox.data.repository.AuthorizationRepositoryImp
 import me.androidbox.data.network_clients.HttpKtorClient
 import me.androidbox.data.repository.SurveyRepositoryImp
-import me.androidbox.data.service.AuthorizationRemoteDataSource
-import me.androidbox.data.service.SurveyRemoteDataSource
-import me.androidbox.data.service.imp.AuthorizationRemoteDataSourceImp
-import me.androidbox.data.service.imp.SurveyRemoteDataSourceImp
+import me.androidbox.data.remote.AuthorizationRemoteDataSource
+import me.androidbox.data.remote.SurveyRemoteDataSource
+import me.androidbox.data.remote.imp.AuthorizationRemoteDataSourceImp
+import me.androidbox.data.remote.imp.SurveyRemoteDataSourceImp
 import me.androidbox.domain.repository.AuthorizationRepository
 import me.androidbox.domain.repository.SurveyRepository
 import org.koin.dsl.module

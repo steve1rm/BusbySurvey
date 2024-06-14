@@ -1,4 +1,4 @@
-package me.androidbox.data.service.imp
+package me.androidbox.data.remote.imp
 
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.mock.MockEngine
@@ -13,7 +13,7 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.encodeToString
 import me.androidbox.data.authorization.AttributesDto
 import me.androidbox.data.authorization.LoginResponseDto
-import me.androidbox.data.service.AuthorizationRemoteDataSource
+import me.androidbox.data.remote.AuthorizationRemoteDataSource
 import me.androidbox.domain.authorization.models.LoginRequestModel
 import me.androidbox.domain.repository.APIResponse
 import org.junit.Assert
