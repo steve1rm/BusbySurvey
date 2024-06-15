@@ -3,6 +3,7 @@ package me.androidbox.data.di
 import android.content.SharedPreferences
 import io.ktor.client.HttpClient
 import me.androidbox.data.local.AuthorizationLocalDataSource
+import me.androidbox.data.local.SurveyLocalDataSource
 import me.androidbox.data.local.imp.AuthorizationLocalDataSourceImp
 import me.androidbox.data.repository.AuthorizationRepositoryImp
 import me.androidbox.data.network_clients.HttpKtorClient
@@ -45,6 +46,7 @@ val networkModule = module {
 
     factory<SurveyRepository> {
         SurveyRepositoryImp(
-            get<SurveyRemoteDataSource>())
+            get<SurveyRemoteDataSource>(),
+            get<SurveyLocalDataSource>())
     }
 }

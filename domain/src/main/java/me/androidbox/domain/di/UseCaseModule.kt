@@ -14,7 +14,9 @@ import me.androidbox.domain.authorization.usecases.imp.RegisterUseCaseImp
 import me.androidbox.domain.authorization.usecases.imp.ResetPasswordUseCaseImp
 import me.androidbox.domain.authorization.usecases.imp.SetTokenAuthorizationUseCaseImp
 import me.androidbox.domain.repository.SurveyRepository
+import me.androidbox.domain.survey.usecases.FetchLocalSurveyListUseCase
 import me.androidbox.domain.survey.usecases.FetchSurveyListUseCase
+import me.androidbox.domain.survey.usecases.imp.FetchLocalSurveyListUseCaseImp
 import me.androidbox.domain.survey.usecases.imp.FetchSurveyListUseCaseImp
 import org.koin.dsl.module
 
@@ -46,5 +48,9 @@ val useCaseModule = module {
 
     factory<LogoutUserUseCase> {
         LogoutUserUseCaseImp(get<AuthorizationRepository>())
+    }
+
+    factory<FetchLocalSurveyListUseCase> {
+        FetchLocalSurveyListUseCaseImp(get<SurveyRepository>())
     }
 }
