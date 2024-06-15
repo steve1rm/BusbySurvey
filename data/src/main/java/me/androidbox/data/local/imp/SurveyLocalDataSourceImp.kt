@@ -4,9 +4,8 @@ import io.realm.kotlin.UpdatePolicy
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import me.androidbox.data.local.SurveyLocalDataSource
-import me.androidbox.data.local_clients.RealmDbClient
 import me.androidbox.data.local.tables.SurveyListLocalTable
-import me.androidbox.domain.local.SurveyListLocalModel
+import me.androidbox.data.local_clients.RealmDbClient
 
 class SurveyLocalDataSourceImp(
     private val realmDbClient: RealmDbClient

@@ -16,8 +16,10 @@ import me.androidbox.domain.authorization.usecases.imp.SetTokenAuthorizationUseC
 import me.androidbox.domain.repository.SurveyRepository
 import me.androidbox.domain.survey.usecases.FetchLocalSurveyListUseCase
 import me.androidbox.domain.survey.usecases.FetchSurveyListUseCase
+import me.androidbox.domain.survey.usecases.WriteLocalSurveyListUseCase
 import me.androidbox.domain.survey.usecases.imp.FetchLocalSurveyListUseCaseImp
 import me.androidbox.domain.survey.usecases.imp.FetchSurveyListUseCaseImp
+import me.androidbox.domain.survey.usecases.imp.WriteLocalSurveyListUseCaseImp
 import org.koin.dsl.module
 
 val useCaseModule = module {
@@ -52,5 +54,9 @@ val useCaseModule = module {
 
     factory<FetchLocalSurveyListUseCase> {
         FetchLocalSurveyListUseCaseImp(get<SurveyRepository>())
+    }
+
+    factory<WriteLocalSurveyListUseCase> {
+        WriteLocalSurveyListUseCaseImp(get<SurveyRepository>())
     }
 }

@@ -11,12 +11,14 @@ import me.androidbox.domain.CheckResult
 import me.androidbox.domain.authorization.usecases.FetchTokenAuthorizationUseCase
 import me.androidbox.domain.survey.usecases.FetchLocalSurveyListUseCase
 import me.androidbox.domain.survey.usecases.FetchSurveyListUseCase
+import me.androidbox.domain.survey.usecases.WriteLocalSurveyListUseCase
 import timber.log.Timber
 
 class MainViewModel(
     private val fetchTokenAuthorizationUseCase: FetchTokenAuthorizationUseCase,
     private val fetchSurveyListUseCase: FetchSurveyListUseCase,
-    private val fetchLocalSurveyListUseCase: FetchLocalSurveyListUseCase
+    private val fetchLocalSurveyListUseCase: FetchLocalSurveyListUseCase,
+    private val writeLocalSurveyListUseCase: WriteLocalSurveyListUseCase
 ) : ViewModel() {
 
     var mainState by mutableStateOf(MainState())
@@ -49,6 +51,11 @@ class MainViewModel(
                         mainState = mainState.copy(
                             surveyListModel = apiResponse.data
                         )
+                        val title = apiResponse.data.data.first().attributes.title
+                        val description = apiResponse.data.data.first().attributes.description
+                        val imageUrl = apiResponse.data.data.first().attributes.coverImageUrl
+
+                        writeLocalSurveyListUseCase.execute(title, description, imageUrl)
                     }
 
                     is CheckResult.Failure -> {
