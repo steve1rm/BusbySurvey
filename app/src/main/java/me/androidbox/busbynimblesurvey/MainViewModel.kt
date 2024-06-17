@@ -30,39 +30,30 @@ class MainViewModel(
                 isCheckingAuthorization = true)
 
             val authorizationInfo = fetchTokenAuthorizationUseCase.execute()
-            Timber.d("FETCHED Authorization ${authorizationInfo?.accessToken}")
-
-            /** Check if there are any items in the local DB */
-            if(fetchLocalSurveyListUseCase.execute().first().isNotEmpty()) {
-                /** If the local DB contains survey list then load from the local DB */
-                Timber.d("FETCHED Local Not Empty ${fetchLocalSurveyListUseCase.execute().first().count()}")
-            }
-            else {
-                /** If the local DB is empty then load from the network and write to the local DB */
-                Timber.d("FETCHED Local Empty ${fetchLocalSurveyListUseCase.execute().first().count()}")
-
-            }
 
             /** If we don't have a token then we are not currently logged in and don't have a
              *  valid token to request surveys */
             if(authorizationInfo != null) {
-                when (val apiResponse = fetchSurveyListUseCase.execute()) {
-                    is CheckResult.Success -> {
-                        mainState = mainState.copy(
-                            surveyListModel = apiResponse.data
-                        )
-                        val title = apiResponse.data.data.first().attributes.title
-                        val description = apiResponse.data.data.first().attributes.description
-                        val imageUrl = apiResponse.data.data.first().attributes.coverImageUrl
+                /** Check if there are any items in the local DB */
+                if(fetchLocalSurveyListUseCase.execute().first().isEmpty()) {
+                    /** If the local DB is empty then load from the network and write to the local DB */
+                    Timber.d("FETCHED ${MainViewModel::class.simpleName} DB is Empty")
 
-                        writeLocalSurveyListUseCase.execute(title, description, imageUrl)
-                    }
+                    when (val apiResponse = fetchSurveyListUseCase.execute()) {
+                        is CheckResult.Success -> {
+                            /** We are setting loading the DB, then we should haven't to do this, as we are listening for changes in the HomeViewModel
+                             *  when we observe the realm DB */
+                            apiResponse.data.data.forEach { dataModel ->
+                                Timber.d("FETCH SPLASH SCREEN LOGGED IN ${dataModel.attributes.title}")
+                                writeLocalSurveyListUseCase.execute(dataModel.attributes.title, dataModel.attributes.description, dataModel.attributes.coverImageUrl)
+                            }
+                        }
 
-                    is CheckResult.Failure -> {
-                        Timber.d("Survey %s %s", apiResponse.exceptionError, apiResponse.responseError?.errors?.first()?.detail)
+                        is CheckResult.Failure -> {
+                            Timber.d("Survey %s %s", apiResponse.exceptionError, apiResponse.responseError?.errors?.first()?.detail)
+                        }
                     }
                 }
-                Timber.d("FETCHED SurveyList")
             }
 
             mainState = mainState.copy(

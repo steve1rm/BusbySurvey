@@ -5,74 +5,80 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import me.androidbox.domain.CheckResult
 import me.androidbox.domain.authorization.usecases.LogoutUserUseCase
 import me.androidbox.domain.authorization.usecases.SetTokenAuthorizationUseCase
-import me.androidbox.domain.survey.models.SurveyListModel
+import me.androidbox.domain.survey.usecases.FetchLocalSurveyListUseCase
 import me.androidbox.domain.survey.usecases.FetchSurveyListUseCase
+import me.androidbox.domain.survey.usecases.WriteLocalSurveyListUseCase
 import timber.log.Timber
 
 class HomeViewModel(
     private val fetchSurveyListUseCase: FetchSurveyListUseCase,
     private val logoutUserUseCase: LogoutUserUseCase,
-    private val setTokenAuthorizationUseCase: SetTokenAuthorizationUseCase
+    private val setTokenAuthorizationUseCase: SetTokenAuthorizationUseCase,
+    private val fetchLocalSurveyListUseCase: FetchLocalSurveyListUseCase,
+    private val writeLocalSurveyListUseCase: WriteLocalSurveyListUseCase
 ) : ViewModel() {
 
     var homeState by mutableStateOf(HomeState())
         private set
 
-    private fun fillSurveyList(surveyListModel: SurveyListModel) {
-        homeState = homeState.copy(
-            homeItems = surveyListModel.data.map { data ->
-                HomeItems(
-                    title = data.attributes.title,
-                    description = data.attributes.description,
-                    imageUrl = data.attributes.coverImageUrl)
-            })
+    init {
+        viewModelScope.launch {
+            if (fetchLocalSurveyListUseCase.execute().first().isEmpty()) {
+                fetchSurveyList()
+            }
+
+            /** Observing changes in the DB */
+            fetchLocalSurveyListUseCase.execute()
+                .onEach { listOfSurveys ->
+                    homeState = homeState.copy(
+                        homeItems = listOfSurveys.map { survey ->
+                            Timber.d("FETCHED DB LOCAL ITEM ${HomeViewModel::class.simpleName} ${survey.title}")
+                            HomeItems(
+                                title = survey.title,
+                                description = survey.description,
+                                imageUrl = survey.imageUrl
+                            )
+                        }
+                    )
+                }
+                .launchIn(this)
+        }
     }
 
-    private fun fetchSurveyList() {
+    private suspend fun fetchSurveyList() {
         if(homeState.homeItems.isEmpty()) {
-            viewModelScope.launch {
-                homeState = homeState.copy(
-                    isLoading = true
-                )
+            homeState = homeState.copy(
+                isLoading = true
+            )
 
-                when (val apiResponse = fetchSurveyListUseCase.execute()) {
-                    is CheckResult.Success -> {
-                        homeState = homeState.copy(
-                            homeItems = apiResponse.data.data.map { data ->
-                                HomeItems(
-                                    title = data.attributes.title,
-                                    description = data.attributes.description,
-                                    imageUrl = data.attributes.coverImageUrl
-                                )
-                            }
-                        )
-                        Timber.d("HomeViewModel ${homeState.homeItems.count()}")
-                    }
-
-                    is CheckResult.Failure -> {
-                        Timber.d("Survey %s %s", apiResponse.exceptionError, apiResponse.responseError?.errors?.first()?.detail)
+            when (val apiResponse = fetchSurveyListUseCase.execute()) {
+                is CheckResult.Success -> {
+                    apiResponse.data.data.forEach { dataModel ->
+                        Timber.d("FETCH ${HomeViewModel::class.simpleName} Network ${dataModel.attributes.title}")
+                        writeLocalSurveyListUseCase.execute(dataModel.attributes.title, dataModel.attributes.description, dataModel.attributes.coverImageUrl)
                     }
                 }
 
-                homeState = homeState.copy(
-                    isLoading = false
-                )
+                is CheckResult.Failure -> {
+                    Timber.d("Survey %s %s", apiResponse.exceptionError, apiResponse.responseError?.errors?.first()?.detail)
+                }
             }
+
+            homeState = homeState.copy(
+                isLoading = false
+            )
         }
     }
 
     fun homeAction(homeAction: HomeAction) {
         when(homeAction) {
-            is HomeAction.FetchFromNetwork -> {
-                fetchSurveyList()
-            }
-            is HomeAction.FetchFromSplash -> {
-                fillSurveyList(homeAction.surveyListModel)
-            }
             is HomeAction.LogoutUser -> {
                 homeState = homeState.copy(
                     showShowDialog = true

@@ -8,7 +8,7 @@ import me.androidbox.domain.survey.usecases.FetchLocalSurveyListUseCase
 class FetchLocalSurveyListUseCaseImp(
     private val surveyRepository: SurveyRepository
 ) : FetchLocalSurveyListUseCase {
-    override suspend fun execute(): Flow<List<SurveyListLocalModel>> {
+    override fun execute(): Flow<List<SurveyListLocalModel>> {
         return surveyRepository.readLocalSurveyList()
     }
 }

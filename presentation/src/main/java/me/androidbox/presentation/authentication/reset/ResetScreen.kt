@@ -104,7 +104,6 @@ fun ResetPasswordScreen(
                 state = resetPasswordState.email,
                 hint = stringResource(R.string.email)
             )
-
             Spacer(modifier = Modifier.height(32.dp))
 
             ActionButton(

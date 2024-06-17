@@ -29,7 +29,8 @@ class SurveyRepositoryImp(
            is CheckResult.Failure -> {
                CheckResult.Failure(
                    exceptionError = apiResponse.exceptionError,
-                   responseError = apiResponse.responseError!!.toErrorResponseModel()
+                   /** TODO check the best way to handle this when responseError is null */
+                   responseError = apiResponse.responseError?.toErrorResponseModel()
                )
            }
        }
