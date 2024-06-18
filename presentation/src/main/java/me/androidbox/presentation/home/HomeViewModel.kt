@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 import me.androidbox.domain.CheckResult
 import me.androidbox.domain.authorization.usecases.LogoutUserUseCase
 import me.androidbox.domain.authorization.usecases.SetTokenAuthorizationUseCase
+import me.androidbox.domain.local.SurveyListLocalModel
 import me.androidbox.domain.survey.usecases.FetchLocalSurveyListUseCase
 import me.androidbox.domain.survey.usecases.FetchSurveyListUseCase
 import me.androidbox.domain.survey.usecases.WriteLocalSurveyListUseCase
@@ -29,6 +30,9 @@ class HomeViewModel(
         private set
 
     init {
+        HomeViewModel::class.simpleName?.let {
+            Timber.tag(it)
+        }
         viewModelScope.launch {
             if (fetchLocalSurveyListUseCase.execute().first().isEmpty()) {
                 fetchSurveyList()
@@ -36,7 +40,7 @@ class HomeViewModel(
 
             /** Observing changes in the DB */
             fetchLocalSurveyListUseCase.execute()
-                .onEach { listOfSurveys ->
+                .onEach { listOfSurveys: List<SurveyListLocalModel> ->
                     homeState = homeState.copy(
                         homeItems = listOfSurveys.map { survey ->
                             Timber.d("FETCHED DB LOCAL ITEM ${HomeViewModel::class.simpleName} ${survey.title}")
@@ -109,6 +113,11 @@ class HomeViewModel(
             homeState = homeState.copy(isLoading = false)
             homeState = homeState.copy(isSuccessLogout = true)
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        Timber.d("OnCleared ${HomeViewModel::class.simpleName}")
     }
 }
 
