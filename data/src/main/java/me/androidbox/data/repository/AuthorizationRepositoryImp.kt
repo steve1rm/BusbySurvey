@@ -39,7 +39,7 @@ class AuthorizationRepositoryImp(
         val response = authorizationRemoteDataSource.registerUser(registerUser)
         return when(response) {
             is CheckResult.Failure -> {
-                CheckResult.Failure(response.exceptionError, response.responseError!!.toErrorResponseModel())
+                CheckResult.Failure(response.exceptionError, response.responseError?.toErrorResponseModel())
             }
             is CheckResult.Success -> {
                CheckResult.Success(data = response.data)
@@ -59,8 +59,8 @@ class AuthorizationRepositoryImp(
             }
             is CheckResult.Failure -> {
                 if(apiResponse.responseError != null) {
-                    /** Should not happen so safe to use the !! */
-                    CheckResult.Failure(responseError = apiResponse.responseError!!.toErrorResponseModel())
+                    /** Should not happen so safe */
+                    CheckResult.Failure(responseError = apiResponse.responseError?.toErrorResponseModel())
                 }
                 else {
                     CheckResult.Failure(exceptionError = apiResponse.exceptionError)
@@ -70,12 +70,18 @@ class AuthorizationRepositoryImp(
     }
 
     override suspend fun resetPassword(email: String): CheckResult<ResetPasswordModel, DataError.Network, ErrorResponseModel> {
-        return when(val response = authorizationRemoteDataSource.resetPassword(email)) {
+        return when(val apiResponse = authorizationRemoteDataSource.resetPassword(email)) {
             is CheckResult.Success -> {
-                CheckResult.Success(response.data.toResetPasswordModel())
+                CheckResult.Success(apiResponse.data.toResetPasswordModel())
             }
             is CheckResult.Failure -> {
-                CheckResult.Failure(exceptionError = response.exceptionError, responseError = response.responseError!!.toErrorResponseModel())
+                if(apiResponse.responseError != null) {
+                    /** Should not happen so safe */
+                    CheckResult.Failure(responseError = apiResponse.responseError?.toErrorResponseModel())
+                }
+                else {
+                    CheckResult.Failure(exceptionError = apiResponse.exceptionError)
+                }
             }
         }
     }
@@ -89,12 +95,18 @@ class AuthorizationRepositoryImp(
     }
 
     override suspend fun logout(): CheckResult<Unit, DataError.Network, ErrorResponseModel> {
-        return when(val response = authorizationRemoteDataSource.logoutUser()) {
+        return when(val apiResponse = authorizationRemoteDataSource.logoutUser()) {
             is CheckResult.Success -> {
-                CheckResult.Success(data = response.data)
+                CheckResult.Success(data = apiResponse.data)
             }
             is CheckResult.Failure -> {
-                CheckResult.Failure(exceptionError = response.exceptionError, responseError = response.responseError!!.toErrorResponseModel())
+                if(apiResponse.responseError != null) {
+                    /** Should not happen so safe */
+                    CheckResult.Failure(responseError = apiResponse.responseError?.toErrorResponseModel())
+                }
+                else {
+                    CheckResult.Failure(exceptionError = apiResponse.exceptionError)
+                }
             }
         }
     }
