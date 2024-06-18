@@ -1,6 +1,6 @@
 # Busby Nimble Survey
 
-# In a nutshell
+# In a Nutshell
 Uses the Nimble Survey to allow users to fetch and conduct surveys
 
 # Features:
@@ -9,6 +9,7 @@ Uses the Nimble Survey to allow users to fetch and conduct surveys
 - Home screen that allows users swipe surveys
 - Start suvery
 - And a Thank You for your participation
+- Offline first saves survey list to be viewed offline
 
  
 # Libraries and architecture
@@ -24,7 +25,8 @@ Uses the Nimble Survey to allow users to fetch and conduct surveys
 - [x] Horizontal Pager
 - [x] Material design 3
 - [x] oAuth authentication
-- [X] Timber for logging 
+- [X] Timber for logging
+- [X] Realm DB
 
 # Demo video
 https://github.com/steve1rm/BusbyNimbleSurvey/assets/14260802/5a74dbbf-06c7-4e84-adb1-b586bca45c6a
