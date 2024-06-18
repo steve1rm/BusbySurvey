@@ -32,4 +32,11 @@ class SurveyLocalDataSourceImp(
                     .toList()
             }
     }
+
+    override suspend fun deleteSurveyList() {
+        realmDbClient.realm.write {
+            val surveyListLocalTable = this.query(SurveyListLocalTable::class)
+            delete(surveyListLocalTable)
+        }
+    }
 }

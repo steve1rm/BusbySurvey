@@ -62,6 +62,7 @@ dependencies {
     implementation(libs.koin.ktor)
     implementation(libs.securityCrypto)
     implementation(libs.library.base)
+    implementation(libs.coroutines)
 
     testImplementation(libs.truth)
     testImplementation(libs.mockito.kotlin)

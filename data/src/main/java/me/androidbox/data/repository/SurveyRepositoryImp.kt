@@ -54,4 +54,8 @@ class SurveyRepositoryImp(
 
         return result
     }
+
+    override suspend fun deleteSurveyList() {
+        surveyLocalDataSource.deleteSurveyList()
+    }
 }

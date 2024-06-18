@@ -13,6 +13,7 @@ import me.androidbox.domain.CheckResult
 import me.androidbox.domain.authorization.usecases.LogoutUserUseCase
 import me.androidbox.domain.authorization.usecases.SetTokenAuthorizationUseCase
 import me.androidbox.domain.local.SurveyListLocalModel
+import me.androidbox.domain.survey.usecases.DeleteLocalSurveyListUseCase
 import me.androidbox.domain.survey.usecases.FetchLocalSurveyListUseCase
 import me.androidbox.domain.survey.usecases.FetchSurveyListUseCase
 import me.androidbox.domain.survey.usecases.WriteLocalSurveyListUseCase
@@ -23,7 +24,8 @@ class HomeViewModel(
     private val logoutUserUseCase: LogoutUserUseCase,
     private val setTokenAuthorizationUseCase: SetTokenAuthorizationUseCase,
     private val fetchLocalSurveyListUseCase: FetchLocalSurveyListUseCase,
-    private val writeLocalSurveyListUseCase: WriteLocalSurveyListUseCase
+    private val writeLocalSurveyListUseCase: WriteLocalSurveyListUseCase,
+    private val deleteLocalSurveyListUseCase: DeleteLocalSurveyListUseCase
 ) : ViewModel() {
 
     var homeState by mutableStateOf(HomeState())
@@ -108,7 +110,11 @@ class HomeViewModel(
             )
 
             logoutUserUseCase.execute()
+            Timber.d("HomeViewModel logout executed completed")
             setTokenAuthorizationUseCase.execute(null)
+            Timber.d("HomeViewModel delete authorization executed completed")
+            deleteLocalSurveyListUseCase.execute()
+            Timber.d("HomeViewModel delete survey executed completed")
 
             homeState = homeState.copy(isLoading = false)
             homeState = homeState.copy(isSuccessLogout = true)

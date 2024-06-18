@@ -12,4 +12,5 @@ interface SurveyRepository {
     suspend fun fetchSurveyDetails(): APIResponse<SurveyListModel>
     suspend fun writeLocalSurveyList(title: String, description: String, imageUrl: String)
     fun readLocalSurveyList(): Flow<List<SurveyListLocalModel>>
+    suspend fun deleteSurveyList()
 }
