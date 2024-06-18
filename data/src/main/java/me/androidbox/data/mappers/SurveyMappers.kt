@@ -1,6 +1,8 @@
 package me.androidbox.data.mappers
 
+import me.androidbox.data.local.tables.SurveyListLocalTable
 import me.androidbox.data.survey.SurveyListDto
+import me.androidbox.domain.local.SurveyListLocalModel
 import me.androidbox.domain.survey.models.AttributesModel
 import me.androidbox.domain.survey.models.DataModel
 import me.androidbox.domain.survey.models.MetaModel
@@ -30,5 +32,13 @@ fun SurveyListDto.toSurveyListModel(): SurveyListModel {
                 id = dataDto.id,
                 type = dataDto.type)
         }
+    )
+}
+
+fun SurveyListLocalTable.toSurveyListLocalModel(): SurveyListLocalModel {
+    return SurveyListLocalModel(
+        title = this.title,
+        description = this.description,
+        imageUrl = this.imageUrl
     )
 }

@@ -1,4 +1,4 @@
-package me.androidbox.data.service
+package me.androidbox.data.remote
 
 import me.androidbox.data.models.ErrorResponseDto
 import me.androidbox.data.survey.SurveyListDto

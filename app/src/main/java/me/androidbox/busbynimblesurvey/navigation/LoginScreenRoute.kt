@@ -9,7 +9,6 @@ import me.androidbox.presentation.authentication.login.LoginViewModel
 import org.koin.androidx.compose.koinViewModel
 import timber.log.Timber
 
-
 data object LoginScreenRoute : Screen {
 
     @Composable

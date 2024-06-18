@@ -9,6 +9,7 @@ java {
 
 dependencies {
     implementation(libs.koin.core)
+    implementation(libs.coroutines)
 
     testImplementation("com.google.truth:truth:1.4.2")
     testImplementation("org.mockito.kotlin:mockito-kotlin:5.3.1")
