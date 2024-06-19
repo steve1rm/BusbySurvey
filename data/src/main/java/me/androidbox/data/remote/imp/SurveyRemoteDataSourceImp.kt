@@ -1,4 +1,4 @@
-package me.androidbox.data.service.imp
+package me.androidbox.data.remote.imp
 
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
@@ -6,7 +6,7 @@ import io.ktor.client.request.headers
 import io.ktor.http.HttpHeaders
 import me.androidbox.data.local.AuthorizationLocalDataSource
 import me.androidbox.data.models.ErrorResponseDto
-import me.androidbox.data.service.SurveyRemoteDataSource
+import me.androidbox.data.remote.SurveyRemoteDataSource
 import me.androidbox.data.survey.SurveyListDto
 import me.androidbox.data.util.safeApiRequest
 import me.androidbox.domain.CheckResult

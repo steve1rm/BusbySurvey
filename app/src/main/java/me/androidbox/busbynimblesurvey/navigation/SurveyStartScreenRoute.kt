@@ -20,8 +20,7 @@ object SurveyStartScreenRoute : Screen {
                 navigator.pop()
             },
             onStartSurveyClicked = {
-                navigator.pop()
-                navigator.push(ThankYouScreenRoute)
+                navigator.replace(ThankYouScreenRoute)
             }
         )
     }

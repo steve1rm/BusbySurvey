@@ -7,6 +7,7 @@ coreKtx = "1.13.0"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
+realmVersion = "1.16.0"
 lifecycleRuntimeKtx = "2.7.0"
 activityCompose = "1.9.0"
 composeBom = "2024.04.01"
@@ -18,16 +19,18 @@ material = "1.11.0"
 kotlinxSerializationJsonVersion = "1.6.0"
 materialIconsExtended = "1.6.6"
 mockitoCore = "4.9.0"
+mockitoKotlin = "5.3.1"
 serializationVersion = "1.9.0"
 jetbrainsKotlinJvm = "1.9.21"
 ktfmtVersion = "0.17.0"
-coroutinesTest = "1.8.0"
+coroutines = "1.8.0"
 securityCryptoVersion = "1.1.0-alpha06"
 timberVersion = "5.0.1"
 lifecycleRuntimeComposeVersion = "2.7.0"
 googleServices = "4.4.1"
 firebaseAuth = "22.3.1"
 material3Android = "1.2.1"
+truth = "1.4.2"
 uiTooling = "1.6.6"
 voyager = "1.0.0"
 kotlinCompilerExtensionVersion = "1.5.12"
@@ -53,10 +56,11 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+library-base = { module = "io.realm.kotlin:library-base", version.ref = "realmVersion" }
 lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycleRuntimeComposeVersion" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
-
+coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 
 #ktor client
 ktorClientCore = { module = "io.ktor:ktor-client-core", version.ref = "ktorVersion" }
@@ -78,9 +82,11 @@ koin-core = { module = "io.insert-koin:koin-core", version.ref = "koinVersion" }
 
 # Storage repositories
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCore" }
+mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoKotlin" }
 securityCrypto = { module = "androidx.security:security-crypto-ktx", version.ref = "securityCryptoVersion" }
 
 # Voyager
+truth = { module = "com.google.truth:truth", version.ref = "truth" }
 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
 voyager-screenModel = { module = "cafe.adriel.voyager:voyager-screenmodel", version.ref = "voyager" }
 voyager-koin = { module = "cafe.adriel.voyager:voyager-koin", version.ref = "voyager" }
@@ -93,7 +99,7 @@ androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-co
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 koin-test-junit4 = { module = "io.insert-koin:koin-test-junit4", version.ref = "koinVersion" }
 ktor-client-mock = { module = "io.ktor:ktor-client-mock", version.ref = "ktorVersion" }
-coroutinesTest = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutinesTest"}
+coroutinesTest = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timberVersion" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
 androidx-material3-android = { group = "androidx.compose.material3", name = "material3-android", version.ref = "material3Android" }
@@ -124,4 +130,4 @@ jetbrainsKotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrains
 ktfmt = { id = "com.ncorti.ktfmt.gradle", version.ref = "ktfmtVersion" }
 kotlinxParcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "serializationVersion" }
 googleServices = { id = "com.google.gms.google-services", version.ref = "googleServices" }
-
+realm= { id = "io.realm.kotlin", version.ref = "realmVersion"}

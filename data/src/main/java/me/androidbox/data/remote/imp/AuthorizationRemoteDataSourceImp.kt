@@ -1,4 +1,4 @@
-package me.androidbox.data.service.imp
+package me.androidbox.data.remote.imp
 
 import io.ktor.client.HttpClient
 import io.ktor.client.request.post
@@ -17,8 +17,8 @@ import me.androidbox.data.authorization.UserDto
 import me.androidbox.data.authorization.UserPasswordRequestDto
 import me.androidbox.data.local.AuthorizationLocalDataSource
 import me.androidbox.data.models.ErrorResponseDto
-import me.androidbox.data.service.AuthorizationRemoteDataSource
-import me.androidbox.data.service.Routes
+import me.androidbox.data.remote.AuthorizationRemoteDataSource
+import me.androidbox.data.remote.Routes
 import me.androidbox.data.util.safeApiRequest
 import me.androidbox.domain.CheckResult
 import me.androidbox.domain.DataError
@@ -30,7 +30,7 @@ class AuthorizationRemoteDataSourceImp(
 ) : AuthorizationRemoteDataSource {
     override suspend fun registerUser(registerUserDto: RegisterUserDto): CheckResult<Unit, DataError.Network, ErrorResponseDto> {
         val safeResult = safeApiRequest<Unit> {
-            val response =httpClient
+            val response = httpClient
                 .post(Routes.REGISTER) {
                     setBody(RegisterUserDto(
                         user = UserDto(

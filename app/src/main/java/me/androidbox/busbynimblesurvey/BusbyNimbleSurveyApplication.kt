@@ -2,6 +2,7 @@ package me.androidbox.busbynimblesurvey
 
 import android.app.Application
 import me.androidbox.busbynimblesurvey.di.appModule
+import me.androidbox.busbynimblesurvey.di.viewModelModule
 import me.androidbox.data.di.localCacheModule
 import me.androidbox.data.di.networkModule
 import me.androidbox.domain.di.useCaseModule
@@ -30,7 +31,8 @@ class BusbyNimbleSurveyApplication : Application() {
                 authenticationModule,
                 appModule,
                 homeModule,
-                surveyModule
+                surveyModule,
+                viewModelModule
             )
         }
     }
