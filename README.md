@@ -1,4 +1,4 @@
-# Busby Nimble Survey
+# Busby Survey
 
 # In a Nutshell
 Uses the Nimble Survey to allow users to fetch and conduct surveys
