@@ -1,7 +1,7 @@
 # Busby Survey
 
 # In a Nutshell
-Uses the Nimble Survey to allow users to fetch and conduct surveys
+Uses the Busby Survey to allow users to fetch and conduct surveys
 
 # Features:
 - Splash Screen that loads surveys
