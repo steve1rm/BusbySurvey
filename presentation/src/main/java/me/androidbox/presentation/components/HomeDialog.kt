@@ -85,7 +85,7 @@ fun PreviewBusbyRunnerDialog() {
             primaryButton = {
                 ActionButton(
                     modifier = Modifier.weight(1f),
-                    label = "Continue", showLoading = false ) {
+                    label = "Resume", showLoading = false ) {
                 }
             },
             modifier = Modifier,

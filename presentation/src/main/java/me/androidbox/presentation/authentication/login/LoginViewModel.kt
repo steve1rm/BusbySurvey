@@ -35,6 +35,17 @@ class LoginViewModel(
                     isLoggingIn = false
                 )
             }
+            is LoginAction.SubmitNotificationPermissionInfo -> {
+                loginState = loginState.copy(
+                    showNotificationRationale = loginAction.showNotificationPermissionRationale,
+                )
+            }
+
+            LoginAction.DismissRationaleDialog -> {
+                loginState = loginState.copy(
+                    showNotificationRationale = false
+                )
+            }
         }
     }
 

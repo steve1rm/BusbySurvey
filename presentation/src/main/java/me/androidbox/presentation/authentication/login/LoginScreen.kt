@@ -1,7 +1,14 @@
 package me.androidbox.presentation.authentication.login
 
+import android.Manifest
+import android.content.Context
 import android.content.res.Configuration
+import android.os.Build
 import android.widget.Toast
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -27,10 +34,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import me.androidbox.presentation.R
 import me.androidbox.presentation.components.ActionButton
+import me.androidbox.presentation.components.ActionOutlineButton
 import me.androidbox.presentation.components.EmailTextField
 import me.androidbox.presentation.components.GradientBackground
+import me.androidbox.presentation.components.HomeDialog
 import me.androidbox.presentation.components.PasswordTextField
+import me.androidbox.presentation.home.HomeAction
 import me.androidbox.presentation.ui.theme.BusbyNimbleSurveyTheme
+import me.androidbox.presentation.utils.hasNoticationPermission
+import me.androidbox.presentation.utils.shouldShowNoticationPermissionRationale
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -59,6 +71,34 @@ fun LoginScreen(
             onLoginAction(LoginAction.OnResetScreen)
         }
 
+    }
+
+    val permissionNotificationLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission()
+    ) { isPermissionAccepted ->
+        /** User has accepted or declined the notification permission */
+        val activity = context as ComponentActivity
+        val shouldShowNotificationRationale = activity.shouldShowNoticationPermissionRationale()
+
+        onLoginAction(LoginAction.SubmitNotificationPermissionInfo(
+            acceptedNotificationPermission = isPermissionAccepted,
+            showNotificationPermissionRationale = shouldShowNotificationRationale
+        ))
+    }
+
+    LaunchedEffect(key1 = true) {
+        val activity = context as ComponentActivity
+        val showNotificationRationale = activity.shouldShowNoticationPermissionRationale()
+
+        onLoginAction(
+            LoginAction.SubmitNotificationPermissionInfo(
+            acceptedNotificationPermission = context.hasNoticationPermission(),
+            showNotificationPermissionRationale = showNotificationRationale
+        ))
+
+        if(!showNotificationRationale) {
+            permissionNotificationLauncher.requestBusbySurveyPermission(context)
+        }
     }
 
     GradientBackground {
@@ -112,6 +152,33 @@ fun LoginScreen(
                 showLoading = loginState.isLoggingIn
             )
         }
+
+        if(loginState.showNotificationRationale) {
+            /** Normal dismissing not allowed for permissions user needs to click ok */
+            HomeDialog(
+                title = stringResource(R.string.permission_requested),
+                onDismiss = { /** Normal dismissing not allowed for permissions user needs to click ok */},
+                description = stringResource(R.string.notification_rationale),
+                primaryButton = {
+                    ActionOutlineButton(
+                        text = stringResource(R.string.okay),
+                        isLoading = false
+                    ) {
+                        onLoginAction(LoginAction.DismissRationaleDialog)
+                        permissionNotificationLauncher.requestBusbySurveyPermission(context)
+                    }
+                }
+            )
+        }
+    }
+}
+
+
+private fun ActivityResultLauncher<String>.requestBusbySurveyPermission(context: Context) {
+    val hasNotificationPermission = context.hasNoticationPermission()
+
+    if(Build.VERSION.SDK_INT >= 33 && !hasNotificationPermission) {
+        launch(Manifest.permission.POST_NOTIFICATIONS)
     }
 }
 
