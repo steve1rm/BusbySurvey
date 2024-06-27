@@ -2,6 +2,13 @@
 
 package me.androidbox.presentation.home
 
+import android.Manifest
+import android.content.Context
+import android.os.Build
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,16 +21,18 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
+import me.androidbox.presentation.R
 import me.androidbox.presentation.components.ActionButton
 import me.androidbox.presentation.components.ActionOutlineButton
 import me.androidbox.presentation.components.HomeDialog
@@ -31,6 +40,8 @@ import me.androidbox.presentation.home.components.Footer
 import me.androidbox.presentation.home.components.Header
 import me.androidbox.presentation.home.components.Indicators
 import me.androidbox.presentation.ui.theme.BusbyNimbleSurveyTheme
+import me.androidbox.presentation.utils.hasNoticationPermission
+import me.androidbox.presentation.utils.shouldShowNoticationPermissionRationale
 
 @Composable
 fun HomeScreen(
@@ -40,10 +51,38 @@ fun HomeScreen(
     onLogoutSuccess: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val context = LocalContext.current
+
+    val permissionNotificationLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission()
+    ) { isPermissionAccepted ->
+        /** User has accepted or declined the notification permission */
+        val activity = context as ComponentActivity
+        val shouldShowNotificationRationale = activity.shouldShowNoticationPermissionRationale()
+
+        onHomeAction(HomeAction.SubmitNotificationPermissionInfo(
+            acceptedNotificationPermission = isPermissionAccepted,
+            showNotificationPermissionRationale = shouldShowNotificationRationale
+        ))
+    }
 
     LaunchedEffect(homeState.isSuccessLogout) {
         if(homeState.isSuccessLogout) {
             onLogoutSuccess()
+        }
+    }
+
+    LaunchedEffect(key1 = true) {
+        val activity = context as ComponentActivity
+        val showNotificationRationale = activity.shouldShowNoticationPermissionRationale()
+
+        onHomeAction(HomeAction.SubmitNotificationPermissionInfo(
+            acceptedNotificationPermission = context.hasNoticationPermission(),
+            showNotificationPermissionRationale = showNotificationRationale
+        ))
+
+        if(!showNotificationRationale) {
+            permissionNotificationLauncher.requestBusbySurveyPermission(context)
         }
     }
 
@@ -53,8 +92,6 @@ fun HomeScreen(
             homeState.homeItems.count()
         }
     )
-
-    val coroutineScope = rememberCoroutineScope()
 
     Box(
         modifier = modifier
@@ -161,6 +198,31 @@ fun HomeScreen(
                 }
             )
         }
+
+        if(homeState.showNotificationRationale) {
+            HomeDialog(
+                title = stringResource(R.string.permission_requested),
+                onDismiss = { /** Normal dismissing not allowed for permissions user needs to click ok */},
+                description = stringResource(R.string.notification_rationale),
+                primaryButton = {
+                    ActionOutlineButton(
+                        text = stringResource(R.string.okay),
+                        isLoading = false
+                    ) {
+                        onHomeAction(HomeAction.DismissRationaleDialog)
+                        permissionNotificationLauncher.requestBusbySurveyPermission(context)
+                    }
+                }
+            )
+        }
+    }
+}
+
+private fun ActivityResultLauncher<String>.requestBusbySurveyPermission(context: Context) {
+    val hasNotificationPermission = context.hasNoticationPermission()
+
+    if(Build.VERSION.SDK_INT >= 33 && !hasNotificationPermission) {
+        launch(Manifest.permission.POST_NOTIFICATIONS)
     }
 }
 
