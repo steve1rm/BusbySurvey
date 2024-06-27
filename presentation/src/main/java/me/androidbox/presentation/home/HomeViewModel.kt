@@ -101,18 +101,6 @@ class HomeViewModel(
                 homeState = homeState.copy(showShowDialog = false)
                 logoutUser()
             }
-
-            is HomeAction.SubmitNotificationPermissionInfo -> {
-                homeState = homeState.copy(
-                    showNotificationRationale = homeAction.showNotificationPermissionRationale,
-                )
-            }
-
-            HomeAction.DismissRationaleDialog -> {
-                homeState = homeState.copy(
-                    showNotificationRationale = false
-                )
-            }
         }
     }
 
