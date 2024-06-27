@@ -19,4 +19,7 @@
     <string name="error_server_error">Oops. Something went wrong please try again</string>
     <string name="error_serialization">Oops, could not parse the data</string>
     <string name="error_unknown">Oops, something went wrong, and I do not know what</string>
+    <string name="permission_requested">Permission Requested</string>
+    <string name="notification_rationale">In order to display notifications this app needs your permission, please click ok</string>
+    <string name="okay">Okay</string>
 </resources>
