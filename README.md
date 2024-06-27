@@ -10,6 +10,7 @@ Uses the Busby Survey to allow users to fetch and conduct surveys
 - Start suvery
 - And a Thank You for your participation
 - Offline first saves survey list to be viewed offline
+- Requests notification permissions
 
  
 # Libraries and architecture
@@ -27,6 +28,7 @@ Uses the Busby Survey to allow users to fetch and conduct surveys
 - [x] oAuth authentication
 - [X] Timber for logging
 - [X] Realm DB
+- [X] Notifications
 
 # Demo video
 https://github.com/steve1rm/BusbyNimbleSurvey/assets/14260802/5a74dbbf-06c7-4e84-adb1-b586bca45c6a
