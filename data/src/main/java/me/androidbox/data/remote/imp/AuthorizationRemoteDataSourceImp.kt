@@ -1,6 +1,9 @@
 package me.androidbox.data.remote.imp
 
 import io.ktor.client.HttpClient
+import io.ktor.client.plugins.auth.Auth
+import io.ktor.client.plugins.auth.providers.BearerAuthProvider
+import io.ktor.client.plugins.plugin
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.http.ContentType
@@ -105,6 +108,12 @@ class AuthorizationRemoteDataSourceImp(
         }
 
         return safeResult
+    }
+
+    override suspend fun clearClientToken() {
+        httpClient.plugin(Auth).providers
+            .filterIsInstance<BearerAuthProvider>()
+            .firstOrNull()?.clearToken()
     }
 
     @Serializable

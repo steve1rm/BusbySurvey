@@ -97,6 +97,9 @@ class AuthorizationRepositoryImp(
     override suspend fun logout(): CheckResult<Unit, DataError.Network, ErrorResponseModel> {
         return when(val apiResponse = authorizationRemoteDataSource.logoutUser()) {
             is CheckResult.Success -> {
+                /** Always clear ktor client token as when the next person logs in with different credentials
+                 *  the previous token would be used */
+                authorizationRemoteDataSource.clearClientToken()
                 CheckResult.Success(data = apiResponse.data)
             }
             is CheckResult.Failure -> {
