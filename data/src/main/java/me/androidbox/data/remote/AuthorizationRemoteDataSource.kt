@@ -13,4 +13,5 @@ interface AuthorizationRemoteDataSource {
     suspend fun loginUser(loginRequestModel: LoginRequestModel): CheckResult<LoginResponseDto, DataError.Network, ErrorResponseDto>
     suspend fun resetPassword(email: String): CheckResult<ResetPasswordDto, DataError.Network, ErrorResponseDto>
     suspend fun logoutUser(): CheckResult<Unit, DataError.Network, ErrorResponseDto>
+    suspend fun clearClientToken()
 }
